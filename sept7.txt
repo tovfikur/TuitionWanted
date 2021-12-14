@@ -1,0 +1,389 @@
+BTPA Membership 061
+
+
+Female Tutor
+Location: Notre Dame GOLI, ARAMBAGH
+Class: 4yr old
+Sub: All
+Weekly: 5
+Salary: Net
+CODE: A1326
+
+Male Tutor
+Location: uttara, sector 1
+Class: 8(English Medium)
+Class: NURSERY
+Sub: Math, Physics, Chemistry
+Weekly: 3
+Salary: 4000
+CODE: A1343
+
+Female Tutor(English Medium)
+Location: NORTH BADDA, masjid
+Class: 5(English Medium)
+Sub: All
+Weekly: 4/5
+Salary: neg
+CODE: A1344
+
+Female Tutor(Expert)
+Location: arambagh pollabi, rupnagar estern housing, mir7
+Class: play
+Sub: All
+Weekly: 4/5
+Salary: 2500
+CODE: A1677
+
+Female Tutor (Expert) 
+Location: Kutum bari, 10 tolar pichone,south banasree
+Class: 9 (Bangla Medium)
+Sub: Accounting, Finance, UDDOG
+Weekly: 4
+Salary: 4000
+CODE: A1321
+
+Male Tutor
+Location: mirbagh masjid, rampura
+Class: 4 (English Version)
+Sub: All
+Weekly: 3000
+Salary: 3
+CODE: A1411
+
+Female Tutor
+Location: LALBAG, AMOLIGOLA MATH
+Class: 9 (Bangla Medium)
+Sub: Physics, Chemistry, Biology, Math, English
+Weekly: 4
+Salary: 4000
+CODE: A1443
+
+Female Tutor 
+Location: motijheel, komlapur
+Class: 1 and 9 (Bangla Medium)
+Sub: Physics,Chemistry,Biology, Science(All)
+Weekly: 4
+Salary: neg
+CODE: A1478
+
+Female Tutor 
+Location: UTTAR BADDA, SUVASTER PISONE
+Class: 12 (Bangla Medium)
+Sub: Commerce, English
+Weekly: 4
+Salary: neg
+CODE: A1636
+
+Female Tutor (DU, Science)
+Location: kalyanpur
+Class: 6 (English version)
+Sub: All
+Weekly: 4
+Salary: neg
+CODE: A1661
+
+Male Tutor (BUET)
+Location:BASABO, KDOMTOLA
+Class: 10(English Version)
+Sub: English, Math, Science, baki gulo dekhte hobe
+Weekly: 3
+Salary: 6K
+CODE: A1410
+
+Female Tutor (DU, Chemistry)
+Location: ELEPHENT ROAD
+Class: 10 (Bangla Medium)
+Sub: Chemistry
+Weekly: 3
+Salary: 5000
+CODE: A1573
+
+Female Tutor (DU, JNU, Expert)
+Location: laxmi bazar
+Class: 12 (Bangla Medium)(Exam)
+Sub: Physics, Chemistry
+Weekly: 3
+Salary: 7000
+CODE: A1586
+
+Male Tutor 
+Location: NIKETON, ROAD 12
+Class: 9 (English Version)
+Sub: Accounting, Finance, UDDOG
+Weekly: 3
+Salary: 5000
+CODE: A1615
+
+Male/Female Tutor
+Location: IBRAHIMPUR BZARA, KACHUKHET
+Class: 9(English Medium)
+Sub: Accounting, Math
+Weekly: 3
+Salary: 6000
+CODE: A1621
+
+Female Tutor(DU, JU)
+Location: rupnagar abashik ,mirpur
+Class: 12(Bangla Medium)(Exam)
+Sub: Physics,Math
+Weekly: 4
+Salary: neg
+CODE: A1627
+
+Male/Female Tutor(Expert, Math, ENGLISH)
+Location: GATE 3, EXTENTION PALLABI
+Class: 5(Bangla Medium)
+Class: 7(Bangla Medium)
+Sub: All
+Weekly: 6
+Salary: 4000
+CODE: A1631
+
+Male Tutor(Expert, Math, ENGLISH)
+Location: SOUTH BANASREE, F BLOCK, R10/2
+Class: English Medium O Level Exam
+Sub: Math-B, Economics, Business
+Weekly: 3
+Salary: 5000
+CODE: A1645
+
+Female Tutor(Expert)
+Location: shaheenbag, tejgaon, shaheen collage er pashe
+Class: 9 (English Version)
+Sub: Higher math
+Weekly: 4
+Salary: 5000
+CODE: A1648
+
+Male Tutor(BUET)
+Location: mirpur 10
+Class: 10 (Bangla Medium)
+Sub: Math, Physics, Higher Math
+Weekly: 4
+Salary: 7000
+CODE: A1693
+
+Male/Female Tutor(Expert)
+Location: savar, bank colony
+Class: 7 (Bangla Medium)
+Class: 0 (English Medium)
+Sub: Math, English (All)
+Weekly: 3/4
+Salary: 4k-5k
+CODE: A1694
+
+Female Tutor(BUET)
+Location: rayerbag, dhaka ctg road
+Class: 9 (Bangla Medium)
+Class: 11 (English Medium)
+Sub: Math, Physics, Chemistry, Higher Math
+Weekly: 3/4
+Salary: 5k
+CODE: A1695
+
+Male Tutor(Expert, English Version)
+Location: mirpur-13
+Class: 8 (English Version) Twin
+Sub: Math, Science, ICT, English, Bangladesh and global studies
+Weekly: 4
+Salary: 7000
+CODE: A1696
+
+Female Tutor(Expert, DU)
+Location: green road, green life hospital er pichone
+Class: 6 and 2 (Bangla Medium)
+Sub: All
+Weekly: 5k
+Salary: 7000
+CODE: A1673
+
+Female Tutor
+Location: MOGBAZAR NOYATOLA
+Class: 6 (English Version)
+Sub: All
+Weekly: 3
+Salary: 4k-5k
+CODE: A1717
+
+Female Tutor(alema ,hafeza)
+Location: konapara sirajuddin road , Staff Quarter - Demra Road
+Class: 5yr old
+Sub: arbi
+Weekly: 6
+Salary: 1000-1200
+CODE: A1349
+
+Male Tutor
+Location: GORAN , SHANTIPUR, MOSJIDER SHATE
+Class: 8(Bangla Medium)
+Sub: All
+Weekly: 5
+Salary: 3000/3500
+CODE: A1431
+
+Male Tutor(Expert)
+Location: Mohammadpur, TAZ MAHAL Road
+Class: 10 (English Version)
+Sub: Physics. Chemistry, General Math, Higher Math, Biology
+Weekly: 4
+Salary: 4000
+CODE: A1487
+
+Female Tutor
+Location: kafrul thanar samne
+Sub: arbi
+Weekly: 5
+Salary: neg
+CODE: A1519
+
+Female Tutor
+Location: mirpur 2
+Sub: arbi
+Weekly: 5
+Salary: neg
+CODE: A1520
+
+Male Tutor(Expert)
+Location: MUGDA, BARA MOSJID
+Class: 3 (Bangla Medium)
+Sub: Math, English, General Science
+Weekly: 5
+Salary: 2500
+CODE: A1532
+
+Female Tutor (Expert)
+Location: keraniganj, hasnabaad bashundhara river view
+Class: 2 (Bangla Medium)
+Class: J.KG (Bangla Medium)
+Sub: All
+Weekly: 5
+Salary: neg
+CODE: A1550
+
+Female Tutor (Expert)
+Location: katabon dhan , austobenjon 
+Class: KG2
+Sub: art
+Weekly: 2
+Salary: 3500
+CODE: A1567
+
+Male/Female Tutor (Expert)
+Location: MANIKDI  BAZAR,  DUCH BAGNLA BANK
+Class: 12 (Bangla Medium)(Exam)
+Sub: Physics, Chemistry, Biology
+Weekly: 3
+Salary: 10000(3MNTH)
+CODE: A1554
+
+Female Tutor (Expert, KG Teacher)
+Location: dhanmondi15
+Class: 6yr
+Sub: ALL
+Weekly: 5/6
+Salary: 2000
+CODE: A1647
+
+Male Tutor (Mechanical)
+Location: SAVAR, VAITEN
+Class: MC
+Sub: Mechanical
+Weekly: 3
+Salary: neg
+CODE: A1691
+
+Male Tutor (Mechanical)
+Location: SOUTH KAFRUL, BIJOY INT SCHOOL
+Class: 6 and 10 (Bangla Medium)
+Sub: Physics, Chemistry, Math, Biology, English, (6 All)
+Weekly: 5
+Salary: neg
+CODE: A1698
+
+Female Tutor (Exp)
+Location: manikganj, Harirampur Thana, jhitka union
+Class: 10 (Exam)(Bangla Medium)
+Sub: English, Math
+Weekly: 6
+Salary: neg
+CODE: A1398
+
+Female Tutor
+Location: feni, dagonvuiya
+Class: 2(Bangla Medium)
+Sub: All
+Weekly: 6
+Salary: neg
+CODE: A1421
+
+Female Tutor(Koumi)
+Location: demra,sarulia,
+Sub: arabic
+Weekly: 6
+Salary: 1000
+CODE: A1474
+
+Female Tutor
+Location: JATRABARI, KAZLA, MIDA BARI
+Class: 3(English Version)
+Sub: All
+Weekly: 5
+Salary: 3000
+CODE: A1492
+
+Male/Female Tutor
+Location: laxmipur sadar, juksin bazar
+Class: 8 (Bangla Medium)
+Class: 8 (Bangla Medium)
+Sub: English, Math
+Weekly: 4
+Salary: 3000/per student
+CODE: A1494
+
+Female Tutor(Expert)
+Location: baily road,vnc er pichone
+Class: 9(English Version)
+Sub: Accounting
+Weekly: 3
+Salary: 2500
+CODE: A1518
+
+Male Tutor(Expert)
+Location: norail ,kalia thana , kodomtola vill
+Class: 10(Bangla Medium)
+Sub: Commerce All
+Weekly: 4
+Salary: 2500
+CODE: A1535
+
+FemaleTutor (Quran)
+Location: islampur kotwali
+Class: 3 (Bangla Medium)
+Sub: Quran
+Weekly: 4-5
+Salary: neg
+CODE: A1608
+
+Male/Female Tutor
+Location: BLOCK -C, RAMPURA BANASREE
+Class: 1(SEACIAL CHILD)
+Sub: All
+Weekly: 3
+Salary: 4k-5k
+CODE: A1622
+
+Female Tutor(PUBLIC)
+Location: KHIGAO, C BLOCK
+Class: 11 and 12 (Bangla Medium)
+Sub: Physics, Chemistry, Math
+Weekly: 3
+Salary: 8k-10k
+CODE: A1617
+
+
+Please send Your Location, Tuition Code, Last Education, and Reg ID (if any) to this number 01884131587 (Only WhatsApp)
+We reply Only on WHATSAPP!
+And Inbox Facebook @TuitionWantedCom
+Commission: 8th day 50% 
+https://register.tuitionwanted.com/register (Free)
+Thank You

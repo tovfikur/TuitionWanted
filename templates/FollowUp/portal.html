@@ -1,0 +1,1542 @@
+{% extends 'FollowUp/follow-upper-base.html' %}
+{% load i18n static jazzmin %}
+{% block extrastyle %}
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{% static '/follow/plugins/fontawesome-free/css/all.min.css' %}">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="{% static '/follow/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css' %}">
+    <link rel="stylesheet"
+          href="{% static '/follow/plugins/datatables-responsive/css/responsive.bootstrap4.min.css' %}">
+    <link rel="stylesheet" href="{% static '/follow/plugins/datatables-buttons/css/buttons.bootstrap4.min.css' %}">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{% static '/follow/dist/css/adminlte.min.css' %}">
+    <style>
+        .dataTables_filter {
+            float: left !important;
+        }
+
+        #child_div .info-box {
+            margin: 2.5px;
+            padding: 0px;
+        }
+
+        .info-box-icon {
+            height: 40px;
+            max-width: 40px;
+        }
+
+        .info-box-content {
+            min-height: 40px;
+        }
+
+        .info-box {
+            min-height: 0px;
+        }
+
+        .card {
+            background-color: lightgrey;
+        }
+
+        .myButton {
+            background: linear-gradient(to bottom, #577593 5%, #e1ecfa 100%);
+            background-color: #933df6;
+            border-radius: 42px;
+            display: inline-block;
+            cursor: pointer;
+            font-family: Arial;
+            font-size: 20px;
+            font-weight: bold;
+            padding: 20% 8%;
+            text-decoration: none;
+        }
+
+        .myButton:hover {
+            background: linear-gradient(to bottom, #1e62d0 5%, #3d94f6 100%);
+            background-color: #1e62d0;
+        }
+
+        .myButton:active {
+            position: relative;
+            top: 1px;
+        }
+
+        .zoom {
+            transition: transform .2s; /* Animation */
+            margin: 0 auto;
+        }
+
+        .zoom:hover {
+            transform: scale(1.5); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+        }
+
+        .autocomplete {
+            position: relative;
+            display: inline-block;
+        }
+
+        input {
+            border: 1px solid transparent;
+            background-color: #f1f1f1;
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        input[type=text] {
+            background-color: #f1f1f1;
+            width: 100%;
+        }
+
+        input[type=submit] {
+            background-color: DodgerBlue;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .autocomplete-items {
+            position: absolute;
+            border: 1px solid #d4d4d4;
+            border-bottom: none;
+            border-top: none;
+            z-index: 99;
+            /*position the autocomplete items to be the same width as the container:*/
+            top: 100%;
+            left: 0;
+            right: 0;
+        }
+
+        .autocomplete-items div {
+            padding: 10px;
+            cursor: pointer;
+            background-color: #fff;
+            border-bottom: 1px solid #d4d4d4;
+        }
+
+        /*when hovering an item:*/
+        .autocomplete-items div:hover {
+            background-color: #e9e9e9;
+        }
+
+        /*when navigating through the items using the arrow keys:*/
+        .autocomplete-active {
+            background-color: DodgerBlue !important;
+            color: #ffffff;
+        }
+
+        .tpart {
+            background-color: lightskyblue;
+        }
+    </style>
+{% endblock %}
+{% block content_title %}Tuition list{% endblock %}
+{% block content %}
+    {% csrf_token %}
+    <div class="col-12">
+        <div class="card" style="background-color: lightgrey;">
+            <!-- /.card-header -->
+            <div class="card-body">
+                <table cellspacing="5" cellpadding="5" border="0">
+                    <tbody>
+                    <tr>
+                        <td><input type="date" id="min" name="min"></td>
+                        <td>></td>
+                        <td><input type="date" id="max" name="max"></td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <table id="example1" class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <th><span>Code</span></th>
+                        <th><span>Date</span></th>
+                        <th><span>Class</span></th>
+                        <th><span>S.Gender</span></th>
+                        <th><span>Days</span></th>
+                        <th><span>Address</span></th>
+                        <th><span>Scl/Clg</span></th>
+                        <th><span>Subjects</span></th>
+                        <th><span>Payment</span></th>
+                        <th><span>Contact</span></th>
+                        <th><span>T.Type</span></th>
+                        <th><span>T.Gender</span></th>
+                        <th><span>Degree</span></th>
+                        <th><span>T.Institute</span></th>
+                        <th><span>T.Medium</span></th>
+                        <th><span>G.Code</span></th>
+                    </tr>
+                    </thead>
+                    <tbody id="t_body">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    {#    <div class="col-12">#}
+    {#        <div class="row" style="float: left">#}
+    {#            <div class="col">#}
+    {#                <div class="card card-success" style="background-color: lightpink">#}
+    {#                    <div class="card-header">#}
+    {#                        <h3 class="card-title">#<span id="g_id"></span></h3>#}
+    {#                        <div class="card-tools">#}
+    {#                            <button id="card-button" type="button" class="btn btn-tool" data-card-widget="maximize">#}
+    {#                                <i class="fas fa-expand"></i>#}
+    {#                            </button>#}
+    {#                        </div>#}
+    {#                        <!-- /.card-tools -->#}
+    {#                    </div>#}
+    {#                    <!-- /.card-header -->#}
+    {#                    <div class="card-body row">#}
+    {#                        <!-- Guardian -->#}
+    {#                        <div class="info-box col-4 col-md-4 col-sm-12">#}
+    {#                            <span class="info-box-icon bg-info"><i class="fas fa-phone"></i></span>#}
+    {#                            <div class="info-box-content">#}
+    {#                                <span class="info-box-number" id="g_phone"></span>#}
+    {#                            </div>#}
+    {#                            <!-- /.info-box-content -->#}
+    {#                        </div>#}
+    {#                        <div class="info-box col-4 col-md-4 col-sm-12">#}
+    {#                            <span class="info-box-icon bg-info"><i class="fas fa-signature"></i></span>#}
+    {#                            <div class="info-box-content">#}
+    {#                                <span class="info-box-number" id="g_name">1,410</span>#}
+    {#                            </div>#}
+    {#                            <!-- /.info-box-content -->#}
+    {#                        </div>#}
+    {#                        <div class="info-box col-4 col-md-4 col-sm-12" id="g_child_groups">#}
+    {##}
+    {#                            <!-- /.info-box-content -->#}
+    {#                        </div>#}
+    {##}
+    {#                        <!-- Child -->#}
+    {#                        <div class="row col-12" id="child_div">#}
+    {#                        </div>#}
+    {#                        <!-- Extra info -->#}
+    {##}
+    {#                        <!-- Guardian notes -->#}
+    {#                        <div class="info-box col-4 col-md-4 col-sm-12">#}
+    {#                                <span class="info-box-icon bg-danger">#}
+    {#                                    <i class="fas fa-comment"></i>#}
+    {#                                </span>#}
+    {#                            <div class="info-box-content">#}
+    {#                                <span class="info-box-number" id="g_important_notes"></span>#}
+    {#                            </div>#}
+    {#                            <!-- /.info-box-content -->#}
+    {#                        </div>#}
+    {#                        <div class="card card-secondary col-4 col-md-8 col-sm-12">#}
+    {#                            <div class="card-header">#}
+    {#                                <h3 class="card-title">Guardian notes</h3>#}
+    {#                                <div class="card-tools">#}
+    {#                                    <button type="button" class="btn btn-tool" data-card-widget="maximize">#}
+    {#                                        <i class="fas fa-expand"></i>#}
+    {#                                    </button>#}
+    {#                                </div>#}
+    {#                                <!-- /.card-tools -->#}
+    {#                            </div>#}
+    {#                            <!-- /.card-header -->#}
+    {#                            <div class="card-body row" id="g_notes">#}
+    {#                                <!-- /.info-box -->#}
+    {#                            </div>#}
+    {#                            <div class="col-12 overflow-auto" id="g_comments_div"#}
+    {#                                 style="background-color: lightpink; height: 35px; display: none"><select#}
+    {#                                    style="width: 100%" name="g_comments" id="g_comments" multiple>#}
+    {#                            </select></div>#}
+    {#                            <!-- /.card-body -->#}
+    {#                        </div>#}
+    {#                        <!-- /.card -->#}
+    {#                        <!-- Child notes -->#}
+    {#                        <div class=" col-12 col-md-12 col-sm-12 card card-secondary">#}
+    {#                            <div class="card-header">#}
+    {#                                <h3 class="card-title">Child notes</h3>#}
+    {#                                <div class="card-tools">#}
+    {#                                    <button type="button" class="btn btn-tool" data-card-widget="maximize">#}
+    {#                                        <i class="fas fa-expand"></i>#}
+    {#                                    </button>#}
+    {#                                </div>#}
+    {#                                <!-- /.card-tools -->#}
+    {#                            </div>#}
+    {#                            <!-- /.card-header -->#}
+    {#                            <div class="card-body row" id="c_notes">#}
+    {#                                <!-- /.info-box -->#}
+    {#                            </div>#}
+    {#                            <div class="col-12 overflow-auto" id="c_comments_div"#}
+    {#                                 style="background-color: lightpink; height: 35px; display: none"><select#}
+    {#                                    style="width: 100%" name="c_comments" id="c_comments" multiple>#}
+    {#                            </select></div>#}
+    {#                            <!-- /.card-body -->#}
+    {#                            <!-- /.card -->#}
+    {#                        </div>#}
+    {#                        <div class="card card-primary card-outline card-outline-tabs col-12">#}
+    {#                            <div class="card-header p-0 border-bottom-0">#}
+    {#                                <ul class="nav nav-tabs" id="custom-tabs-four-tab" role="tablist">#}
+    {#                                    <li class="nav-item">#}
+    {#                                        <a class="nav-link active" id="custom-tabs-four-permanent-tab"#}
+    {#                                           data-toggle="pill" href="#custom-tabs-four-permanent" role="tab"#}
+    {#                                           aria-controls="custom-tabs-four-permanent"#}
+    {#                                           aria-selected="true">Permanent</a>#}
+    {#                                    </li>#}
+    {#                                    <li class="nav-item">#}
+    {#                                        <a class="nav-link" id="custom-tabs-four-assigned-tab"#}
+    {#                                           data-toggle="pill" href="#custom-tabs-four-assigned" role="tab"#}
+    {#                                           aria-controls="custom-tabs-four-assigned"#}
+    {#                                           aria-selected="true">Assigned</a>#}
+    {#                                    </li>#}
+    {#                                    <li class="nav-item">#}
+    {#                                        <a class="nav-link" id="custom-tabs-four-short-tab"#}
+    {#                                           data-toggle="pill" href="#custom-tabs-four-short" role="tab"#}
+    {#                                           aria-controls="custom-tabs-four-short" aria-selected="false">Short#}
+    {#                                            listed</a>#}
+    {#                                    </li>#}
+    {#                                    <li class="nav-item">#}
+    {#                                        <a class="nav-link" id="custom-tabs-four-temporary-tab"#}
+    {#                                           data-toggle="pill" href="#custom-tabs-four-temporary" role="tab"#}
+    {#                                           aria-controls="custom-tabs-four-temporary"#}
+    {#                                           aria-selected="false">Temporary</a>#}
+    {#                                    </li>#}
+    {#                                    <li class="nav-item">#}
+    {#                                        <a class="nav-link" id="custom-tabs-four-auto-tab"#}
+    {#                                           data-toggle="pill" href="#custom-tabs-four-auto" role="tab"#}
+    {#                                           aria-controls="custom-tabs-four-auto"#}
+    {#                                           aria-selected="false">Auto</a>#}
+    {#                                    </li>#}
+    {#                                    <li class="nav-item">#}
+    {#                                        <a class="nav-link" id="custom-tabs-four-action-tab"#}
+    {#                                           data-toggle="pill" href="#custom-tabs-four-action" role="tab"#}
+    {#                                           aria-controls="custom-tabs-four-action"#}
+    {#                                           aria-selected="false" onclick="LoadIframe()">Actions</a>#}
+    {#                                    </li>#}
+    {#                                </ul>#}
+    {#                                <div class="card-tools">#}
+    {#                                    <button id="teacher_div" type="button" class="btn btn-tool"#}
+    {#                                            data-card-widget="maximize">#}
+    {#                                        <i class="fas fa-expand"></i>#}
+    {#                                    </button>#}
+    {#                                </div>#}
+    {#                            </div>#}
+    {#                            <div class="card-body col-12">#}
+    {#                                <div class="tab-content col-12" id="custom-tabs-four-tabContent" style="height: 100%">#}
+    {#                                    <div class="tab-pane col-12 fade active show permanent"#}
+    {#                                         id="custom-tabs-four-permanent"#}
+    {#                                         role="tabpanel" aria-labelledby="custom-tabs-four-permanent-tab">#}
+    {##}
+    {#                                    </div>#}
+    {#                                    <div class="tab-pane fade assigned" id="custom-tabs-four-assigned" role="tabpanel"#}
+    {#                                         aria-labelledby="custom-tabs-four-assigned-tab">#}
+    {#                                    </div>#}
+    {#                                    <div class="tab-pane fade short" id="custom-tabs-four-short" role="tabpanel"#}
+    {#                                         aria-labelledby="custom-tabs-four-short-tab">#}
+    {#                                    </div>#}
+    {#                                    <div class="tab-pane fade row teachers" id="custom-tabs-four-temporary"#}
+    {#                                         role="tabpanel" aria-labelledby="custom-tabs-four-temporary-tab">#}
+    {#                                    </div>#}
+    {#                                    <div class="tab-pane fade auto_teacher" id="custom-tabs-four-auto"#}
+    {#                                         role="tabpanel" aria-labelledby="custom-tabs-four-auto-tab"#}
+    {#                                         style="height: 100%">#}
+    {#                                        <div class="col-12 row" id="search_result">#}
+    {#                                            <div class="col-12">#}
+    {#                                                <table id="example2" class="table table-bordered table-striped">#}
+    {#                                                    <thead>#}
+    {#                                                    <tr>#}
+    {#                                                        <th><i class="fas fa-signature"><span hidden>Name</span></i>#}
+    {#                                                        </th>#}
+    {#                                                        <th><i class="fas fa-phone"><span hidden>Phone</span></i></th>#}
+    {#                                                        <th><i class="fas fa-at"><span hidden>Email</span></i></th>#}
+    {#                                                        <th><i class="fas fa-map-marked-alt"><span hidden>Address</span></i>#}
+    {#                                                        </th>#}
+    {#                                                        <th><i class="fas fa-university"><span hidden>Graduation Institute</span></i>#}
+    {#                                                        </th>#}
+    {#                                                        <th><i class="fas fa-signal"><span#}
+    {#                                                                hidden>session</span></i></th>#}
+    {#                                                        <th><i class="fas fa-bullseye"><span#}
+    {#                                                                hidden>Graduation Subject</span></i>#}
+    {#                                                        </th>#}
+    {##}
+    {#                                                        <th><i class="fas fa-address-card"><span#}
+    {#                                                                hidden>HSC Subject</span></i></th>#}
+    {#                                                        <th><i class="fas fa-star"><span hidden>HSC GPA</span></i></th>#}
+    {#                                                        <th><i class="fas fa-building"><span hidden>HSC Institute</span></i>#}
+    {#                                                        </th>#}
+    {#                                                        <th><i class="fas fa-cookie"><span hidden>HSC GOLD</span></i>#}
+    {#                                                        </th>#}
+    {#                                                        <th><i class="fas fa-address-card"><span#}
+    {#                                                                hidden>SSC Subject</span></i></th>#}
+    {#                                                        <th><i class="fas fa-star"><span hidden>SSC GPA</span></i></th>#}
+    {#                                                        <th><i class="fas fa-cookie"><span hidden>SSC GOLD</span></i>#}
+    {#                                                        </th>#}
+    {#                                                        <th><i class="fas fa-id-card-alt"><span hidden>Experience</span></i>#}
+    {#                                                        <th><i class="fas fa-id-card-alt"><span hidden>Expertise</span></i>#}
+    {#                                                        </th>#}
+    {#                                                        <th><i class="fas fa-venus-mars"></i><span#}
+    {#                                                                hidden>Gender</span></th>#}
+    {#                                                        <th><i class="fas fa-language"></i><span#}
+    {#                                                                hidden>Medium</span></th>#}
+    {#                                                        <th><i class="fas fa-star"><span#}
+    {#                                                                hidden>Rating</span></i></th>#}
+    {#                                                        <th><i class="fas fa-child"><span#}
+    {#                                                                hidden>Type</span></i></th>#}
+    {#                                                        <th><i class="fas fa-comment"><span hidden>Note</span></i></th>#}
+    {#                                                        <th><i class="fas bg-red fa-comment"><span#}
+    {#                                                                hidden>Important</span></i></th>#}
+    {#                                                    </tr>#}
+    {#                                                    </thead>#}
+    {#                                                    <tbody id="t_t_body">#}
+    {#                                                    </tbody>#}
+    {#                                                </table>#}
+    {#                                            </div>#}
+    {#                                        </div>#}
+    {#                                    </div>#}
+    {#                                    <div class="tab-pane fade action" id="custom-tabs-four-action"#}
+    {#                                         role="tabpanel" aria-labelledby="custom-tabs-four-action-tab">#}
+    {#                                        <iframe id="action_iframe" src="" title="Action"#}
+    {#                                                style="height: 100%; width: 100%"></iframe>#}
+    {#                                        This frame reserverd for next update#}
+    {#                                    </div>#}
+    {#                                </div>#}
+    {#                            </div>#}
+    {#                            <!-- /.card -->#}
+    {#                        </div>#}
+    {#                        <!-- /.info-box -->#}
+    {#                    </div>#}
+    {#                    <!-- /.card-body -->#}
+    {#                </div>#}
+    {#                <!-- /.card -->#}
+    {#            </div>#}
+    {#        </div>#}
+    {#    </div>#}
+    <!-- /.card-body -->
+{% endblock %}
+<!-- ./wrapper -->
+
+{% block extrajs %}
+    <!-- DataTables  & Plugins -->
+    <script src="{% static '/follow/plugins/jquery/jquery.min.js' %}"></script>
+    <script src="{% static '/follow/plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static '/follow/plugins/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static '/follow/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
+    <script src="{% static '/follow/plugins/datatables-responsive/js/dataTables.responsive.min.js' %}"></script>
+    <script src="{% static '/follow/plugins/datatables-responsive/js/responsive.bootstrap4.min.js' %}"></script>
+    <script src="{% static '/follow/plugins/datatables-buttons/js/dataTables.buttons.min.js' %}"></script>
+    <script src="{% static '/follow/plugins/datatables-buttons/js/buttons.bootstrap4.min.js' %}"></script>
+    <script src="{% static '/follow/plugins/jszip/jszip.min.js' %}"></script>
+    <script src="{% static '/follow/plugins/pdfmake/pdfmake.min.js' %}"></script>
+    <script src="{% static '/follow/plugins/pdfmake/vfs_fonts.js' %}"></script>
+    <script src="{% static '/follow/plugins/datatables-buttons/js/buttons.html5.min.js' %}"></script>
+    <script src="{% static '/follow/plugins/datatables-buttons/js/buttons.print.min.js' %}"></script>
+    <script src="{% static '/follow/plugins/datatables-buttons/js/buttons.colVis.min.js' %}"></script>
+    <script src="{% static '/follow/plugins/popper/popper.js' %}"></script>
+    <!-- AdminLTE App -->
+    {# <script src="{% static '/follow/dist/js/adminlte.min.js' %}"></script> #}
+    <!-- Page specific script -->
+    <script>
+        function addMoney(money, slug) {
+            $.ajax({
+                url: '/follow/api/demo_permanent/?cid=' + slug + '&mny=' + money,
+            })
+        }
+
+        function gender_text(data) {
+            if (data == 1) return 'Male'
+            if (data == 2) return 'Female'
+            if (data == 3) return 'Other'
+            return data
+        }
+
+        {#function gender(data) {#}
+        {#    if (data == 1) return '<i class="fas fa-mars fa-2x"><span hidden>' + gender_text(data) + '</span></i>'#}
+        {#    if (data == 2) return '<i class="fas fa-venus fa-2x"><span hidden>' + gender_text(data) + '</span></i>'#}
+        {#    if (data == 3) return '<i class="fas fa-mars-stroke fa-2x"><span hidden>' + gender_text(data) + '</span></i>'#}
+        {#    if (data == 4) return '<i class="fas fa-venus-mars"><span hidden>' + gender_text(data) + '</span></i></i>'#}
+        {#    return data#}
+        {# }#}
+
+        function gender(data) {
+            if (data == 1) return 'Female'
+            if (data == 2) return 'Male'
+            if (data == 3) return 'Others'
+            if (data == 4) return 'Male/Female'
+            return data
+        }
+
+        function religion(data) {
+            if (data == 0) return 'Islam'
+            if (data == 1) return 'Hinduism'
+            if (data == 2) return 'Buddhism'
+            if (data == 3) return 'Christianity'
+            if (data == 4) return 'Others'
+            return data
+        }
+
+        function medium(data) {
+            if (data == 1) return 'Bangla Medium'
+            if (data == 2) return 'English Medium'
+            if (data == 3) return 'English Version'
+            if (data == 4) return 'Madrasa Medium'
+            if (data == 7) return 'Education of Quran'
+            if (data == 8) return 'Others'
+            return data
+        }
+
+        function level(data) {
+            if (data == 0) return 'Secondary'
+            if (data == 1) return 'Higher Secondary'
+            if (data == 3) return 'Honors'
+            return data
+        }
+
+        function background(data) {
+            if (data == 1) return '<i class="fas fa-book-open fa-2x"><span hidden>' + data + '</span></i>'
+            else if (data == 2) return '<i class="fas fa-microscope fa-2x"><span hidden>' + data + '</span></i>'
+            else if (data == 3) return '<i class="fas fa-cogs fa-2x"><span hidden>' + data + '</span></i>'
+            else if (data == 4) return '<i class="fas fa-user-md fa-2x"><span hidden>' + data + '</span></i>'
+            else if (data == 5) return '<i class="fas fa-paint-brush fa-2x"><span hidden>' + data + '</span></i>'
+            else if (data == 7) return '<i class="fas fa-cog fa-2x"><span hidden>' + data + '</span></i>'
+            else if (data == 8) return '<i class="fas fa-otter fa-2x"><span hidden>' + data + '</span></i>'
+            else {
+                return data
+            }
+        }
+
+        function color(i) {
+            if (i % 2) {
+                return 'white'
+            } else return 'lightpink'
+        }
+
+        function university(data) {
+            var value = ''
+            for (var i in data) {
+                value = value + '<span style="background-color: ' + color(i) + '" ">' + data[i]['SHORT'] +
+                    '</span>'
+            }
+            value = value + ''
+            return value
+        }
+
+        function ajaxAutoToTemporary(url) {
+            $.ajax({
+                url: url,
+                success: (data) => {
+                    var matches = url.match(/cid=([^&]*)/);
+                    var slug = matches[0];
+                    $.ajax({
+                        url: '/follow/api/temporary/?child=' + slug.replace('cid=', ''),
+                        success: (data) => {
+                            $('.teachers').empty()
+                            {#Appending to teachers #}
+                            for (var i in data) {
+                                for (var j in data[i]['Teacher']) {
+                                    var university = ''
+                                    var subject = ''
+                                    var avatar = ''
+                                    var location = ''
+                                    try {
+                                        university = data[i]['Teacher'][j]['Graduation_Institute']['SHORT']
+                                    } catch (e) {
+                                        university = ''
+                                    }
+                                    try {
+                                        subject = data[i]['Teacher'][j]['Graduation_Subject']['SHORT']
+                                    } catch (e) {
+                                        subject = ''
+                                    }
+                                    try {
+                                        avatar = data[i]['Teacher'][j]['Avatar']
+                                    } catch (e) {
+                                        avatar = ''
+                                    }
+                                    {#Locations#}
+                                    try {
+                                        location = data[i]['Teacher'][j]['Location0']
+                                    } catch (e) {
+                                        {#empty#}
+                                    }
+                                    try {
+                                        location = location + ' | ' + data[i]['Teacher'][j]['Location1']
+                                    } catch (e) {
+                                        {#empty#}
+                                    }
+                                    try {
+                                        location = location + ' | ' + data[i]['Teacher'][j]['Location2']
+                                    } catch (e) {
+                                        {#empty#}
+                                    }
+                                    try {
+                                        location = location + ' | ' + data[i]['Teacher'][j]['Location3']
+                                    } catch (e) {
+                                        {#empty#}
+                                    }
+                                    try {
+                                        location = location + ' | ' + data[i]['Teacher'][j]['Location4']
+                                    } catch (e) {
+                                        {#empty#}
+                                    }
+                                    $('.teachers').append('<div class="row teacher text-center flex-nowrap" style="background-color: black; padding: 5px; padding-right: 0px; border-top-left-radius: 50px; border-bottom-left-radius: 50px; margin-bottom: 3px"> ' +
+                                        '<div class="col-1" style="margin-left: -5px;"> ' +
+                                        '<img style="height: 100%; width: 100%" src="' + avatar + '" class="brand-image img-circle zoom "> ' +
+                                        '</div> ' +
+                                        '<div class="col-3" style="background-color: lightgrey; padding: 5px"><div>' + data[i]['Teacher'][j]['Name'] + '</div><div><a href="tel:' + data[i]['Teacher'][j]['Phone'] + '"><i class="fas fa-phone-alt"></i></a><button onclick="ajaxTemporaryToShortlisted(\'/follow/api/temporary_sort/?cid=' + slug.replace('cid=', '') + '&tid=' + data[i]['Teacher'][j]['id'] + '\')" class="btn"><i class="fas fa-crosshairs"></i></button><button class="btn"><a href="/teacher/view?id=' + data[i]['Teacher'][j]['id'] + '"><i class="fas fa-info-circle"></i></a></button></div></div> ' +
+                                        '<div class="col-5" style="background-color: lightgrey; padding: 5px">' + location + '</div> ' +
+                                        '<div class="col-2" style="background-color: lightgrey; padding: 5px"> ' +
+                                        '<div class="col-12" > ' +
+                                        '<div class="font-weight-bold">' + university + '</div> ' +
+                                        '<div> ' + subject + ' </div> ' +
+                                        '</div> ' +
+                                        '</div> ' +
+                                        '<div class="col-1" style="background-color: lightgrey; padding: 5px; color: gold">' + data[i]['Teacher'][j]['Rating'] + '</div> ' +
+                                        '</div>')
+                                }
+                            }
+                        }
+                    })
+                },
+            })
+        }
+
+        function ajaxTemporaryToShortlisted(url) {
+            $.ajax({
+                url: url,
+                success: (data) => {
+                    var matches = url.match(/cid=([^&]*)/);
+                    var slug = matches[0];
+                    $.ajax({
+                        url: '/follow/api/short/?child=' + slug.replace('cid=', ''),
+                        success: (data) => {
+                            $('.short').empty()
+                            {#Appending to teachers #}
+                            for (var i in data) {
+                                for (var j in data[i]['Teacher']) {
+                                    var university = ''
+                                    var subject = ''
+                                    var avatar = ''
+                                    var location = ''
+                                    try {
+                                        university = data[i]['Teacher'][j]['Graduation_Institute']['SHORT']
+                                    } catch (e) {
+                                        university = ''
+                                    }
+                                    try {
+                                        subject = data[i]['Teacher'][j]['Graduation_Subject']['SHORT']
+                                    } catch (e) {
+                                        subject = ''
+                                    }
+                                    try {
+                                        avatar = data[i]['Teacher'][j]['Avatar']
+                                    } catch (e) {
+                                        avatar = ''
+                                    }
+                                    {#Locations#}
+                                    try {
+                                        location = data[i]['Teacher'][j]['Location0']
+                                    } catch (e) {
+                                        {#empty#}
+                                    }
+                                    try {
+                                        location = location + ' | ' + data[i]['Teacher'][j]['Location1']
+                                    } catch (e) {
+                                        {#empty#}
+                                    }
+                                    try {
+                                        location = location + ' | ' + data[i]['Teacher'][j]['Location2']
+                                    } catch (e) {
+                                        {#empty#}
+                                    }
+                                    try {
+                                        location = location + ' | ' + data[i]['Teacher'][j]['Location3']
+                                    } catch (e) {
+                                        {#empty#}
+                                    }
+                                    try {
+                                        location = location + ' | ' + data[i]['Teacher'][j]['Location4']
+                                    } catch (e) {
+                                        {#empty#}
+                                    }
+                                    $('.short').append('<div class="row teacher text-center flex-nowrap" style="background-color: black; padding: 5px; padding-right: 0px; border-top-left-radius: 50px; border-bottom-left-radius: 50px; margin-bottom: 3px"> ' +
+                                        '<div class="col-1" style="margin-left: -5px;"> ' +
+                                        '<img style="height: 100%; width: 100%" src="' + avatar + '" class="brand-image img-circle zoom "> ' +
+                                        '</div> ' +
+                                        '<div class="col-3" style="background-color: lightgrey; padding: 5px"><div>' + data[i]['Teacher'][j]['Name'] + '</div><div><a href="tel:' + data[i]['Teacher'][j]['Phone'] + '"><i class="fas fa-phone-alt"></i></a><button onclick="ajaxShortlistedToAssigned(\'/follow/api/sort_assign/?cid=' + slug.replace('cid=', '') + '&tid=' + data[i]['Teacher'][j]['id'] + '\')" class="btn"><i class="fas fa-crosshairs"></i></button><button class="btn"><a href="/teacher/view?id=' + data[i]['Teacher'][j]['id'] + '"><i class="fas fa-info-circle"></i></a></button></div></div> ' +
+                                        '<div class="col-5" style="background-color: lightgrey; padding: 5px">' + location + '</div> ' +
+                                        '<div class="col-2" style="background-color: lightgrey; padding: 5px"> ' +
+                                        '<div class="col-12" > ' +
+                                        '<div class="font-weight-bold">' + university + '</div> ' +
+                                        '<div> ' + subject + ' </div> ' +
+                                        '</div> ' +
+                                        '</div> ' +
+                                        '<div class="col-1" style="background-color: lightgrey; padding: 5px; color: gold">' + data[i]['Teacher'][j]['Rating'] + '</div> ' +
+                                        '</div>')
+                                }
+                            }
+                        }
+                    })
+                },
+            })
+        }
+
+        function ajaxShortlistedToAssigned(url) {
+            $.ajax({
+                url: url,
+                success: (data) => {
+                    var matches = url.match(/cid=([^&]*)/);
+                    var slug = matches[0];
+                    $.ajax({
+                        url: '/follow/api/assigned/?child=' + slug.replace('cid=', ''),
+                        success: (data) => {
+                            $('.assigned').empty()
+                            {#Appending to teachers #}
+                            for (var i in data) {
+                                for (var j in data[i]['Teacher']) {
+                                    var university = ''
+                                    var subject = ''
+                                    var avatar = ''
+                                    var location = ''
+                                    try {
+                                        university = data[i]['Teacher'][j]['Graduation_Institute']['SHORT']
+                                    } catch (e) {
+                                        university = ''
+                                    }
+                                    try {
+                                        subject = data[i]['Teacher'][j]['Graduation_Subject']['SHORT']
+                                    } catch (e) {
+                                        subject = ''
+                                    }
+                                    try {
+                                        avatar = data[i]['Teacher'][j]['Avatar']
+                                    } catch (e) {
+                                        avatar = ''
+                                    }
+                                    {#Locations#}
+                                    try {
+                                        location = data[i]['Teacher'][j]['Location0']
+                                    } catch (e) {
+                                        {#empty#}
+                                    }
+                                    try {
+                                        location = location + ' | ' + data[i]['Teacher'][j]['Location1']
+                                    } catch (e) {
+                                        {#empty#}
+                                    }
+                                    try {
+                                        location = location + ' | ' + data[i]['Teacher'][j]['Location2']
+                                    } catch (e) {
+                                        {#empty#}
+                                    }
+                                    try {
+                                        location = location + ' | ' + data[i]['Teacher'][j]['Location3']
+                                    } catch (e) {
+                                        {#empty#}
+                                    }
+                                    try {
+                                        location = location + ' | ' + data[i]['Teacher'][j]['Location4']
+                                    } catch (e) {
+                                        {#empty#}
+                                    }
+                                    $('.assigned').append('<div class="row teacher text-center flex-nowrap" style="background-color: black; padding: 5px; padding-right: 0px; border-top-left-radius: 50px; border-bottom-left-radius: 50px; margin-bottom: 3px"> ' +
+                                        '<div class="col-1" style="margin-left: -5px;"> ' +
+                                        '<img style="height: 100%; width: 100%" src="' + avatar + '" class="brand-image img-circle zoom "> ' +
+                                        '</div> ' +
+                                        '<div class="col-3" style="background-color: lightgrey; padding: 5px"><div>' + data[i]['Teacher'][j]['Name'] + '</div><div><a href="tel:' + data[i]['Teacher'][j]['Phone'] + '"><i class="fas fa-phone-alt"></i></a><button onclick="AssignedToPermanent(\'/follow/api/assign_permanent/?cid=' + slug.replace('cid=', '') + '&tid=' + data[i]['Teacher'][j]['id'] + '\')" class="btn"><i class="fas fa-crosshairs"></i></button><button class="btn"><a href="/teacher/view?id=' + data[i]['Teacher'][j]['id'] + '"><i class="fas fa-info-circle"></i></a></button></div></div> ' +
+                                        '<div class="col-5" style="background-color: lightgrey; padding: 5px">' + location + '</div> ' +
+                                        '<div class="col-2" style="background-color: lightgrey; padding: 5px"> ' +
+                                        '<div class="col-12" > ' +
+                                        '<div class="font-weight-bold">' + university + '</div> ' +
+                                        '<div> ' + subject + ' </div> ' +
+                                        '</div> ' +
+                                        '</div> ' +
+                                        '<div class="col-1" style="background-color: lightgrey; padding: 5px; color: gold">' + data[i]['Teacher'][j]['Rating'] + '</div> ' +
+                                        '</div>')
+                                }
+                            }
+                        }
+                    })
+                },
+            })
+        }
+
+        function AssignedToPermanent(url) {
+            $.ajax({
+                url: url,
+                success: (data) => {
+                    var matches = url.match(/cid=([^&]*)/);
+                    var slug = matches[0];
+                    $.ajax({
+                        url: '/follow/api/assigned/?child=' + slug.replace('cid=', ''),
+                        success: (data) => {
+                            $('.permanent').empty()
+                            {#Appending to teachers #}
+                            for (var i in data) {
+                                for (var j in data[i]['Teacher']) {
+                                    var university = ''
+                                    var subject = ''
+                                    var avatar = ''
+                                    var location = ''
+                                    try {
+                                        university = data[i]['Teacher'][j]['Graduation_Institute']['SHORT']
+                                    } catch (e) {
+                                        university = ''
+                                    }
+                                    try {
+                                        subject = data[i]['Teacher'][j]['Graduation_Subject']['SHORT']
+                                    } catch (e) {
+                                        subject = ''
+                                    }
+                                    try {
+                                        avatar = data[i]['Teacher'][j]['Avatar']
+                                    } catch (e) {
+                                        avatar = ''
+                                    }
+                                    {#Locations#}
+                                    try {
+                                        location = data[i]['Teacher'][j]['Location0']
+                                    } catch (e) {
+                                        {#empty#}
+                                    }
+                                    try {
+                                        location = location + ' | ' + data[i]['Teacher'][j]['Location1']
+                                    } catch (e) {
+                                        {#empty#}
+                                    }
+                                    try {
+                                        location = location + ' | ' + data[i]['Teacher'][j]['Location2']
+                                    } catch (e) {
+                                        {#empty#}
+                                    }
+                                    try {
+                                        location = location + ' | ' + data[i]['Teacher'][j]['Location3']
+                                    } catch (e) {
+                                        {#empty#}
+                                    }
+                                    try {
+                                        location = location + ' | ' + data[i]['Teacher'][j]['Location4']
+                                    } catch (e) {
+                                        {#empty#}
+                                    }
+                                    $('.permanent').append('<div class="row teacher text-center flex-nowrap" style="background-color: black; padding: 5px; padding-right: 0px; border-top-left-radius: 50px; border-bottom-left-radius: 50px; margin-bottom: 3px"> ' +
+                                        '<div class="col-1" style="margin-left: -5px;"> ' +
+                                        '<img style="height: 100%; width: 100%" src="' + avatar + '" class="brand-image img-circle zoom "> ' +
+                                        '</div> ' +
+                                        '<div class="col-3" style="background-color: lightgrey; padding: 5px"><div>' + data[i]['Teacher'][j]['Name'] + '</div><div><a href="tel:' + data[i]['Teacher'][j]['Phone'] + '"><i class="fas fa-phone-alt"></i></a><button onclick="addMoney(money = prompt(\'Money\'), \'' + slug + '\')" class="btn"><i class="fas fa-thumbs-up"></i></button><button class="btn"><a href="/teacher/view?id=' + data[i]['Teacher'][j]['id'] + '"><i class="fas fa-info-circle"></i></a></button></div></div> ' +
+                                        '<div class="col-5" style="background-color: lightgrey; padding: 5px">' + location + '</div> ' +
+                                        '<div class="col-2" style="background-color: lightgrey; padding: 5px"> ' +
+                                        '<div class="col-12" > ' +
+                                        '<div class="font-weight-bold">' + university + '</div> ' +
+                                        '<div> ' + subject + ' </div> ' +
+                                        '</div> ' +
+                                        '</div> ' +
+                                        '<div class="col-1" style="background-color: lightgrey; padding: 5px; color: gold">' + data[i]['Teacher'][j]['Rating'] + '</div> ' +
+                                        '</div>')
+                                }
+                            }
+                        }
+                    })
+                },
+            })
+        }
+
+        function teacher(slug) {
+            $.ajax({
+                url: '/follow/api/temporary/?child=' + slug,
+                success: (data) => {
+                    $('.teachers').empty()
+                    {#Appending to teachers #}
+                    for (var i in data) {
+                        for (var j in data[i]['Teacher']) {
+                            var university = ''
+                            var subject = ''
+                            var avatar = ''
+                            var location = ''
+                            try {
+                                university = data[i]['Teacher'][j]['Graduation_Institute']['SHORT']
+                            } catch (e) {
+                                university = ''
+                            }
+                            try {
+                                subject = data[i]['Teacher'][j]['Graduation_Subject']['SHORT']
+                            } catch (e) {
+                                subject = ''
+                            }
+                            try {
+                                avatar = data[i]['Teacher'][j]['Avatar']
+                            } catch (e) {
+                                avatar = ''
+                            }
+                            {#Locations#}
+                            try {
+                                location = data[i]['Teacher'][j]['Location0']
+                            } catch (e) {
+                                {#empty#}
+                            }
+                            try {
+                                location = location + ' | ' + data[i]['Teacher'][j]['Location1']
+                            } catch (e) {
+                                {#empty#}
+                            }
+                            try {
+                                location = location + ' | ' + data[i]['Teacher'][j]['Location2']
+                            } catch (e) {
+                                {#empty#}
+                            }
+                            try {
+                                location = location + ' | ' + data[i]['Teacher'][j]['Location3']
+                            } catch (e) {
+                                {#empty#}
+                            }
+                            try {
+                                location = location + ' | ' + data[i]['Teacher'][j]['Location4']
+                            } catch (e) {
+                                {#empty#}
+                            }
+                            $('.teachers').append('<div class="row teacher text-center flex-nowrap" style="background-color: black; padding: 5px; padding-right: 0px; border-top-left-radius: 50px; border-bottom-left-radius: 50px; margin-bottom: 3px"> ' +
+                                '<div class="col-1" style="margin-left: -5px;"> ' +
+                                '<img style="height: 100%; width: 100%" src="' + avatar + '" class="brand-image img-circle zoom "> ' +
+                                '</div> ' +
+                                '<div class="col-3" style="background-color: lightgrey; padding: 5px"><div>' + data[i]['Teacher'][j]['Name'] + '</div><div><a href="tel:' + data[i]['Teacher'][j]['Phone'] + '"><i class="fas fa-phone-alt"></i></a><button onclick="ajaxTemporaryToShortlisted(\'/follow/api/temporary_sort/?cid=' + slug.replace('cid=', '') + '&tid=' + data[i]['Teacher'][j]['id'] + '\')" class="btn"><i class="fas fa-crosshairs"></i></button><button class="btn"><a href="/teacher/view?id=' + data[i]['Teacher'][j]['id'] + '"><i class="fas fa-info-circle"></i></a></button></div></div> ' +
+                                '<div class="col-5" style="background-color: lightgrey; padding: 5px">' + location + '</div> ' +
+                                '<div class="col-2" style="background-color: lightgrey; padding: 5px"> ' +
+                                '<div class="col-12" > ' +
+                                '<div class="font-weight-bold">' + university + '</div> ' +
+                                '<div> ' + subject + ' </div> ' +
+                                '</div> ' +
+                                '</div> ' +
+                                '<div class="col-1" style="background-color: lightgrey; padding: 5px; color: gold">' + data[i]['Teacher'][j]['Rating'] + '</div> ' +
+                                '</div>')
+                        }
+                    }
+
+                    $.ajax({
+                        url: '/follow/api/short/?child=' + slug,
+                        success: (data) => {
+                            $('.short').empty()
+                            {#Appending to teachers #}
+                            for (var i in data) {
+                                for (var j in data[i]['Teacher']) {
+                                    var university = ''
+                                    var subject = ''
+                                    var avatar = ''
+                                    var location = ''
+                                    try {
+                                        university = data[i]['Teacher'][j]['Graduation_Institute']['SHORT']
+                                    } catch (e) {
+                                        university = ''
+                                    }
+                                    try {
+                                        subject = data[i]['Teacher'][j]['Graduation_Subject']['SHORT']
+                                    } catch (e) {
+                                        subject = ''
+                                    }
+                                    try {
+                                        avatar = data[i]['Teacher'][j]['Avatar']
+                                    } catch (e) {
+                                        avatar = ''
+                                    }
+                                    {#Locations#}
+                                    try {
+                                        location = data[i]['Teacher'][j]['Location0']
+                                    } catch (e) {
+                                        {#empty#}
+                                    }
+                                    try {
+                                        location = location + ' | ' + data[i]['Teacher'][j]['Location1']
+                                    } catch (e) {
+                                        {#empty#}
+                                    }
+                                    try {
+                                        location = location + ' | ' + data[i]['Teacher'][j]['Location2']
+                                    } catch (e) {
+                                        {#empty#}
+                                    }
+                                    try {
+                                        location = location + ' | ' + data[i]['Teacher'][j]['Location3']
+                                    } catch (e) {
+                                        {#empty#}
+                                    }
+                                    try {
+                                        location = location + ' | ' + data[i]['Teacher'][j]['Location4']
+                                    } catch (e) {
+                                        {#empty#}
+                                    }
+                                    $('.short').append('<div class="row teacher text-center flex-nowrap" style="background-color: lightskyblue; padding: 5px; padding-right: 0px; border-top-left-radius: 50px; border-bottom-left-radius: 50px; margin-bottom: 3px"> ' +
+                                        '<div class="col-1" style="margin-left: -5px;"> ' +
+                                        '<img style="height: 100%; width: 100%" src="' + avatar + '" class="brand-image img-circle zoom "> ' +
+                                        '</div> ' +
+                                        '<div class="col-3" style="background-color: lightgrey; padding: 5px"><div>' + data[i]['Teacher'][j]['Name'] + '</div><div><a href="tel:' + data[i]['Teacher'][j]['Phone'] + '"><i class="fas fa-phone-alt"></i></a><button onclick="ajaxShortlistedToAssigned(\'/follow/api/sort_assign/?cid=' + slug.replace('cid=', '') + '&tid=' + data[i]['Teacher'][j]['id'] + '\')" class="btn"><i class="fas fa-crosshairs"></i></button><button class="btn"><a href="/teacher/view?id=' + data[i]['Teacher'][j]['id'] + '"><i class="fas fa-info-circle"></i></a></button></div></div> ' +
+                                        '<div class="col-5" style="background-color: lightgrey; padding: 5px">' + location + '</div> ' +
+                                        '<div class="col-2" style="background-color: lightgrey; padding: 5px"> ' +
+                                        '<div class="col-12" > ' +
+                                        '<div class="font-weight-bold">' + university + '</div> ' +
+                                        '<div> ' + subject + ' </div> ' +
+                                        '</div> ' +
+                                        '</div> ' +
+                                        '<div class="col-1" style="background-color: lightgrey; padding: 5px; color: gold">' + data[i]['Teacher'][j]['Rating'] + '</div> ' +
+                                        '</div>')
+                                }
+                            }
+                            $.ajax({
+                                url: '/follow/api/assigned/?child=' + slug,
+                                success: (data) => {
+                                    $('.assigned').empty()
+                                    for (var i in data) {
+
+                                        for (var j in data[i]['Teacher']) {
+                                            var university = ''
+                                            var subject = ''
+                                            var avatar = ''
+                                            var location = ''
+                                            try {
+                                                university = data[i]['Teacher'][j]['Graduation_Institute']['SHORT']
+                                            } catch (e) {
+                                                university = ''
+                                            }
+                                            try {
+                                                subject = data[i]['Teacher'][j]['Graduation_Subject']['SHORT']
+                                            } catch (e) {
+                                                subject = ''
+                                            }
+                                            try {
+                                                avatar = data[i]['Teacher'][j]['Avatar']
+                                            } catch (e) {
+                                                avatar = ''
+                                            }
+                                            {#Locations#}
+                                            try {
+                                                location = data[i]['Teacher'][j]['Location0']
+                                            } catch (e) {
+                                                {#empty#}
+                                            }
+                                            try {
+                                                location = location + ' | ' + data[i]['Teacher'][j]['Location1']
+                                            } catch (e) {
+                                                {#empty#}
+                                            }
+                                            try {
+                                                location = location + ' | ' + data[i]['Teacher'][j]['Location2']
+                                            } catch (e) {
+                                                {#empty#}
+                                            }
+                                            try {
+                                                location = location + ' | ' + data[i]['Teacher'][j]['Location3']
+                                            } catch (e) {
+                                                {#empty#}
+                                            }
+                                            try {
+                                                location = location + ' | ' + data[i]['Teacher'][j]['Location4']
+                                            } catch (e) {
+                                                {#empty#}
+                                            }
+                                            $('.assigned').append('<div class="row teacher text-center flex-nowrap" style="background-color: lightseagreen; padding: 5px; padding-right: 0px; border-top-left-radius: 50px; border-bottom-left-radius: 50px; margin-bottom: 3px"> ' +
+                                                '<div class="col-1" style="margin-left: -5px;"> ' +
+                                                '<img style="height: 100%; width: 100%" src="' + avatar + '" class="brand-image img-circle zoom "> ' +
+                                                '</div> ' +
+                                                '<div class="col-3" style="background-color: lightgrey; padding: 5px"><div>' + data[i]['Teacher'][j]['Name'] + '</div><div><a href="tel:' + data[i]['Teacher'][j]['Phone'] + '"><i class="fas fa-phone-alt"></i></a><button onclick="AssignedToPermanent(\'/follow/api/assign_permanent/?cid=' + slug.replace('cid=', '') + '&tid=' + data[i]['Teacher'][j]['id'] + '\')" class="btn"><i class="fas fa-crosshairs"></i></button><button class="btn"><a href="/teacher/view?id=' + data[i]['Teacher'][j]['id'] + '"><i class="fas fa-info-circle"></i></a></button></div></div> ' +
+                                                '<div class="col-5" style="background-color: lightgrey; padding: 5px">' + location + '</div> ' +
+                                                '<div class="col-2" style="background-color: lightgrey; padding: 5px"> ' +
+                                                '<div class="col-12" > ' +
+                                                '<div class="font-weight-bold">' + university + '</div> ' +
+                                                '<div> ' + subject + ' </div> ' +
+                                                '</div> ' +
+                                                '</div> ' +
+                                                '<div class="col-1" style="background-color: lightgrey; padding: 5px; color: gold">' + data[i]['Teacher'][j]['Rating'] + '</div> ' +
+                                                '</div>')
+                                        }
+                                    }
+
+                                    $.ajax({
+                                        url: '/follow/api/permanent/?child=' + slug,
+                                        success: (data) => {
+                                            $('.permanent').empty()
+                                            try {
+                                                if (data[0]['money']) {
+                                                    try {
+                                                        $('.permanent').append('<div class="row teacher text-center flex-nowrap" style="background-color: lightseagreen; padding: 5px; padding-right: 0px; border-top-left-radius: 50px; border-bottom-left-radius: 50px; margin-bottom: 3px"> ' +
+                                                            '<div class="col-1" style="margin-left: -5px;"> ' +
+                                                            '<img style="height: 100%; width: 100%" src="' + data[0]['Teacher']['Avatar'] + '" class="brand-image img-circle zoom "> ' +
+                                                            '</div> ' +
+                                                            '<div class="col-3" style="background-color: lightgrey; padding: 5px"><div>' + data[0]['Teacher']['Name'] + '</div><div><a href="tel:' + data[0]['Teacher']['Phone'] + '"><i class="fas fa-phone-alt"></i></a><button  class="btn"><i class="fas fa-thumbs-up" style="color: green"></i></button><button class="btn"><a href="/teacher/view?id=' + data[0]['Teacher']['id'] + '"><i class="fas fa-info-circle"></i></a></button></div></div> ' +
+                                                            '<div class="col-5" style="background-color: lightgrey; padding: 5px">' + data[0]['money'] + '</div> ' +
+                                                            '<div class="col-2" style="background-color: lightgrey; padding: 5px"> ' +
+                                                            '<div class="col-12" > ' +
+                                                            '<div class="font-weight-bold">' + data[0]['Teacher'] + '</div> ' +
+                                                            '<div> ' + data[0]['date'] + ' </div> ' +
+                                                            '</div> ' +
+                                                            '</div> ' +
+                                                            '<div class="col-1" style="background-color: lightgrey; padding: 5px; color: gold">' + data[0]['Teacher']['Rating'] + '</div> ' +
+                                                            '</div>')
+                                                    } catch (e) {
+                                                        console.log('No permanent')
+                                                    }
+                                                } else {
+                                                    try {
+
+                                                        $('.permanent').append('<div class="row teacher text-center flex-nowrap" style="background-color: lightseagreen; padding: 5px; padding-right: 0px; border-top-left-radius: 50px; border-bottom-left-radius: 50px; margin-bottom: 3px"> ' +
+                                                            '<div class="col-1" style="margin-left: -5px;"> ' +
+                                                            '<img style="height: 100%; width: 100%" src="' + data[0]['Teacher']['Avatar'] + '" class="brand-image img-circle zoom "> ' +
+                                                            '</div> ' +
+                                                            '<div class="col-3" style="background-color: lightgrey; padding: 5px"><div>' + data[0]['Teacher']['Name'] + '</div><div><a href="tel:' + data[0]['Teacher']['Phone'] + '"><i class="fas fa-phone-alt"></i></a><button onclick="addMoney(money = prompt(\'Money\'), \'' + slug + '\')" class="btn"><i class="fas fa-thumbs-up"></i></button><button class="btn"><a href="/teacher/view?id=' + data[0]['Teacher']['id'] + '"><i class="fas fa-info-circle"></i></a></button></div></div> ' +
+                                                            '<div class="col-5" style="background-color: lightgrey; padding: 5px">' + data[0]['money'] + '</div> ' +
+                                                            '<div class="col-2" style="background-color: lightgrey; padding: 5px"> ' +
+                                                            '<div class="col-12" > ' +
+                                                            '<div class="font-weight-bold">' + data[0]['Teacher'] + '</div> ' +
+                                                            '<div> ' + data[0]['date'] + ' </div> ' +
+                                                            '</div> ' +
+                                                            '</div> ' +
+                                                            '<div class="col-1" style="background-color: lightgrey; padding: 5px; color: gold">' + data[0]['Teacher']['Rating'] + '</div> ' +
+                                                            '</div>')
+                                                    } catch (e) {
+                                                        console.log('No permanent')
+                                                    }
+                                                }
+                                            } catch {
+                                                console.log('error')
+                                            }
+
+
+                                            $.ajax({
+                                                url: '/follow/api/auto/?child=' + slug,
+                                                success: (data) => {
+                                                    for (var i in data) {
+
+                                                        var Graduation_InstituteTitle = ''
+                                                        var Graduation_SubjectTitle = ''
+                                                        var Graduation_SubjectSHORT = ''
+                                                        var Graduation_InstituteSHORT = ''
+
+                                                        try {
+                                                            Graduation_InstituteSHORT = data[i]['Graduation_Institute']['SHORT']
+                                                        } catch {
+
+                                                        }
+                                                        try {
+                                                            Graduation_SubjectSHORT = data[i]['Graduation_Subject']['SHORT']
+                                                        } catch {
+
+                                                        }
+                                                        try {
+                                                            Graduation_SubjectTitle = data[i]['Graduation_Subject']['Title']
+                                                        } catch {
+
+                                                        }
+                                                        try {
+                                                            Graduation_InstituteTitle = data[i]['Graduation_Institute']['Title']
+                                                        } catch {
+
+                                                        }
+
+                                                        $('#t_t_body').append('<tr ondblclick="ajaxAutoToTemporary(\'/follow/api/auto_temporary/?cid=' + slug + '&tid=' + data[i]['id'] + '\')">' +
+                                                            '<td>' + data[i]['Name'] + '<span hidden>' + data[i]['id'] + ' ' + gender(data[i]['Gender']) + +' ' + religion(data[i]['Religion']) + '</span></td>' +
+                                                            '<td>' + data[i]['Phone'] + '</td>' +
+                                                            '<td>' + data[i]['Email'] + '</td>' +
+                                                            '<td>' + data[i]['Location1'] + ' ; ' + data[i]['Location2'] + ' ; ' + data[i]['Location3'] + ' ; ' + data[i]['Location4'] + '</td>' +
+                                                            '<td>' + Graduation_InstituteSHORT + '<span hidden>' + Graduation_InstituteTitle + '</span></td>' +
+                                                            '<td>' + Graduation_SubjectSHORT + '<span hidden>' + Graduation_SubjectTitle + ' </span></td>' +
+                                                            '<td>' + data[i]['HSC_Subject'] + '</td>' +
+                                                            '<td>' + data[i]['HSC_GPA'] + '</td>' +
+                                                            '<td>' + data[i]['HSC_Institute'] + '</td>' +
+                                                            '<td>' + data[i]['HSC_GOLDEN'] + '</td>' +
+                                                            '<td>' + data[i]['SSC_Subject'] + '</td>' +
+                                                            '<td>' + data[i]['SSC_GPA'] + '</td>' +
+                                                            '<td>' + data[i]['SSC_GOLDEN'] + '</td>' +
+                                                            '<td>' + data[i]['Experience'] + '</td>' +
+                                                            '<td>' + data[i]['Expertise'] + '</td>' +
+                                                            '<td>' + gender(data[i]['Gender']) + '</td>' +
+                                                            '<td>' + medium(data[i]['SSC_MEDIUM']) + '</td>' +
+                                                            '<td>' + data[i]['Rating'] + '</td>' +
+                                                            '<td>' + data[i]['Type'] + '</td>' +
+                                                            '<td>' + data[i]['Note'] + '</td>' +
+                                                            '<td>' + data[i]['Important_Note'] + '</td>' +
+                                                            '</tr>')
+                                                    }
+                                                    var t = $("#example2").DataTable({
+                                                        "responsive": true, "autoWidth": false,
+                                                        "buttons": ["excel", "pdf", "print", "colvis"]
+                                                    });
+                                                    t.buttons().container().appendTo('#example2_wrapper .col-md-6:eq(0)');
+                                                }
+                                            })
+
+                                        }
+                                    })
+                                }
+                            })
+                        }
+                    })
+                }
+            })
+            $('#teacher_div').click()
+        }
+
+        function getTwoDigit(x) {
+            if (x < 10) {
+                return '0' + x;
+            } else {
+                return x
+            }
+        }
+
+        var g_id = 0
+        var c_id = 0
+        $(() => {
+            $.ajax({
+                url: '/follow/api/guardian/',
+                success: (data) => {
+                    var t_data = new Array();
+                    for (var i in data) {
+                        for (var k in data[i]['Child']) {
+                            if(!data[i]['Child'][k]['active']){
+                                continue;
+                            }
+                            var es = ''
+                            for (var em in data[i]['Child'][k]['Expected_Subjects']) {
+                                es = es + data[i]['Child'][k]['Expected_Subjects'][em]['SHORT'] +
+                                    ' | ' +
+                                    '<span hidden>' + data[i]['Child'][k]['Expected_Subjects'][em]['Title'] + '</span>'
+                            }
+                            $('#t_body').append(
+                                '<tr>' +
+                                '<td>' + data[i]['Child'][k]['slug'] + '</td>' +
+
+                                '<td>' + new Date(data[i]['Child'][k]['Created']).getFullYear() + '-' +
+                                getTwoDigit(parseInt(new Date(data[i]['Child'][k]['Created']).getMonth())) + '-' +
+                                getTwoDigit(parseInt(new Date(data[i]['Child'][k]['Created']).getDate())) + '</td>' +
+
+                                '<td class="gpart">' + data[i]['Child'][k]['Education_Level'] + '</td>' +
+                                '<td class="gpart">' + gender(data[i]['Child'][k]['Gender']) + '</td>' +
+                                '<td class="gpart">' + data[i]['Child'][k]['Expected_Day'] + '</td>' +
+                                '<td class="gpart">' + data[i]['Address'] + '</td>' +
+                                '<td class="gpart">' + data[i]['Child'][k]['Education_Institute'] + '</td>' +
+                                '<td class="gpart">' + es + '</td>' +
+                                '<td class="gpart">' + data[i]['Child'][k]['Expected_Salary'] + '</td>' +
+                                '<td class="gpart">' + data[i]['Phone'] + '</td>' +
+                                '<td class="tpart">' + medium(data[i]['Child'][k]['Expected_Style']) + '</td>' +
+                                '<td class="tpart">' + gender(data[i]['Child'][k]['Teacher_Gender']) + '</td>' +
+                                '<td class="tpart">' + level(data[i]['Child'][k]['Teacher_Level']) + '</td>' +
+                                '<td class="tpart">' + university(data[i]['Child'][k]['Teacher_University']) + '</td>' +
+                                '<td class="tpart">' + medium(data[i]['Child'][k]['Education_Medium']) + '</td>' +
+                                '<td class="gpart">' + data[i]['id'] + '</td>' +
+                                '</tr>',
+                            )
+
+                            if (!data[i]['Child'][k]['Confirmed']) {
+                            }
+                        }
+                        t_data[data[i]['id']] = data[i]
+                    }
+
+// Custom filtering function which will search data in column four between two values
+                    $.fn.dataTable.ext.search.push(
+                        function (settings, data, dataIndex) {
+                            var min = $('#min').val();
+                            var max = $('#max').val();
+                            var date = data[1];
+
+                            min = parseInt(min.replace('-', '').replace('-', ''))
+                            max = parseInt(max.replace('-', '').replace('-', ''))
+                            date = date.replace('-', '').replace('-', '')
+                            if (min && !max) {
+                                if (date > min) {
+                                    return true
+                                }
+                            }
+                            if (max && !min) {
+                                if (date < max) {
+                                    return true
+                                }
+                            }
+                            if (min && max) {
+                                if ((date < max) && (date > min)) {
+                                    return true
+                                }
+                            }
+                            if (!min && !max) {
+                                return true
+                            }
+
+                            {#return (min === 0 && max === 0) ||#}
+                            {#    (min === null && date <= max) ||#}
+                            {#    (min <= date && max === 0) ||#}
+                            {#    (min <= date && date <= max);#}
+                            {#return true#}
+
+                        }
+                    );
+
+                    // Create date inputs
+
+                    // DataTables initialisation
+                    var t = $("#example1").DataTable({
+                        "responsive": true, "autoWidth": false,
+                        "buttons": ["colvis"]
+                    });
+                    t.buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+
+                    var table = t
+
+                    // Refilter the table
+                    $('#min, #max').on('change', function () {
+                        table.draw();
+                    });
+
+
+                    $('#example1 tbody').on('dblclick', 'tr', function () {
+                        {#$('#card-button').click()#}
+                        g_id = $('#g_id');
+                        window.open('/guardian/' + t.row(this).data()[0] + '/child/', '_blank');
+                        var g_phone = $('#g_phone');
+                        var g_name = $('#g_name');
+                        var child_div = $('#child_div');
+                        child_div.empty();
+                        $('#g_important_notes').text(t_data[t.row(this).data()[15]]['Important_Note'])
+                        $('#g_notes').empty()
+                        for (var g_n in t_data[t.row(this).data()[15]]['Note']) {
+                            $('#g_notes').append('<div class="info-box col-4 col-md-4 col-sm-12"> ' +
+                                '<span class="info-box-icon bg-info"><i class="fas fa-comment"></i></span> ' +
+                                '<div class="info-box-content">' +
+                                '<span class="info-box-text">' +
+                                new Date(t_data[t.row(this).data()[15]]['Note'][g_n]['Created']).getDate() + '/' +
+                                new Date(t_data[t.row(this).data()[15]]['Note'][g_n]['Created']).getMonth() + '/' +
+                                new Date(t_data[t.row(this).data()[15]]['Note'][g_n]['Created']).getFullYear() + '' +
+                                '</span> ' +
+                                '<span class="info-box-number">' + t_data[t.row(this).data()[15]]['Note'][g_n]['Note'] +
+                                '</span> ' +
+                                '</div> ' +
+                                '</div>')
+                        }
+
+                        $('#g_notes').append('<div class="col-1"><a onclick="(function (){ $(\'#g_comments_div\').show();})()"><i class="fas fa-plus-square " style="margin-top: 50%; font-size: 200%;"></i></a></div>')
+                        $('#c_important_notes').empty()
+                        g_id.text(t.row(this).data()[15])
+                        g_phone.text(t_data[t.row(this).data()[15]]['Phone'])
+                        g_name.text(t_data[t.row(this).data()[15]]['Name'])
+                        $('#g_child_groups').empty()
+                        for (var g in t_data[t.row(this).data()[15]]['Child_Group']) {
+                            $('#g_child_groups').append('<span class="info-box-icon bg-info">' +
+                                '<i class="far fa-object-group"></i></span>')
+                            for (var g_c in t_data[t.row(this).data()[15]]['Child_Group'][g].Child) {
+                                $('#g_child_groups').append(
+                                    '<span class="info-box-number" style="padding: 5px">' +
+                                    t_data[t.row(this).data()[15]]['Child_Group'][g].Child[g_c]['Name'] + '</span>'
+                                )
+                            }
+                        }
+                        $('#c_notes').empty();
+                        for (var c in t_data[t.row(this).data()[15]]['Child']) {
+                            if (t_data[t.row(this).data()[15]]['Child'][c]['Confirmed']) {
+                                child_div.append('<div class="info-box col-12"><div class="info-box col-3 col-md-3 col-sm-12"5>' +
+                                    '<span class="info-box-icon bg-gradient-secondary"><' +
+                                    'i class="fas fa-signature"></i></span>' +
+                                    '<div class="info-box-content bg-success">' +
+                                    '<span class="info-box-number" id="c_name">' +
+                                    t_data[t.row(this).data()[15]]['Child'][c]['Name'] + '</span>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '<div class="info-box col-1 col-md-1 col-sm-6">' +
+                                    '<span class="info-box-icon bg-gradient-secondary">' +
+                                    '<i class="fas fa-user-graduate"></i></span>' +
+                                    '<div class="info-box-content bg-success">' +
+                                    '<span class="info-box-number" id="c_education_level">' +
+                                    t_data[t.row(this).data()[15]]['Child'][c]['Education_Level'] + '</span>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '<div class="info-box col-2 col-md-2 col-sm-6">' +
+                                    '<span class="info-box-icon bg-gradient-secondary"><i class="fas fa-language"></i></span>' +
+                                    '<div class="info-box-content bg-success">' +
+                                    '<span class="info-box-number" id="c_education_medium">' +
+                                    medium(t_data[t.row(this).data()[15]]['Child'][c]['Education_Medium']) + '</span>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '<div class="info-box col-1 col-md-1 col-sm-3">' +
+                                    '<div class="info-box-content bg-success">' +
+                                    '<span class="info-box-number" id="c_gender">' +
+                                    gender(t_data[t.row(this).data()[15]]['Child'][c]['Gender']) + '</span>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '<div class="info-box col-1 col-md-2 col-sm-6">' +
+                                    '<span class="info-box-icon bg-gradient-secondary"><i ' +
+                                    'class="far fa-calendar-plus"></i></span>' +
+                                    '<div class="info-box-content bg-success">' +
+                                    '<span class="info-box-number" id="c_date">' +
+                                    new Date(t_data[t.row(this).data()[15]]['Child'][c]['Created']).getDate() + '/' +
+                                    new Date(t_data[t.row(this).data()[15]]['Child'][c]['Created']).getMonth() + '</span>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '<div class="info-box col-2 col-md-2 col-sm-6">' +
+                                    '<span class="info-box-icon bg-gradient-secondary"><i ' +
+                                    'class="fas fa-funnel-dollar"></i></span>' +
+                                    '<div class="info-box-content bg-success">' +
+                                    '<span class="info-box-number" id="c_date">' +
+                                    t_data[t.row(this).data()[15]]['Child'][c]['Expected_Salary'] + '</span>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '<button id="card-button" type="button" class="btn btn-tool" onclick="teacher(`' + t_data[t.row(this).data()[15]]['Child'][c]['slug'] + '`)"> ' +
+                                    '<i class="fas fa-expand"></i> ' +
+                                    '</button> ' +
+                                    '</div>')
+                            } else {
+                                child_div.append('<div class="info-box col-12"><div class="info-box col-3 col-md-3 col-sm-12">' +
+                                    '<span class="info-box-icon bg-gradient-secondary">' +
+                                    '<i class="fas fa-signature"></i></span>' +
+                                    '<div class="info-box-content">' +
+                                    '<span class="info-box-number" id="c_name">' +
+                                    t_data[t.row(this).data()[15]]['Child'][c]['Name'] + '</span>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '<div class="info-box col-1 col-md-1 col-sm-6">' +
+                                    '<span class="info-box-icon bg-gradient-secondary">' +
+                                    '<i class="fas fa-user-graduate"></i></span>' +
+                                    '<div class="info-box-content">' +
+                                    '<span class="info-box-number" id="c_education_level">' +
+                                    t_data[t.row(this).data()[15]]['Child'][c]['Education_Level'] + '</span>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '<div class="info-box col-2 col-md-2 col-sm-6">' +
+                                    '<span class="info-box-icon bg-gradient-secondary">' +
+                                    '<i class="fas fa-language"></i></span>' +
+                                    '<div class="info-box-content">' +
+                                    '<span class="info-box-number" id="c_education_medium">' +
+                                    medium(t_data[t.row(this).data()[15]]['Child'][c]['Education_Medium']) + '</span>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '<div class="info-box col-1 col-md-1 col-sm-3">' +
+                                    '<div class="info-box-content">' +
+                                    '<span class="info-box-number" id="c_gender">' +
+                                    gender(t_data[t.row(this).data()[15]]['Child'][c]['Gender']) + '</span>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '<div class="info-box col-1 col-md-2 col-sm-6">' +
+                                    '<span class="info-box-icon bg-gradient-secondary"><i ' +
+                                    'class="far fa-calendar-plus"></i></span>' +
+                                    '<div class="info-box-content">' +
+                                    '<span class="info-box-number" id="c_date">' +
+                                    new Date(t_data[t.row(this).data()[15]]['Child'][c]['Created']).getDate() + '/' +
+                                    new Date(t_data[t.row(this).data()[15]]['Child'][c]['Created']).getMonth() + '</span>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '<div class="info-box col-2 col-md-2 col-sm-6">' +
+                                    '<span class="info-box-icon bg-gradient-secondary"><i ' +
+                                    'class="fas fa-funnel-dollar"></i></span>' +
+                                    '<div class="info-box-content">' +
+                                    '<span class="info-box-number" id="c_date">' +
+                                    t_data[t.row(this).data()[15]]['Child'][c]['Expected_Salary'] + '</span>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '<button id="card-button" type="button" class="btn btn-tool" onclick="teacher(`' + t_data[t.row(this).data()[15]]['Child'][c]['slug'] + '`)"> ' +
+                                    '<i class="fas fa-expand"></i> ' +
+                                    '</button> ' +
+                                    '</div></div>')
+                            }
+                            for (var c_n in t_data[t.row(this).data()[15]]['Child'][c]['Note']) {
+                                $('#c_notes').append('<div class="info-box col-4 col-md-4 col-sm-12"> ' +
+                                    '<span class="info-box-icon bg-info">' +
+                                    t_data[t.row(this).data()[15]]['Child'][c]['Name'] + '</span> ' +
+                                    '<div class="info-box-content"> ' +
+                                    '<span class="info-box-text">' +
+                                    new Date(t_data[t.row(this).data()[15]]['Child'][c]['Note'][c_n]['Created']).getDate() + '/' +
+                                    new Date(t_data[t.row(this).data()[15]]['Child'][c]['Note'][c_n]['Created']).getMonth() + '/' +
+                                    new Date(t_data[t.row(this).data()[15]]['Child'][c]['Note'][c_n]['Created']).getFullYear() + '</span> ' +
+                                    '<span class="info-box-number">' +
+                                    t_data[t.row(this).data()[15]]['Child'][c]['Note'][c_n]['Note'] + '</span> ' +
+                                    '</div> </div>')
+                                $('#c_important_notes').append(t_data[t.row(this).data()[15]]['Child'][c]['Important_Note'] + ' | ');
+                            }
+                            $('#c_notes').append('<div class="col-1"><a onclick="(function (){ $(\'#c_comments_div\').show(); c_id = (\'' + t_data[t.row(this).data()[15]]['Child'][c]['slug'] + '\')})()"><i class="fas fa-plus-square " style="margin-top: 50%; font-size: 200%;"></i></a></div>')
+                        }
+                    })
+                }
+            });
+        });
+        $(() => {
+            {
+                $.ajax({
+                    url: '/guardian/api/note_create/',
+                    success: (data) => {
+                        for (var d in data) {
+                            $('#g_comments').append('<option onclick="(function (){' +
+                                'var e = document.getElementById(\'g_comments\').value;' +
+                                'prompt_value = prompt(\'Is is your final comment?\', e);' +
+                                'if(e == prompt_value){' +
+                                'addToComment(' + data[d].id + ')}else{' +
+                                '$.ajax({' +
+                                'type: \'POST\',' +
+                                'url: \'/guardian/api/note_create/\',' +
+                                'data: {' +
+                                '\'Note\':prompt_value,' +
+                                '\'Writer\':\'{{user.id}}\',},headers: {\'X-CSRFToken\': \'{{csrf_token}}\'},}).done((data)=>{addToComment(data.id)})}})()">' + data[d]['Note'] + '</option>')
+
+                            $('#c_comments').append('<option onclick="(function (){' +
+                                'var e = document.getElementById(\'c_comments\').value;' +
+                                'prompt_value = prompt(\'Is is your final comment?\', e);' +
+                                'if(e == prompt_value){' +
+                                'addToChildComment(' + data[d].id + ')}else{' +
+                                '$.ajax({' +
+                                'type: \'POST\',' +
+                                'url: \'/guardian/api/note_create/\',' +
+                                'data: {' +
+                                '\'Note\':prompt_value,' +
+                                '\'Writer\':\'{{user.id}}\',},headers: {\'X-CSRFToken\': \'{{csrf_token}}\'},}).done((data)=>{addToChildComment(data.id)})}})()">' + data[d]['Note'] + '</option>')
+                        }
+                    }
+                })
+            }
+        })
+
+        function appendToGnote(data) {
+            $('#g_notes').append('<div class="info-box col-4 col-md-4 col-sm-12"> ' +
+                '<span class="info-box-icon bg-info"><i class="fas fa-comment"></i></span> ' +
+                '<div class="info-box-content"> ' +
+                '<span class="info-box-text">' +
+                new Date(data['Created']).getDate() + '/' +
+                new Date(data['Created']).getMonth() + '/' +
+                new Date(data['Created']).getFullYear() + '' +
+                '</span> ' +
+                '<span class="info-box-number">' + data['Note'] +
+                '</span> ' +
+                '</div> ' +
+                '</div>')
+        }
+
+        function appendToCnote(data) {
+            $('#c_notes').append('<div class="info-box col-4 col-md-4 col-sm-12"> ' +
+                '<span class="info-box-icon bg-info"><i class="fas fa-comment"></i></span> ' +
+                '<div class="info-box-content"> ' +
+                '<span class="info-box-text">' +
+                new Date(data['Created']).getDate() + '/' +
+                new Date(data['Created']).getMonth() + '/' +
+                new Date(data['Created']).getFullYear() + '' +
+                '</span> ' +
+                '<span class="info-box-number">' + data['Note'] +
+                '</span> ' +
+                '</div> ' +
+                '</div>')
+        }
+
+        function addToComment(data) {
+            var Note = parseInt(data)
+            console.log(Note)
+            $.ajax({
+                type: 'GET',
+                {#contentType: "application/json; charset=utf-8",#}
+                url: '/follow/api/guardian/' + g_id.text() + '/note/?note=' + Note,
+                success: (data) => {
+                    appendToGnote(data)
+                }
+            })
+        }
+
+        function addToChildComment(data) {
+            var Note = parseInt(data)
+            $.ajax({
+                type: 'GET',
+                {#contentType: "application/json; charset=utf-8",#}
+                url: '/follow/api/child/' + c_id + '/note/?note=' + Note,
+                success: (data) => {
+                    appendToCnote(data)
+                }
+            })
+        }
+
+        function LoadIframe() {
+            $('#action_iframe').attr('src', 'http://127.0.0.1:8000/admin/GuardianArea/guardiandetails/' + g_id.text() + '/change/')
+        }
+
+
+    </script>
+
+{% endblock %}

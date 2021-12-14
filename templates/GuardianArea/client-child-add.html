@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<head>
+    <link href='https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
+    <link href='//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/css/datepicker.min.css' rel='stylesheet'
+          type='text/css'>
+    <link href='//cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/1.8/css/bootstrap-switch.css' rel='stylesheet'
+          type='text/css'>
+    <link href='https://davidstutz.github.io/bootstrap-multiselect/css/bootstrap-multiselect.css' rel='stylesheet'
+          type='text/css'>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js' type='text/javascript'></script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.0/js/bootstrap.min.js'
+            type='text/javascript'></script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/js/bootstrap-datepicker.min.js'
+            type='text/javascript'></script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/1.8/js/bootstrap-switch.min.js'
+            type='text/javascript'></script>
+    <script src='https://davidstutz.github.io/bootstrap-multiselect/js/bootstrap-multiselect.js'
+            type='text/javascript'></script>
+    <style>
+        .indent-small {
+            margin-left: 5px;
+        }
+
+        .form-group.internal {
+            margin-bottom: 0;
+        }
+
+        .dialog-panel {
+            margin: 10px;
+        }
+
+        .datepicker-dropdown {
+            z-index: 200 !important;
+        }
+
+        .panel-body {
+            background: #e5e5e5;
+            /* Old browsers */
+            background: -moz-radial-gradient(center, ellipse cover, #e5e5e5 0%, #ffffff 100%);
+            /* FF3.6+ */
+            background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, #e5e5e5), color-stop(100%, #ffffff));
+            /* Chrome,Safari4+ */
+            background: -webkit-radial-gradient(center, ellipse cover, #e5e5e5 0%, #ffffff 100%);
+            /* Chrome10+,Safari5.1+ */
+            background: -o-radial-gradient(center, ellipse cover, #e5e5e5 0%, #ffffff 100%);
+            /* Opera 12+ */
+            background: -ms-radial-gradient(center, ellipse cover, #e5e5e5 0%, #ffffff 100%);
+            /* IE10+ */
+            background: radial-gradient(ellipse at center, #e5e5e5 0%, #ffffff 100%);
+            /* W3C */
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#e5e5e5', endColorstr='#ffffff', GradientType=1);
+            /* IE6-9 fallback on horizontal gradient */
+            font: 600 15px "Open Sans", Arial, sans-serif;
+        }
+
+        label.control-label {
+            font-weight: 600;
+            color: #777;
+        }
+
+    </style>
+</head>
+<body>
+<div class='container'>
+    <div class='panel panel-primary dialog-panel'>
+        <div class='panel-heading'>
+            <h5>GUARDIAN: {{ guardian.Name }}</h5>
+        </div>
+        <div class='panel-body'>
+            <form id="childform" class='form-horizontal' role='form'>
+                {% csrf_token %}
+                <div class='form-group'>
+                    <label class='control-label col-md-2 col-md-offset-2' for='id_accomodation'>Student Class and
+                        Medium</label>
+                    <div class='col-md-2'>
+                        <select class="form-control" name="Education_Level">
+                            <option value="1">Class 1</option>
+                            <option value="2">Class 2</option>
+                            <option value="3">Class 3</option>
+                            <option value="4">Class 4</option>
+                            <option value="5">Class 5</option>
+                            <option value="6">Class 6</option>
+                            <option value="7">Class 7</option>
+                            <option value="8">Class 8</option>
+                            <option value="9">Class 9</option>
+                            <option value="10">Class 10</option>
+                            <option value="11">Class 11</option>
+                            <option value="12">Class 12</option>
+                            <option value="13">Diploma</option>
+                            <option value="14">Degree</option>
+                            <option value="15">Honors</option>
+                            <option value="16">O-Level</option>
+                            <option value="17">A-Level(AS)</option>
+                            <option value="19">pre-KG</option>
+                            <option value="18">KG</option>
+                            <option value="20">Others</option>
+                            <option value="21">SSC Examinee</option>
+                            <option value="22">HSC Examinee</option>
+                            <option value="23">Admission</option>
+                        </select>
+                    </div>
+                    <div class='col-md-4'>
+                        <select class="form-control" name="Education_Medium">
+                            <option value="1">Bangla Medium</option>
+                            <option value="2">English Medium</option>
+                            <option value="3">English Version</option>
+                            <option value="4">Madrasa Medium</option>
+                            <option value="7">Education of Quran</option>
+                            <option value="9">Any</option>
+                            <option value="8">Others</option>
+                        </select>
+                    </div>
+                    {#                    <div class='col-md-2'>#}
+                    {#                        <select class="form-control" name="Type">#}
+                    {#                            <option value="1">Normal</option>#}
+                    {#                            <option value="2">Special</option>#}
+                    {#                        </select>#}
+                    {#                    </div>#}
+                </div>
+                <div class="form-group">
+                    <label class='control-label col-md-2 col-md-offset-2' for='id_title'>Subjects </label>
+                    <div class='col-md-6'>
+                        <input name="Expect_to_read" class="form-control" type="text" value=""
+                               placeholder="Ex: Math, Physics, Chemistry ">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class='control-label col-md-2 col-md-offset-2' for='id_title'>Student Institute Name</label>
+                    <div class='col-md-6'>
+                        <input name="Education_Institute" class="form-control" type="text" value="">
+                    </div>
+                </div>
+                <div class='form-group'>
+                    <label class='control-label col-md-2 col-md-offset-2' for='id_accomodation'>Day per week</label>
+                    {#                    <div class='col-md-1'>#}
+                    {#                        <select class="form-control" name="Free_Duration">#}
+                    {#                            <option value="" selected="">--------</option>#}
+                    {#                            <option value="1:00:00">01 Hour</option>#}
+                    {#                            <option value="1:30:00">01H 30M</option>#}
+                    {#                            <option value="2:00:00">02 Hour</option>#}
+                    {#                            <option value="2:30:00">02H 30M</option>#}
+                    {#                            <option value="3:00:00">03 Hour</option>#}
+                    {#                        </select>#}
+                    {#                    </div>#}
+                    <div class='col-md-2'>
+                        <input name="Expected_Day" class="form-control" type="number" value="" placeholder="3">
+                    </div>
+                </div>
+                <div class='form-group'>
+                    <label class='control-label col-md-2 col-md-offset-2' for='id_title'>Student Name</label>
+                    <div class='col-md-8'>
+                        <div class='col-md-6'>
+                            <div class='form-group internal'>
+                                <input name="Name" class="form-control" type="text" value="">
+                            </div>
+                        </div>
+                        <div class='col-md-2  indent-small'>
+                            <div class='form-group internal'>
+                                <select class="form-control" name="Gender">
+                                    <option value="1">Male</option>
+                                    <option value="2">Female</option>
+                                    <option value="3">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {#                <div class='form-group'>#}
+                {#                    <label class='control-label col-md-2 col-md-offset-2' for='id_adults'>Guests</label>#}
+                {#                    <div class='col-md-8'>#}
+                {#                        <div class='col-md-2'>#}
+                {#                            <div class='form-group internal'>#}
+                {#                                <input class='form-control col-md-8' id='id_adults' placeholder='18+ years'#}
+                {#                                       type='number'>#}
+                {#                            </div>#}
+                {#                        </div>#}
+                {#                        <div class='col-md-3 indent-small'>#}
+                {#                            <div class='form-group internal'>#}
+                {#                                <input class='form-control' id='id_children' placeholder='2-17 years' type='number'>#}
+                {#                            </div>#}
+                {#                        </div>#}
+                {#                        <div class='col-md-3 indent-small'>#}
+                {#                            <div class='form-group internal'>#}
+                {#                                <input class='form-control' id='id_children_free' placeholder='&lt; 2 years'#}
+                {#                                       type='number'>#}
+                {#                            </div>#}
+                {#                        </div>#}
+                {#                    </div>#}
+                {#                </div>#}
+                <div class='form-group'>
+                    <label class='control-label col-md-2 col-md-offset-2' for='id_email'>Contact</label>
+                    <div class='col-md-6'>
+                        <div class='form-group'>
+                            <div class='col-md-11'>
+                                <input name="Phone" class="form-control" type="text" value=""
+                                       placeholder="+8801720274040">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class='form-group'>
+                    <label class='control-label col-md-2 col-md-offset-2' for='id_email'>Address:</label>
+                    <div class='col-md-6'>
+                        <input name="Address" class="form-control" type="text" value=""
+                               placeholder=" House 1, Block H, Main Road, Banasree">
+                    </div>
+                </div>
+                <div class='form-group'>
+                    <label class='control-label col-md-2 col-md-offset-2' for='id_accomodation'>Tuition Style</label>
+                    <div class='col-md-2'>
+                        <select class="form-control" name="Expected_Style">
+                            <option value="1">Home tuition</option>
+                            <option value="2">Group</option>
+                            <option value="3">Course</option>
+                            <option value="4">Online</option>
+                        </select>
+                    </div>
+                    <div class='col-md-4'>
+                        <input name="Expected_Salary" class="form-control" type="number" value=""
+                               placeholder="Teacher Salary">
+                    </div>
+                </div>
+                <div class='form-group'>
+                    <label class='control-label col-md-2 col-md-offset-2' for='id_equipment'>Teacher Information</label>
+                    <div class='col-md-8'>
+                        <div class='col-md-4'>
+                            <div class='form-group internal'>
+                                <select class="form-control" name="Teacher_Gender">
+                                    <option value="4">Male/Female</option>
+                                    <option value="1">Male</option>
+                                    <option value="2">Female</option>
+                                    <option value="3">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        {#                        <div class='col-md-5 indent-small'>#}
+                        {#                            <div class='form-group internal'>#}
+                        {#                                <select class="form-control" name="Teacher_Religion">#}
+                        {#                                    <option value="" selected="">--------</option>#}
+                        {#                                    <option value="0">Islam</option>#}
+                        {#                                    <option value="1">Hinduism</option>#}
+                        {#                                    <option value="2">Buddhism</option>#}
+                        {#                                    <option value="3">Christianity</option>#}
+                        {#                                    <option value="4">Others</option>#}
+                        {#                                    <option value="5">Any</option>#}
+                        {#                                </select>#}
+                        {#                            </div>#}
+                        {#                        </div>#}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2 col-md-offset-2">Note</label>
+                    <div class='col-md-6'>
+                        <textarea name="Free_Time" class="form-control"
+                                  placeholder="Describe your tuition in short "></textarea>
+                    </div>
+                </div>
+                <hr>
+                <center>We will find best qualified tutor for this tuition</center>
+                <hr>
+                {#                <div class='form-group'>#}
+                {#                    <label class='control-label col-md-2 col-md-offset-2' for='id_accomodation'>#}
+                {#                        Experience</label>#}
+                {#                    <div class='col-md-2'>#}
+                {#                        <select class="form-control" name="Teacher_Experience">#}
+                {#                            <option value="0">No experience needed</option>#}
+                {#                            <option value="1">1/2 years experience</option>#}
+                {#                            <option value="2">3/5 years experience</option>#}
+                {#                            <option value="3">More than 5 years experience</option>#}
+                {#                        </select>#}
+                {#                    </div>#}
+                {#                    <div class='col-md-2'>#}
+                {#                        <div class='make-switch' data-off-label='NO GOLD' data-on-label='HSC GOLD' id='id_slide_switch'>#}
+                {#                            <input id='id_slide' type='checkbox' name="Teacher_HSC_GOLD" value='chk_hydro'>#}
+                {#                        </div>#}
+                {#                    </div>#}
+                {#                    <div class='col-md-2'>#}
+                {#                        <select class="form-control" name="Teacher_Age">#}
+                {#                            <option value="0">Age &lt;=20</option>#}
+                {#                            <option value="1">Age 21-25</option>#}
+                {#                            <option value="2">Age 26-35</option>#}
+                {#                            <option value="3">Age &gt;35</option>#}
+                {#                            <option value="4">Any#}
+                {#                                <Age></Age>#}
+                {#                            </option>#}
+                {#                        </select>#}
+                {#                    </div>#}
+                {#                </div>#}
+                {#                <div class='form-group'>#}
+                {#                    <label class='control-label col-md-2 col-md-offset-2' for='id_equipment'>Background</label>#}
+                {#                    <div class='col-md-8'>#}
+                {#                        <div class='col-md-3'>#}
+                {#                            <div class='form-group internal'>#}
+                {#                                <select class="form-control" name="Teacher_Medium">#}
+                {#                                    <option value="1">Bangla Medium</option>#}
+                {#                                    <option value="2">English Medium</option>#}
+                {#                                    <option value="3">English Version</option>#}
+                {#                                    <option value="4">Madrasa Medium</option>#}
+                {#                                    <option value="7">Education of Quran</option>#}
+                {#                                    <option value="9">Any</option>#}
+                {#                                    <option value="8">Others</option>#}
+                {#                                </select>#}
+                {#                            </div>#}
+                {#                        </div>#}
+                {#                        <div class='col-md-3'>#}
+                {#                            <div class='form-group internal'>#}
+                {#                                <select class="form-control" name="Teacher_Background">#}
+                {#                                    <option value="1">General</option>#}
+                {#                                    <option value="2">Science</option>#}
+                {#                                    <option value="3">Engineer</option>#}
+                {#                                    <option value="4">Medical</option>#}
+                {#                                    <option value="5">Arts</option>#}
+                {#                                    <option value="6">Commerce</option>#}
+                {#                                    <option value="7">Technical</option>#}
+                {#                                    <option value="8">English Medium</option>#}
+                {#                                    <option value="9">English Version</option>#}
+                {#                                    <option value="10">Education of Quran</option>#}
+                {#                                    <option value="11">Other</option>#}
+                {#                                    <option value="100">Any</option>#}
+                {#                                </select>#}
+                {#                            </div>#}
+                {#                        </div>#}
+                {#                        <div class='col-md-3'>#}
+                {#                            <div class='form-group internal'>#}
+                {#                                <select class="form-control" name="Teacher_Level">#}
+                {#                                    <option value="0">Secondary</option>#}
+                {#                                    <option value="1">Higher Secondary</option>#}
+                {#                                    <option value="3">Honors</option>#}
+                {#                                    <option value="5">Masters</option>#}
+                {#                                    <option value="4">Others</option>#}
+                {#                                    <option value="6">Any</option>#}
+                {#                                </select>#}
+                {#                            </div>#}
+                {#                        </div>#}
+                {#                    </div>#}
+                {#                </div>#}
+                {#                <div class='form-group'>#}
+                {#                    <label class='control-label col-md-2 col-md-offset-2' for='id_accomodation'>Scl / Clg /#}
+                {#                        varsity</label>#}
+                {#                    <div class='col-md-2'>#}
+                {#                        <input name="Expected_School" class="form-control" type="text" value="" placeholder="School">#}
+                {#                    </div>#}
+                {#                    <div class='col-md-2'>#}
+                {#                        <input name="Expected_College" class="form-control" type="text" value="" placeholder="College">#}
+                {#                    </div>#}
+                {#                    <div class='col-md-2'>#}
+                {#                        <select class='form-control' id='id_accomodation'>#}
+                {#                            <option>RV</option>#}
+                {#                            <option>Tent</option>#}
+                {#                            <option>Cabin/Lodging</option>#}
+                {#                        </select>#}
+                {#                    </div>#}
+                {#                </div>#}
+                {#                <div class='form-group'>#}
+                {#                    <label class='control-label col-md-2 col-md-offset-2' for='id_equipment'>Basics</label>#}
+                {#                    <div class='col-md-8'>#}
+                {#                        <div class='col-md-3'>#}
+                {#                            <div class='form-group internal'>#}
+                {#                                <select class="form-control" name="Teacher_Gender">#}
+                {#                                    <option value="4">Male/Female</option>#}
+                {#                                    <option value="1">Male</option>#}
+                {#                                    <option value="2">Female</option>#}
+                {#                                    <option value="3">Other</option>#}
+                {#                                </select>#}
+                {#                            </div>#}
+                {#                        </div>#}
+                {#                        <div class='col-md-3'>#}
+                {#                            <div class='form-group internal'>#}
+                {#                                <select class="form-control" name="Teacher_Religion">#}
+                {#                                    <option value="" selected="">--------</option>#}
+                {#                                    <option value="0">Islam</option>#}
+                {#                                    <option value="1">Hinduism</option>#}
+                {#                                    <option value="2">Buddhism</option>#}
+                {#                                    <option value="3">Christianity</option>#}
+                {#                                    <option value="4">Others</option>#}
+                {#                                    <option value="5">Any</option>#}
+                {#                                </select>#}
+                {#                            </div>#}
+                {#                        </div>#}
+                {#                        <div class='col-md-3'>#}
+                {#                            <div class='form-group internal'>#}
+                {#                                <select class="form-control" name="Teacher_Type">#}
+                {#                                    <option value="1">Normal</option>#}
+                {#                                    <option value="2">Special</option>#}
+                {#                                </select>#}
+                {#                            </div>#}
+                {#                        </div>#}
+                {#                    </div>#}
+                {#                </div>#}
+                {#                <div class='form-group'>#}
+                {#                    <label class='control-label col-md-2 col-md-offset-2'#}
+                {#                           for='id_equipment'>University/Subject's</label>#}
+                {#                    <div class='col-md-8'>#}
+                {#                        <div class='col-md-5'>#}
+                {#                            <div class='form-group internal'>#}
+                {#                                <select multiple="" class="form-control" name="Teacher_University">#}
+                {#                                    <option value="114">ASA University Bangladesh</option>#}
+                {#                                    <option value="220">Abdul Karim Mridha College</option>#}
+                {#                                    <option value="183">Adamjee Cantonment College</option>#}
+                {#                                    <option value="239">Adarsha College</option>#}
+                {#                                    <option value="159">Ahsania Mission University of Science and Technology</option>#}
+                {#                                    <option value="76">Ahsanullah University of Science and Technology</option>#}
+                {#                                    <option value="6">American International University-Bangladesh</option>#}
+                {#                                    <option value="157">Anwer Khan Modern University</option>#}
+                {#                                    <option value="20">Armed Forces Medical College</option>#}
+                {#                                    <option value="174">Asian University for Women</option>#}
+                {#                                    <option value="80">Asian University of Bangladesh</option>#}
+                {#                                    <option value="111">Atish Dipankar University of Science &amp; Technology</option>#}
+                {#                                    <option value="178">BAGERHAT GOVT. MAHILA COLLEGE</option>#}
+                {#                                    <option value="84">BGC Trust University Bangladesh</option>#}
+                {#                                    <option value="119">BGMEA University of Fashion &amp; Technology(BUFT)</option>#}
+                {#                                    <option value="22">BRAC University</option>#}
+                {#                                    <option value="161">Bandarban University</option>#}
+                {#                                    <option value="36">Bangabandhu Sheikh Mujib Medical University</option>#}
+                {#                                    <option value="37">Bangabandhu Sheikh Mujibur Rahman Agricultural University#}
+                {#                                    </option>#}
+                {#                                    <option value="66">Bangabandhu Sheikh Mujibur Rahman Aviation And Aerospace#}
+                {#                                        University (BSMRAAU)#}
+                {#                                    </option>#}
+                {#                                    <option value="61">Bangabandhu Sheikh Mujibur Rahman Digital University,#}
+                {#                                        Bangladesh#}
+                {#                                    </option>#}
+                {#                                    <option value="56">Bangabandhu Sheikh Mujibur Rahman Maritime University,#}
+                {#                                        Bangladesh#}
+                {#                                    </option>#}
+                {#                                    <option value="52">Bangabandhu Sheikh Mujibur Rahman Science &amp; Technology#}
+                {#                                        University#}
+                {#                                    </option>#}
+                {#                                    <option value="68">Bangabandhu Sheikh Mujibur Rahman University, Kishoreganj#}
+                {#                                    </option>#}
+                {#                                    <option value="64">Bangamata Sheikh Fojilatunnesa Mujib Science and Technology#}
+                {#                                        University#}
+                {#                                    </option>#}
+                {#                                    <option value="30">Bangladesh Agricultural University</option>#}
+                {#                                    <option value="146">Bangladesh Army International University of Science &amp;#}
+                {#                                        Technology(BAIUST) ,Comilla#}
+                {#                                    </option>#}
+                {#                                    <option value="145">Bangladesh Army University of Engineering and Technology#}
+                {#                                        (BAUET), Qadirabad#}
+                {#                                    </option>#}
+                {#                                    <option value="144">Bangladesh Army University of Science and Technology(BAUST),#}
+                {#                                        Saidpur#}
+                {#                                    </option>#}
+                {#                                    <option value="113">Bangladesh Islami University</option>#}
+                {#                                    <option value="35">Bangladesh Open University</option>#}
+                {#                                    <option value="82">Bangladesh University</option>#}
+                {#                                    <option value="106">Bangladesh University of Business &amp; Technology</option>#}
+                {#                                    <option value="1">Bangladesh University of Engineering and Technology</option>#}
+                {#                                    <option value="131">Bangladesh University of Health Sciences</option>#}
+                {#                                    <option value="15">Bangladesh University of Professionals</option>#}
+                {#                                    <option value="53">Bangladesh University of Textiles</option>#}
+                {#                                    <option value="28">Begum Rokeya University</option>#}
+                {#                                    <option value="51">Begum Rokeya University, Rangpur</option>#}
+                {#                                    <option value="214">Belayet Hossain Degree College, Bagerhat</option>#}
+                {#                                    <option value="222">Bhola College</option>#}
+                {#                                    <option value="219">Bhola Govt College, Bhola</option>#}
+                {#                                    <option value="187">Brahmanbaria Government College</option>#}
+                {#                                    <option value="228">Brindaban Govt College Habiganj</option>#}
+                {#                                    <option value="129">Britannia University</option>#}
+                {#                                    <option value="143">CCN University of Science &amp; Technology</option>#}
+                {#                                    <option value="148">Canadian University of Bangladesh</option>#}
+                {#                                    <option value="233">Carmichael College Rangpur</option>#}
+                {#                                    <option value="153">Central University of Science and Technology</option>#}
+                {#                                    <option value="73">Central Women's University</option>#}
+                {#                                    <option value="67">Chandpur Science and Technology University</option>#}
+                {#                                    <option value="190">Chittagong Govt College</option>#}
+                {#                                    <option value="132">Chittagong Independent University</option>#}
+                {#                                    <option value="58">Chittagong Medical University</option>#}
+                {#                                    <option value="41">Chittagong University of Engineering &amp; Technology</option>#}
+                {#                                    <option value="21">Chittagong University of Engineering and Technology</option>#}
+                {#                                    <option value="47">Chittagong Veterinary and Animal Sciences University</option>#}
+                {#                                    <option value="92">City University</option>#}
+                {#                                    <option value="196">Comilla Govt Mohila College</option>#}
+                {#                                    <option value="45">Comilla University</option>#}
+                {#                                    <option value="188">Comilla Victoria Government College</option>#}
+                {#                                    <option value="139">Cox's Bazar International University</option>#}
+                {#                                    <option value="89">Daffodil International University</option>#}
+                {#                                    <option value="4">Dhaka City College</option>#}
+                {#                                    <option value="3">Dhaka Commerce College</option>#}
+                {#                                    <option value="180">Dhaka Commerce College, Dhaka</option>#}
+                {#                                    <option value="27">Dhaka International University</option>#}
+                {#                                    <option value="43">Dhaka University of Engineering &amp; Technology</option>#}
+                {#                                    <option value="234">Dinajpur Govt College, Dinajpur</option>#}
+                {#                                    <option value="115">East Delta University</option>#}
+                {#                                    <option value="26">East West University</option>#}
+                {#                                    <option value="101">Eastern University</option>#}
+                {#                                    <option value="116">European University of Bangladesh</option>#}
+                {#                                    <option value="124">Exim Bank Agricultural University, Bangladesh</option>#}
+                {#                                    <option value="136">Fareast International University</option>#}
+                {#                                    <option value="225">Fazilatunnesa Govt College</option>#}
+                {#                                    <option value="191">Feni Government College</option>#}
+                {#                                    <option value="128">Feni University</option>#}
+                {#                                    <option value="121">First Capital University of Bangladesh</option>#}
+                {#                                    <option value="176">GOVT. P. C. COLLEGE</option>#}
+                {#                                    <option value="240">Gaibandha Govt College, Gaibandha</option>#}
+                {#                                    <option value="141">German University Bangladesh</option>#}
+                {#                                    <option value="142">Global University Bangladesh</option>#}
+                {#                                    <option value="78">Gono Bishwabidyalay</option>#}
+                {#                                    <option value="199">Government Azizul Haque College, Bogra</option>#}
+                {#                                    <option value="209">Government B.A College, Khulna</option>#}
+                {#                                    <option value="189">Government City College, Chittagong</option>#}
+                {#                                    <option value="195">Government Hazi Mohammad Mohsin College, Chittagong</option>#}
+                {#                                    <option value="192">Government Mohila College</option>#}
+                {#                                    <option value="207">Govt MM College Jessore</option>#}
+                {#                                    <option value="215">Govt Mohila College Jessore</option>#}
+                {#                                    <option value="223">Govt Mohila College, Barishal</option>#}
+                {#                                    <option value="229">Govt Mohila College, Sylhet</option>#}
+                {#                                    <option value="203">Govt Mujibur Rahman Mohila College Bogra</option>#}
+                {#                                    <option value="184">Govt Rajendra College</option>#}
+                {#                                    <option value="236">Govt. Begum Rokeya College Rangpur</option>#}
+                {#                                    <option value="217">Govt. Brojomohun (BM) College, Barishal</option>#}
+                {#                                    <option value="198">Govt. Edward College</option>#}
+                {#                                    <option value="226">Govt. Suhrawardy College – Pirojpur</option>#}
+                {#                                    <option value="218">Govt. Syed Hatem Ali College Barisal</option>#}
+                {#                                    <option value="96">Green University of Bangladesh</option>#}
+                {#                                    <option value="186">Habibullah Bahar College</option>#}
+                {#                                    <option value="69">Habiganj Agricultural University</option>#}
+                {#                                    <option value="38">Hajee Mohammad Danesh Science &amp; Technology University#}
+                {#                                    </option>#}
+                {#                                    <option value="118">Hamdard University Bangladesh</option>#}
+                {#                                    <option value="171">IBAIS University</option>#}
+                {#                                    <option value="17">Independent University Bangladesh</option>#}
+                {#                                    <option value="75">International Islamic University Chittagong</option>#}
+                {#                                    <option value="164">International Standard University</option>#}
+                {#                                    <option value="74">International University of Business Agriculture &amp;#}
+                {#                                        Technology#}
+                {#                                    </option>#}
+                {#                                    <option value="122">Ishakha International University, Bangladesh</option>#}
+                {#                                    <option value="57">Islamic Arabic University</option>#}
+                {#                                    <option value="173">Islamic University of Technology, Gazipur</option>#}
+                {#                                    <option value="32">Islamic University, Bangladesh</option>#}
+                {#                                    <option value="19">Jagannath University</option>#}
+                {#                                    <option value="18">Jahangirnagar University</option>#}
+                {#                                    <option value="46">Jatiya Kabi Kazi Nazrul Islam University</option>#}
+                {#                                    <option value="213">Jessore Cantonment College, Jessore</option>#}
+                {#                                    <option value="49">Jessore University of Science &amp; Technology</option>#}
+                {#                                    <option value="243">Jessore university</option>#}
+                {#                                    <option value="221">Jhalokati Govt College</option>#}
+                {#                                    <option value="63">Khulna Agricultural University</option>#}
+                {#                                    <option value="160">Khulna Khan Bahadur Ahsanullah University</option>#}
+                {#                                    <option value="33">Khulna University</option>#}
+                {#                                    <option value="42">Khulna University of Engineering and Technology</option>#}
+                {#                                    <option value="126">Khwaja Yunus Ali University</option>#}
+                {#                                    <option value="210">Kumira Mahila Degree College, Satkhira</option>#}
+                {#                                    <option value="238">Kurigram Govt College</option>#}
+                {#                                    <option value="212">Kustia Govt. Mohila College, Kushtia</option>#}
+                {#                                    <option value="25">Lalmatia Mohila College</option>#}
+                {#                                    <option value="83">Leading University</option>#}
+                {#                                    <option value="232">Madan Mohan College, Sylhet</option>#}
+                {#                                    <option value="81">Manarat International University</option>#}
+                {#                                    <option value="39">Mawlana Bhashani Science &amp; Technology University</option>#}
+                {#                                    <option value="216">Meherpur Government College, Meherpur</option>#}
+                {#                                    <option value="102">Metropolitan University</option>#}
+                {#                                    <option value="167">Microland University of Science and Technology</option>#}
+                {#                                    <option value="16">Military Institute of Science and Technology</option>#}
+                {#                                    <option value="230">Moulvibazar Govt College, Moulvibazar</option>#}
+                {#                                    <option value="149">N.P.I University of Bangladesh</option>#}
+                {#                                    <option value="202">N.S Government College, Natore</option>#}
+                {#                                    <option value="34">National University</option>#}
+                {#                                    <option value="205">Nawabganj Govt. College, Chapainawabganj</option>#}
+                {#                                    <option value="204">New Govt Degree College Rajshahi</option>#}
+                {#                                    <option value="241">Nilphamari Govt. College, Nilphamari</option>#}
+                {#                                    <option value="193">Noakhali Govt Mohila College</option>#}
+                {#                                    <option value="44">Noakhali Science &amp; Technology University</option>#}
+                {#                                    <option value="135">North Bengal International University</option>#}
+                {#                                    <option value="120">North East University Bangladesh</option>#}
+                {#                                    <option value="14">North South University</option>#}
+                {#                                    <option value="125">North Western University</option>#}
+                {#                                    <option value="24">Northern University</option>#}
+                {#                                    <option value="94">Northern University Bangladesh</option>#}
+                {#                                    <option value="150">Northern University of Business &amp; Technology, Khulna#}
+                {#                                    </option>#}
+                {#                                    <option value="133">Notre Dame University Bangladesh</option>#}
+                {#                                    <option value="185">Nurul Amal Degree College</option>#}
+                {#                                    <option value="13">Others</option>#}
+                {#                                    <option value="50">Pabna University of Science and Technology</option>#}
+                {#                                    <option value="194">Patiya Govt. College Chittagong</option>#}
+                {#                                    <option value="224">Patuakhali Govt College</option>#}
+                {#                                    <option value="40">Patuakhali Science And Technology University</option>#}
+                {#                                    <option value="130">Port City International University</option>#}
+                {#                                    <option value="87">Premier University</option>#}
+                {#                                    <option value="107">Presidency University</option>#}
+                {#                                    <option value="93">Prime University</option>#}
+                {#                                    <option value="23">Primeasia University</option>#}
+                {#                                    <option value="97">Pundra University of Science &amp; Technology</option>#}
+                {#                                    <option value="172">Queen's University</option>#}
+                {#                                    <option value="168">R.T.M Al-Kabir Technical University</option>#}
+                {#                                    <option value="179">RAMPAL COLLEGE</option>#}
+                {#                                    <option value="151">Rabindra Maitree University, Kushtia</option>#}
+                {#                                    <option value="60">Rabindra University, Bangladesh</option>#}
+                {#                                    <option value="197">Rajshahi College, Rajshahi</option>#}
+                {#                                    <option value="59">Rajshahi Medical University</option>#}
+                {#                                    <option value="206">Rajshahi Mohila College, Rajshahi</option>#}
+                {#                                    <option value="137">Rajshahi Science &amp; Technology University (RSTU), Natore#}
+                {#                                    </option>#}
+                {#                                    <option value="10">Rajshahi University of Engineering &amp; Technology</option>#}
+                {#                                    <option value="140">Ranada Prasad Shaha University</option>#}
+                {#                                    <option value="55">Rangamati Science and Technology University</option>#}
+                {#                                    <option value="235">Rangpur Govt College, Rangpur</option>#}
+                {#                                    <option value="109">Royal University of Dhaka</option>#}
+                {#                                    <option value="156">Rupayan A.K.M Shamsuzzoha University</option>#}
+                {#                                    <option value="177">SHERE BANGLA COLLEGE</option>#}
+                {#                                    <option value="208">Saguni College Satkhira</option>#}
+                {#                                    <option value="162">Shah Makhdum Management University, Rajshahi</option>#}
+                {#                                    <option value="12">Shahjalal University of Science &amp; Technology</option>#}
+                {#                                    <option value="99">Shanto-Mariam University of Creative Technology</option>#}
+                {#                                    <option value="138">Sheikh Fazilatunnesa Mujib University</option>#}
+                {#                                    <option value="70">Sheikh Hasina Medical University, Khulna</option>#}
+                {#                                    <option value="62">Sheikh Hasina University</option>#}
+                {#                                    <option value="169">Sheikh Hasina University of Science and Technology</option>#}
+                {#                                    <option value="11">Sher-e-Bangla Agricultural University</option>#}
+                {#                                    <option value="211">Shimanto Adarsha College, Satkhira</option>#}
+                {#                                    <option value="181">Siddheswari Girls College</option>#}
+                {#                                    <option value="9">Sir Salimullah Medical College</option>#}
+                {#                                    <option value="200">Sirajganj Government College, Sirajganj</option>#}
+                {#                                    <option value="127">Sonargaon University</option>#}
+                {#                                    <option value="175">South Asian University</option>#}
+                {#                                    <option value="88">Southeast University</option>#}
+                {#                                    <option value="95">Southern University Bangladesh</option>#}
+                {#                                    <option value="90">Stamford University Bangladesh</option>#}
+                {#                                    <option value="91">State University of Bangladesh</option>#}
+                {#                                    <option value="231">Sunamganj Govt College, Sunamganj</option>#}
+                {#                                    <option value="201">Syed Ahmed College, Bogra</option>#}
+                {#                                    <option value="48">Sylhet Agricultural University</option>#}
+                {#                                    <option value="85">Sylhet International University</option>#}
+                {#                                    <option value="227">Sylhet MC College, Sylhet</option>#}
+                {#                                    <option value="65">Sylhet Medical University</option>#}
+                {#                                    <option value="154">Tagore University of Creative Arts, Uttara, Dhaka, Bangladesh#}
+                {#                                    </option>#}
+                {#                                    <option value="182">Thakurgoan College</option>#}
+                {#                                    <option value="242">Thakurgoan Govt. College</option>#}
+                {#                                    <option value="147">The International University of Scholars</option>#}
+                {#                                    <option value="100">The Millennium University</option>#}
+                {#                                    <option value="79">The People's University of Bangladesh</option>#}
+                {#                                    <option value="170">The University of Comilla</option>#}
+                {#                                    <option value="134">Times University, Bangladesh</option>#}
+                {#                                    <option value="163">Trust University, Barishal</option>#}
+                {#                                    <option value="104">United International University</option>#}
+                {#                                    <option value="77">University of Asia Pacific</option>#}
+                {#                                    <option value="54">University of Barisal</option>#}
+                {#                                    <option value="165">University of Brahmanbaria</option>#}
+                {#                                    <option value="8">University of Chittagong</option>#}
+                {#                                    <option value="152">University of Creative Technology, Chittagong</option>#}
+                {#                                    <option value="86">University of Development Alternative</option>#}
+                {#                                    <option value="7">University of Dhaka</option>#}
+                {#                                    <option value="155">University of Global Village</option>#}
+                {#                                    <option value="108">University of Information Technology &amp; Sciences</option>#}
+                {#                                    <option value="110">University of Liberal Arts Bangladesh</option>#}
+                {#                                    <option value="29">University of Rajshahi</option>#}
+                {#                                    <option value="71">University of Science &amp; Technology Chittagong</option>#}
+                {#                                    <option value="166">University of Skill Enrichment and Technology</option>#}
+                {#                                    <option value="105">University of South Asia</option>#}
+                {#                                    <option value="237">Uttar Bangla College Lalmonirhat</option>#}
+                {#                                    <option value="103">Uttara University</option>#}
+                {#                                    <option value="117">Varendra University</option>#}
+                {#                                    <option value="112">Victoria University of Bangladesh</option>#}
+                {#                                    <option value="98">World University of Bangladesh</option>#}
+                {#                                    <option value="123">Z.H Sikder University of Science &amp; Technology</option>#}
+                {#                                    <option value="158">Z.N.R.F. University of Management Sciences</option>#}
+                {##}
+                {#                                </select>#}
+                {#                            </div>#}
+                {#                        </div>#}
+                {#                        <div class='col-md-4'>#}
+                {#                            <div class='form-group internal'>#}
+                {#                                <select multiple="" class="form-control" name="Expected_Subjects">#}
+                {#                                    <option value="137">Accountancy</option>#}
+                {#                                    <option value="99">Accounting</option>#}
+                {#                                    <option value="167">Accounting &amp; Finance</option>#}
+                {#                                    <option value="264">Accounting and Information Systems</option>#}
+                {#                                    <option value="304">Action and lifelong learning</option>#}
+                {#                                    <option value="346">Additional Math</option>#}
+                {#                                    <option value="146">Agricultural Studies</option>#}
+                {#                                    <option value="305">Agricultural education</option>#}
+                {#                                    <option value="100">Agriculture</option>#}
+                {#                                    <option value="142">Agriculture Studies</option>#}
+                {#                                    <option value="270">Agronomy and Agricultural Extension</option>#}
+                {#                                    <option value="292">Ananda Path (Bangla Quick Reading)</option>#}
+                {#                                    <option value="214">Anthropology</option>#}
+                {#                                    <option value="273">Applied Chemistry &amp; Chemical Engineering</option>#}
+                {#                                    <option value="188">Applied Chemistry and Chemistry</option>#}
+                {#                                    <option value="180">Applied Mathematics</option>#}
+                {#                                    <option value="192">Applied statistics</option>#}
+                {#                                    <option value="101">Arabic</option>#}
+                {#                                    <option value="170">Architecture</option>#}
+                {#                                    <option value="160">Architecture and Planning</option>#}
+                {#                                    <option value="102">Art &amp; Design</option>#}
+                {#                                    <option value="55">Art, Design and Media</option>#}
+                {#                                    <option value="301">Arts and Crafts</option>#}
+                {#                                    <option value="255">BA Honors in Chinese Language and Culture (CLC)</option>#}
+                {#                                    <option value="254">BA Honors in French Language and Culture (FLC)</option>#}
+                {#                                    <option value="256">BA Honors in Japanese Language and Culture (JLC)</option>#}
+                {#                                    <option value="169">Bachelor of Pharmacy (B.Pharm)</option>#}
+                {#                                    <option value="159">Bangla</option>#}
+                {#                                    <option value="311">Bangla Sohopath</option>#}
+                {#                                    <option value="141">Bangladesh &amp; World</option>#}
+                {#                                    <option value="287">Bangladesh And Global Studies</option>#}
+                {#                                    <option value="328">Bangladesh Studies</option>#}
+                {#                                    <option value="309">Bangladesh and world identity</option>#}
+                {#                                    <option value="233">Banking and Insurance</option>#}
+                {#                                    <option value="56">Beauty Therapy and Hairdressing</option>#}
+                {#                                    <option value="295">Bengali grammar and construction</option>#}
+                {#                                    <option value="310">Bengali literature</option>#}
+                {#                                    <option value="261">Biochemistry &amp; Molecular Biology</option>#}
+                {#                                    <option value="181">Biochemistry and Motivation Science</option>#}
+                {#                                    <option value="198">Biological Science</option>#}
+                {#                                    <option value="103">Biology</option>#}
+                {#                                    <option value="127">Biotechnology</option>#}
+                {#                                    <option value="136">Botany</option>#}
+                {#                                    <option value="289">Buddhism and moral education</option>#}
+                {#                                    <option value="276">Building Engineering and Construction Management</option>#}
+                {#                                    <option value="322">Business Org &amp; M.</option>#}
+                {#                                    <option value="104">Business Studies</option>#}
+                {#                                    <option value="317">Business ventures</option>#}
+                {#                                    <option value="57">Business, Administration, Finance and Law</option>#}
+                {#                                    <option value="318">Career education</option>#}
+                {#                                    <option value="306">Charupatha</option>#}
+                {#                                    <option value="277">Chemical and Food Process Engineering</option>#}
+                {#                                    <option value="105">Chemistry</option>#}
+                {#                                    <option value="230">Chinese Language and Culture (CLC)</option>#}
+                {#                                    <option value="290">Christianity and moral education</option>#}
+                {#                                    <option value="58">Citizenship</option>#}
+                {#                                    <option value="147">Civic &amp; Citizenship</option>#}
+                {#                                    <option value="324">Civic &amp; Good Govern</option>#}
+                {#                                    <option value="161">Civil Engineering</option>#}
+                {#                                    <option value="59">Cleaning and Facilities Management</option>#}
+                {#                                    <option value="269">Clinical Psychology</option>#}
+                {#                                    <option value="331">Commerce</option>#}
+                {#                                    <option value="220">Communication Disorders</option>#}
+                {#                                    <option value="106">Computer Science</option>#}
+                {#                                    <option value="165">Computer Science &amp; Engineering</option>#}
+                {#                                    <option value="189">Computer Science and Engineering</option>#}
+                {#                                    <option value="342">Computer Science and ICT</option>#}
+                {#                                    <option value="60">Computer Science, ICT and Digital Skills</option>#}
+                {#                                    <option value="61">Construction, Planning and the Built Environment</option>#}
+                {#                                    <option value="219">Criminology</option>#}
+                {#                                    <option value="272">Crop Science &amp; Technology</option>#}
+                {#                                    <option value="210">Dance</option>#}
+                {#                                    <option value="109">Design &amp; Technology</option>#}
+                {#                                    <option value="332">Design and Communication</option>#}
+                {#                                    <option value="62">Design and Technology</option>#}
+                {#                                    <option value="110">Development Studies</option>#}
+                {#                                    <option value="227">Disaster Management and Vulnerability Studies</option>#}
+                {#                                    <option value="186">Disaster science and management</option>#}
+                {#                                    <option value="297">Domestic science</option>#}
+                {#                                    <option value="111">Drama</option>#}
+                {#                                    <option value="63">Drama, Theatre and Performing Arts</option>#}
+                {#                                    <option value="168">EEE</option>#}
+                {#                                    <option value="65">Early Years and Working with Children</option>#}
+                {#                                    <option value="64">Economics</option>#}
+                {#                                    <option value="316">Economy</option>#}
+                {#                                    <option value="226">Education (B. Ed)</option>#}
+                {#                                    <option value="179">Education and Research</option>#}
+                {#                                    <option value="66">Education and Training</option>#}
+                {#                                    <option value="278">Electrical and Computer Engineering</option>#}
+                {#                                    <option value="187">Electrical and Electronic Engineering</option>#}
+                {#                                    <option value="131">Electronics</option>#}
+                {#                                    <option value="279">Electronics and Telecommunication Engineering</option>#}
+                {#                                    <option value="321">Elementary Mathematics</option>#}
+                {#                                    <option value="291">Elementary science</option>#}
+                {#                                    <option value="67">Energy and Utilities</option>#}
+                {#                                    <option value="164">Engineering</option>#}
+                {#                                    <option value="68">Engineering and Manufacturing</option>#}
+                {#                                    <option value="69">English</option>#}
+                {#                                    <option value="299">English Grammer and Composition</option>#}
+                {#                                    <option value="333">English Language</option>#}
+                {#                                    <option value="253">English for Speakers of Other Languages</option>#}
+                {#                                    <option value="228">English for Speakers of Other Languages (ESOL)</option>#}
+                {#                                    <option value="293">English for Today</option>#}
+                {#                                    <option value="347">English literature</option>#}
+                {#                                    <option value="70">Enterprise</option>#}
+                {#                                    <option value="348">Entrepreneurship</option>#}
+                {#                                    <option value="334">Environmental Management</option>#}
+                {#                                    <option value="171">Environmental Science</option>#}
+                {#                                    <option value="71">Esports</option>#}
+                {#                                    <option value="162">Faculty of Electrical and Electronic Engineering</option>#}
+                {#                                    <option value="335">Fashion &amp; Textiles</option>#}
+                {#                                    <option value="172">Fashion Design or Apparel Merchandising</option>#}
+                {#                                    <option value="150">Finance</option>#}
+                {#                                    <option value="143">Finance &amp; Banking</option>#}
+                {#                                    <option value="72">Finance and Accounting</option>#}
+                {#                                    <option value="73">First Aid</option>#}
+                {#                                    <option value="182">Fisheries</option>#}
+                {#                                    <option value="267">Folklore</option>#}
+                {#                                    <option value="113">Food &amp; Nutrition</option>#}
+                {#                                    <option value="74">Food Manufacturing</option>#}
+                {#                                    <option value="195">Footwear engineering</option>#}
+                {#                                    <option value="135">Forensic Science</option>#}
+                {#                                    <option value="229">French Language and Culture (FLC)</option>#}
+                {#                                    <option value="116">French as a Second Language</option>#}
+                {#                                    <option value="75">Funeral Services</option>#}
+                {#                                    <option value="144">General Science</option>#}
+                {#                                    <option value="76">General Studies</option>#}
+                {#                                    <option value="183">Genetic Engineering &amp; Biotechnology</option>#}
+                {#                                    <option value="77">Geography</option>#}
+                {#                                    <option value="223">Geography and Environment</option>#}
+                {#                                    <option value="184">Geography and environment</option>#}
+                {#                                    <option value="126">Geology</option>#}
+                {#                                    <option value="268">Geology &amp; Mining</option>#}
+                {#                                    <option value="280">Glass and Ceramic Engineering</option>#}
+                {#                                    <option value="114">Global Perspectives</option>#}
+                {#                                    <option value="312">Grammar of Bengali language</option>#}
+                {#                                    <option value="225">Health Economics</option>#}
+                {#                                    <option value="250">Health Economics Institute</option>#}
+                {#                                    <option value="117">Health and Physical Education</option>#}
+                {#                                    <option value="343">Health and Social Care</option>#}
+                {#                                    <option value="78">Health, Social Care and Health Science</option>#}
+                {#                                    <option value="174">Higher Math</option>#}
+                {#                                    <option value="288">Hindu studies</option>#}
+                {#                                    <option value="79">History</option>#}
+                {#                                    <option value="319">History and world civilization of Bangladesh</option>#}
+                {#                                    <option value="148">History of Bangladesh</option>#}
+                {#                                    <option value="158">History of Islam</option>#}
+                {#                                    <option value="80">Home Economics</option>#}
+                {#                                    <option value="129">Home Science</option>#}
+                {#                                    <option value="133">Horticulture</option>#}
+                {#                                    <option value="81">Hospitality and Catering</option>#}
+                {#                                    <option value="313">ICT/Computer</option>#}
+                {#                                    <option value="337">IT</option>#}
+                {#                                    <option value="124">Individuals and Societies</option>#}
+                {#                                    <option value="51">Individuals and societies</option>#}
+                {#                                    <option value="281">Industrial and Production Engineering</option>#}
+                {#                                    <option value="138">Informatics Practices</option>#}
+                {#                                    <option value="274">Information &amp; Communication Engineering</option>#}
+                {#                                    <option value="115">Information &amp; Communication Technology</option>#}
+                {#                                    <option value="139">Information &amp; Technology</option>#}
+                {#                                    <option value="266">Information Science &amp; Library Management</option>#}
+                {#                                    <option value="177">Information Technology</option>#}
+                {#                                    <option value="300">Information and communication technology</option>#}
+                {#                                    <option value="307">Information and communication technology (ICT)</option>#}
+                {#                                    <option value="206">Information technology and library management</option>#}
+                {#                                    <option value="252">Institute of Disaster Management</option>#}
+                {#                                    <option value="251">Institute of Education and Research</option>#}
+                {#                                    <option value="249">Institute of Social Welfare and Research</option>#}
+                {#                                    <option value="236">International Business</option>#}
+                {#                                    <option value="211">International Relation</option>#}
+                {#                                    <option value="239">International Relations</option>#}
+                {#                                    <option value="140">Islam &amp; Moral Education</option>#}
+                {#                                    <option value="145">Islam &amp; Moral EducationInformation &amp; Technology</option>#}
+                {#                                    <option value="302">Islam and moral education</option>#}
+                {#                                    <option value="325">Islamic History</option>#}
+                {#                                    <option value="257">Islamic History &amp; Culture</option>#}
+                {#                                    <option value="205">Islamic History and Culture</option>#}
+                {#                                    <option value="204">Islamic Studies</option>#}
+                {#                                    <option value="327">Islamiyat</option>#}
+                {#                                    <option value="231">Japanese Language and Culture (JLC)</option>#}
+                {#                                    <option value="244">Japanese Studies</option>#}
+                {#                                    <option value="222">Japanese studies</option>#}
+                {#                                    <option value="82">Land-based</option>#}
+                {#                                    <option value="119">Language</option>#}
+                {#                                    <option value="123">Language Acquisition</option>#}
+                {#                                    <option value="246">Language Science</option>#}
+                {#                                    <option value="50">Language acquisition</option>#}
+                {#                                    <option value="303">Language and culture of small ethnic groups</option>#}
+                {#                                    <option value="83">Languages</option>#}
+                {#                                    <option value="155">Law</option>#}
+                {#                                    <option value="260">Law &amp; Land Administration</option>#}
+                {#                                    <option value="196">Leather Products Engineering</option>#}
+                {#                                    <option value="194">Leather engineering</option>#}
+                {#                                    <option value="178">Lether Engineering and Technology</option>#}
+                {#                                    <option value="208">Linguistics</option>#}
+                {#                                    <option value="326">Logic</option>#}
+                {#                                    <option value="149">Management</option>#}
+                {#                                    <option value="248">Management Information Systems</option>#}
+                {#                                    <option value="234">Management and Information System</option>#}
+                {#                                    <option value="265">Management studies</option>#}
+                {#                                    <option value="84">Manufacturing Technologies</option>#}
+                {#                                    <option value="330">Marine Science</option>#}
+                {#                                    <option value="151">Marketing</option>#}
+                {#                                    <option value="166">Marketing and Human Resource Management</option>#}
+                {#                                    <option value="212">Mass Communication and Journalism</option>#}
+                {#                                    <option value="238">Mass media and Journalism</option>#}
+                {#                                    <option value="282">Material Science and Engineering</option>#}
+                {#                                    <option value="275">Materials Science and Engineering</option>#}
+                {#                                    <option value="53">Mathematics</option>#}
+                {#                                    <option value="345">Mathematics B</option>#}
+                {#                                    <option value="340">Mathematics D</option>#}
+                {#                                    <option value="85">Maths and Statistics</option>#}
+                {#                                    <option value="163">Mechanical Engineering</option>#}
+                {#                                    <option value="339">Mechanics</option>#}
+                {#                                    <option value="283">Mechatronics Engineering</option>#}
+                {#                                    <option value="86">Medicine and Dentistry</option>#}
+                {#                                    <option value="132">Microbiology</option>#}
+                {#                                    <option value="87">Music</option>#}
+                {#                                    <option value="118">Native Languages</option>#}
+                {#                                    <option value="190">Nuclear engineering</option>#}
+                {#                                    <option value="130">Nursing</option>#}
+                {#                                    <option value="128">Nutrition and Dietetics</option>#}
+                {#                                    <option value="176">Nutrition and Food Science</option>#}
+                {#                                    <option value="185">Oceanography</option>#}
+                {#                                    <option value="237">Organization Strategy and Leadership</option>#}
+                {#                                    <option value="344">Other</option>#}
+                {#                                    <option value="202">Pali and Buddhist Studies</option>#}
+                {#                                    <option value="216">Peace and Conflict Studies</option>#}
+                {#                                    <option value="199">Persian Language and Literature</option>#}
+                {#                                    <option value="259">Persian language and literature</option>#}
+                {#                                    <option value="203">Philosophy</option>#}
+                {#                                    <option value="107">Physical Education</option>#}
+                {#                                    <option value="88">Physical Education and Sport</option>#}
+                {#                                    <option value="263">Physical Education and Sports Sciences</option>#}
+                {#                                    <option value="108">Physical Science</option>#}
+                {#                                    <option value="197">Physical Sciences</option>#}
+                {#                                    <option value="298">Physical education and health</option>#}
+                {#                                    <option value="320">Physical education, health sciences, and sports</option>#}
+                {#                                    <option value="125">Physics</option>#}
+                {#                                    <option value="154">Political Science</option>#}
+                {#                                    <option value="89">Politics</option>#}
+                {#                                    <option value="315">Politics and citizenship</option>#}
+                {#                                    <option value="215">Population Science</option>#}
+                {#                                    <option value="262">Population Science &amp; Human Resource Development</option>#}
+                {#                                    <option value="241">Population Sciences</option>#}
+                {#                                    <option value="221">Print and Publication Studies</option>#}
+                {#                                    <option value="243">Printing and Publication Studies</option>#}
+                {#                                    <option value="323">Production M. &amp; Marketing</option>#}
+                {#                                    <option value="90">Property and Housing</option>#}
+                {#                                    <option value="152">Psychology</option>#}
+                {#                                    <option value="213">Public Administration</option>#}
+                {#                                    <option value="91">Public Services</option>#}
+                {#                                    <option value="240">Public administration</option>#}
+                {#                                    <option value="338">Pure Mathematics</option>#}
+                {#                                    <option value="92">Religious Studies</option>#}
+                {#                                    <option value="93">Retail and Wholesale</option>#}
+                {#                                    <option value="191">Robotics and Mechanics Engineering</option>#}
+                {#                                    <option value="314">Rochona Somvar</option>#}
+                {#                                    <option value="308">Sahitya Konika</option>#}
+                {#                                    <option value="201">Sanskrit</option>#}
+                {#                                    <option value="294">Saptabarṇā</option>#}
+                {#                                    <option value="296">Science</option>#}
+                {#                                    <option value="341">Science - Combined</option>#}
+                {#                                    <option value="120">Science and Technology</option>#}
+                {#                                    <option value="52">Sciences</option>#}
+                {#                                    <option value="94">Security</option>#}
+                {#                                    <option value="156">Social Science</option>#}
+                {#                                    <option value="121">Social Studies</option>#}
+                {#                                    <option value="224">Social Welfare</option>#}
+                {#                                    <option value="157">Social Work</option>#}
+                {#                                    <option value="153">Sociology</option>#}
+                {#                                    <option value="193">Software engineering</option>#}
+                {#                                    <option value="175">Statistics</option>#}
+                {#                                    <option value="122">Studies in Language and Literature</option>#}
+                {#                                    <option value="49">Studies in language and literature</option>#}
+                {#                                    <option value="242">Television, Film and Photography</option>#}
+                {#                                    <option value="218">Television, Film, and Photography</option>#}
+                {#                                    <option value="173">Textile Engineering</option>#}
+                {#                                    <option value="95">Textiles and Apparel Manufacturing</option>#}
+                {#                                    <option value="54">The arts</option>#}
+                {#                                    <option value="245">Theater and Performance Studies</option>#}
+                {#                                    <option value="258">Theatre</option>#}
+                {#                                    <option value="207">Theatre and Performance Studies</option>#}
+                {#                                    <option value="235">Tourism and Hospitality Management</option>#}
+                {#                                    <option value="96">Transport and Logistics</option>#}
+                {#                                    <option value="336">Travel &amp; Tourism</option>#}
+                {#                                    <option value="97">Travel and Tourism</option>#}
+                {#                                    <option value="284">Urban and Regional Planning</option>#}
+                {#                                    <option value="200">Urdu</option>#}
+                {#                                    <option value="271">Veterinary &amp; Animal Science</option>#}
+                {#                                    <option value="98">Warehousing and Distribution</option>#}
+                {#                                    <option value="217">Women and Gender Studies</option>#}
+                {#                                    <option value="112">World Literature</option>#}
+                {#                                    <option value="209">World Religion and Culture</option>#}
+                {#                                    <option value="134">Zoology</option>#}
+                {#                                    <option value="285">all</option>#}
+                {#                                    <option value="286">science</option>#}
+                {#                                </select>#}
+                {#                            </div>#}
+                {#                        </div>#}
+                {#                    </div>#}
+                {#                </div>#}
+            </form>
+            <center>
+                <button id="submit" class="btn btn-success">Add</button>
+            </center>
+        </div>
+    </div>
+</div>
+
+<script>
+    $('#submit').click(() => {
+        $.ajax({
+            url: '/guardian/create/child',
+            method: 'POST',
+            data: new FormData($('#childform')[0]),
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                window.location = '/guardian/profile/'
+            },
+            error: function (data) {
+                var s = data.responseJSON;
+                for (var k in s) {
+                    $('*[name*="' + k + '"]').css("border-color", "red");
+                    alert('Please fill ' + k);
+                }
+            }
+        })
+    })
+</script>
+</body>

@@ -1,0 +1,2424 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Update your profile</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"
+            integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css"
+          integrity="sha512-nMNlpuaDPrqlEls3IX/Q56H36qvBASwb3ipuo3MxeWbsQB1881ox0cRv7UPTgBlriqoynt35KjEwgGUeUXIPnw=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
+          integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
+    <!-- Font Icon -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css"
+          integrity="sha512-rRQtF4V2wtAvXsou4iUAs2kXHi3Lj9NE7xJR77DE7GHsxgY9RTWy93dzMXgDIG8ToiRTD45VsDNdTiUagOFeZA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
+    <!-- Main css -->
+    <link rel="stylesheet" href="{% static 'Teacher/css/style.css' %}">
+
+
+    <!-- Include the plugin's CSS and JS: -->
+    <style>
+
+
+        .select2-dropdown {
+            top: 25px !important;
+        {#left: 8px !important;#} margin-top: -25px;
+            width: 75% !important;
+        }
+
+
+        /* @extend display-flex; */
+        display-flex, .display-flex, .display-flex-center, .signup-content, .signin-content, .social-login, .socials {
+            display: flex;
+            display: -webkit-flex;
+        }
+
+        /* @extend list-type-ulli; */
+        list-type-ulli, .socials {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* poppins-300 - latin */
+        @font-face {
+            font-family: 'Poppins';
+            font-style: normal;
+            font-weight: 300;
+            src: url("../fonts/poppins/poppins-v5-latin-300.eot");
+            /* IE9 Compat Modes */
+            src: local("Poppins Light"), local("Poppins-Light"), url("../fonts/poppins/poppins-v5-latin-300.eot?#iefix") format("embedded-opentype"), url("../fonts/poppins/poppins-v5-latin-300.woff2") format("woff2"), url("../fonts/poppins/poppins-v5-latin-300.woff") format("woff"), url("../fonts/poppins/poppins-v5-latin-300.ttf") format("truetype"), url("../fonts/poppins/poppins-v5-latin-300.svg#Poppins") format("svg");
+            /* Legacy iOS */
+        }
+
+        /* poppins-300italic - latin */
+        @font-face {
+            font-family: 'Poppins';
+            font-style: italic;
+            font-weight: 300;
+            src: url("../fonts/poppins/poppins-v5-latin-300italic.eot");
+            /* IE9 Compat Modes */
+            src: local("Poppins Light Italic"), local("Poppins-LightItalic"), url("../fonts/poppins/poppins-v5-latin-300italic.eot?#iefix") format("embedded-opentype"), url("../fonts/poppins/poppins-v5-latin-300italic.woff2") format("woff2"), url("../fonts/poppins/poppins-v5-latin-300italic.woff") format("woff"), url("../fonts/poppins/poppins-v5-latin-300italic.ttf") format("truetype"), url("../fonts/poppins/poppins-v5-latin-300italic.svg#Poppins") format("svg");
+            /* Legacy iOS */
+        }
+
+        /* poppins-regular - latin */
+        @font-face {
+            font-family: 'Poppins';
+            font-style: normal;
+            font-weight: 400;
+            src: url("../fonts/poppins/poppins-v5-latin-regular.eot");
+            /* IE9 Compat Modes */
+            src: local("Poppins Regular"), local("Poppins-Regular"), url("../fonts/poppins/poppins-v5-latin-regular.eot?#iefix") format("embedded-opentype"), url("../fonts/poppins/poppins-v5-latin-regular.woff2") format("woff2"), url("../fonts/poppins/poppins-v5-latin-regular.woff") format("woff"), url("../fonts/poppins/poppins-v5-latin-regular.ttf") format("truetype"), url("../fonts/poppins/poppins-v5-latin-regular.svg#Poppins") format("svg");
+            /* Legacy iOS */
+        }
+
+        /* poppins-italic - latin */
+        @font-face {
+            font-family: 'Poppins';
+            font-style: italic;
+            font-weight: 400;
+            src: url("../fonts/poppins/poppins-v5-latin-italic.eot");
+            /* IE9 Compat Modes */
+            src: local("Poppins Italic"), local("Poppins-Italic"), url("../fonts/poppins/poppins-v5-latin-italic.eot?#iefix") format("embedded-opentype"), url("../fonts/poppins/poppins-v5-latin-italic.woff2") format("woff2"), url("../fonts/poppins/poppins-v5-latin-italic.woff") format("woff"), url("../fonts/poppins/poppins-v5-latin-italic.ttf") format("truetype"), url("../fonts/poppins/poppins-v5-latin-italic.svg#Poppins") format("svg");
+            /* Legacy iOS */
+        }
+
+        /* poppins-500 - latin */
+        @font-face {
+            font-family: 'Poppins';
+            font-style: normal;
+            font-weight: 500;
+            src: url("../fonts/poppins/poppins-v5-latin-500.eot");
+            /* IE9 Compat Modes */
+            src: local("Poppins Medium"), local("Poppins-Medium"), url("../fonts/poppins/poppins-v5-latin-500.eot?#iefix") format("embedded-opentype"), url("../fonts/poppins/poppins-v5-latin-500.woff2") format("woff2"), url("../fonts/poppins/poppins-v5-latin-500.woff") format("woff"), url("../fonts/poppins/poppins-v5-latin-500.ttf") format("truetype"), url("../fonts/poppins/poppins-v5-latin-500.svg#Poppins") format("svg");
+            /* Legacy iOS */
+        }
+
+        /* poppins-500italic - latin */
+        @font-face {
+            font-family: 'Poppins';
+            font-style: italic;
+            font-weight: 500;
+            src: url("../fonts/poppins/poppins-v5-latin-500italic.eot");
+            /* IE9 Compat Modes */
+            src: local("Poppins Medium Italic"), local("Poppins-MediumItalic"), url("../fonts/poppins/poppins-v5-latin-500italic.eot?#iefix") format("embedded-opentype"), url("../fonts/poppins/poppins-v5-latin-500italic.woff2") format("woff2"), url("../fonts/poppins/poppins-v5-latin-500italic.woff") format("woff"), url("../fonts/poppins/poppins-v5-latin-500italic.ttf") format("truetype"), url("../fonts/poppins/poppins-v5-latin-500italic.svg#Poppins") format("svg");
+            /* Legacy iOS */
+        }
+
+        /* poppins-600 - latin */
+        @font-face {
+            font-family: 'Poppins';
+            font-style: normal;
+            font-weight: 600;
+            src: url("../fonts/poppins/poppins-v5-latin-600.eot");
+            /* IE9 Compat Modes */
+            src: local("Poppins SemiBold"), local("Poppins-SemiBold"), url("../fonts/poppins/poppins-v5-latin-600.eot?#iefix") format("embedded-opentype"), url("../fonts/poppins/poppins-v5-latin-600.woff2") format("woff2"), url("../fonts/poppins/poppins-v5-latin-600.woff") format("woff"), url("../fonts/poppins/poppins-v5-latin-600.ttf") format("truetype"), url("../fonts/poppins/poppins-v5-latin-600.svg#Poppins") format("svg");
+            /* Legacy iOS */
+        }
+
+        /* poppins-700 - latin */
+        @font-face {
+            font-family: 'Poppins';
+            font-style: normal;
+            font-weight: 700;
+            src: url("../fonts/poppins/poppins-v5-latin-700.eot");
+            /* IE9 Compat Modes */
+            src: local("Poppins Bold"), local("Poppins-Bold"), url("../fonts/poppins/poppins-v5-latin-700.eot?#iefix") format("embedded-opentype"), url("../fonts/poppins/poppins-v5-latin-700.woff2") format("woff2"), url("../fonts/poppins/poppins-v5-latin-700.woff") format("woff"), url("../fonts/poppins/poppins-v5-latin-700.ttf") format("truetype"), url("../fonts/poppins/poppins-v5-latin-700.svg#Poppins") format("svg");
+            /* Legacy iOS */
+        }
+
+        /* poppins-700italic - latin */
+        @font-face {
+            font-family: 'Poppins';
+            font-style: italic;
+            font-weight: 700;
+            src: url("../fonts/poppins/poppins-v5-latin-700italic.eot");
+            /* IE9 Compat Modes */
+            src: local("Poppins Bold Italic"), local("Poppins-BoldItalic"), url("../fonts/poppins/poppins-v5-latin-700italic.eot?#iefix") format("embedded-opentype"), url("../fonts/poppins/poppins-v5-latin-700italic.woff2") format("woff2"), url("../fonts/poppins/poppins-v5-latin-700italic.woff") format("woff"), url("../fonts/poppins/poppins-v5-latin-700italic.ttf") format("truetype"), url("../fonts/poppins/poppins-v5-latin-700italic.svg#Poppins") format("svg");
+            /* Legacy iOS */
+        }
+
+        /* poppins-800 - latin */
+        @font-face {
+            font-family: 'Poppins';
+            font-style: normal;
+            font-weight: 800;
+            src: url("../fonts/poppins/poppins-v5-latin-800.eot");
+            /* IE9 Compat Modes */
+            src: local("Poppins ExtraBold"), local("Poppins-ExtraBold"), url("../fonts/poppins/poppins-v5-latin-800.eot?#iefix") format("embedded-opentype"), url("../fonts/poppins/poppins-v5-latin-800.woff2") format("woff2"), url("../fonts/poppins/poppins-v5-latin-800.woff") format("woff"), url("../fonts/poppins/poppins-v5-latin-800.ttf") format("truetype"), url("../fonts/poppins/poppins-v5-latin-800.svg#Poppins") format("svg");
+            /* Legacy iOS */
+        }
+
+        /* poppins-800italic - latin */
+        @font-face {
+            font-family: 'Poppins';
+            font-style: italic;
+            font-weight: 800;
+            src: url("../fonts/poppins/poppins-v5-latin-800italic.eot");
+            /* IE9 Compat Modes */
+            src: local("Poppins ExtraBold Italic"), local("Poppins-ExtraBoldItalic"), url("../fonts/poppins/poppins-v5-latin-800italic.eot?#iefix") format("embedded-opentype"), url("../fonts/poppins/poppins-v5-latin-800italic.woff2") format("woff2"), url("../fonts/poppins/poppins-v5-latin-800italic.woff") format("woff"), url("../fonts/poppins/poppins-v5-latin-800italic.ttf") format("truetype"), url("../fonts/poppins/poppins-v5-latin-800italic.svg#Poppins") format("svg");
+            /* Legacy iOS */
+        }
+
+        /* poppins-900 - latin */
+        @font-face {
+            font-family: 'Poppins';
+            font-style: normal;
+            font-weight: 900;
+            src: url("../fonts/poppins/poppins-v5-latin-900.eot");
+            /* IE9 Compat Modes */
+            src: local("Poppins Black"), local("Poppins-Black"), url("../fonts/poppins/poppins-v5-latin-900.eot?#iefix") format("embedded-opentype"), url("../fonts/poppins/poppins-v5-latin-900.woff2") format("woff2"), url("../fonts/poppins/poppins-v5-latin-900.woff") format("woff"), url("../fonts/poppins/poppins-v5-latin-900.ttf") format("truetype"), url("../fonts/poppins/poppins-v5-latin-900.svg#Poppins") format("svg");
+            /* Legacy iOS */
+        }
+
+        a:focus, a:active {
+            text-decoration: none;
+            outline: none;
+            transition: all 300ms ease 0s;
+            -moz-transition: all 300ms ease 0s;
+            -webkit-transition: all 300ms ease 0s;
+            -o-transition: all 300ms ease 0s;
+            -ms-transition: all 300ms ease 0s;
+        }
+
+        {#input, select, textarea {#}
+        {#    outline: none;#}
+        {#    appearance: unset !important;#}
+        {#    -moz-appearance: unset !important;#}
+        {#    -webkit-appearance: unset !important;#}
+        {#    -o-appearance: unset !important;#}
+        {#    -ms-appearance: unset !important;#}
+        {# }#}
+
+        input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+            appearance: none !important;
+            -moz-appearance: none !important;
+            -webkit-appearance: none !important;
+            -o-appearance: none !important;
+            -ms-appearance: none !important;
+            margin: 0;
+        }
+
+        select {
+            width: 100% !important;
+        }
+
+        .select2-container {
+            width: 100% !important;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            box-shadow: none !important;
+            -moz-box-shadow: none !important;
+            -webkit-box-shadow: none !important;
+            -o-box-shadow: none !important;
+            -ms-box-shadow: none !important;
+        }
+
+        input[type=checkbox] {
+            appearance: checkbox !important;
+            -moz-appearance: checkbox !important;
+            -webkit-appearance: checkbox !important;
+            -o-appearance: checkbox !important;
+            -ms-appearance: checkbox !important;
+        }
+
+        input[type=radio] {
+            appearance: radio !important;
+            -moz-appearance: radio !important;
+            -webkit-appearance: radio !important;
+            -o-appearance: radio !important;
+            -ms-appearance: radio !important;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        figure > img {
+            height: 50vh;
+        }
+
+        figure {
+            margin: 0;
+        }
+
+        p {
+            margin-bottom: 0px;
+            font-size: 15px;
+            color: #777;
+        }
+
+        h2 {
+            line-height: 1.66;
+            margin: 0;
+            padding: 0;
+            font-weight: bold;
+            color: #222;
+            font-family: Poppins;
+            font-size: 36px;
+        }
+
+        .main {
+            background: #f8f8f8;
+        }
+
+        .clear {
+            clear: both;
+        }
+
+        body {
+            font-size: 15px;
+            line-height: 1.8;
+            color: #222;
+            background: #f8f8f8;
+            font-weight: 400;
+            font-family: Poppins;
+        }
+
+        .container {
+            background: #fff;
+            margin: 0 auto;
+            box-shadow: 0px 15px 16.83px 0.17px rgba(0, 0, 0, 0.05);
+            -moz-box-shadow: 0px 15px 16.83px 0.17px rgba(0, 0, 0, 0.05);
+            -webkit-box-shadow: 0px 15px 16.83px 0.17px rgba(0, 0, 0, 0.05);
+            -o-box-shadow: 0px 15px 16.83px 0.17px rgba(0, 0, 0, 0.05);
+            -ms-box-shadow: 0px 15px 16.83px 0.17px rgba(0, 0, 0, 0.05);
+            border-radius: 20px;
+            -moz-border-radius: 20px;
+            -webkit-border-radius: 20px;
+            -o-border-radius: 20px;
+            -ms-border-radius: 20px;
+        }
+
+        .display-flex {
+            justify-content: space-between;
+            -moz-justify-content: space-between;
+            -webkit-justify-content: space-between;
+            -o-justify-content: space-between;
+            -ms-justify-content: space-between;
+            align-items: center;
+            -moz-align-items: center;
+            -webkit-align-items: center;
+            -o-align-items: center;
+            -ms-align-items: center;
+        }
+
+        .display-flex-center {
+            justify-content: center;
+            -moz-justify-content: center;
+            -webkit-justify-content: center;
+            -o-justify-content: center;
+            -ms-justify-content: center;
+            align-items: center;
+            -moz-align-items: center;
+            -webkit-align-items: center;
+            -o-align-items: center;
+            -ms-align-items: center;
+        }
+
+        .position-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            -moz-transform: translate(-50%, -50%);
+            -webkit-transform: translate(-50%, -50%);
+            -o-transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+        }
+
+
+        .signup-content {
+            padding: 75px 0;
+        }
+
+        .signup-form, .signup-image, .signin-form, .signin-image {
+            overflow: hidden;
+        }
+
+        .signup-image {
+            margin: 0 55px;
+        }
+
+        .form-title {
+            margin-bottom: 33px;
+        }
+
+        .signup-image {
+            margin-top: 45px;
+        }
+
+        figure {
+            margin-bottom: 50px;
+            text-align: center;
+        }
+
+        .form-submit {
+            display: inline-block;
+            background: #6dabe4;
+            color: #fff;
+            border-bottom: none;
+            width: auto;
+            padding: 15px 39px;
+            border-radius: 5px;
+            -moz-border-radius: 5px;
+            -webkit-border-radius: 5px;
+            -o-border-radius: 5px;
+            -ms-border-radius: 5px;
+            margin-top: 25px;
+            cursor: pointer;
+        }
+
+        .form-submit:hover {
+            background: #4292dc;
+        }
+
+        #signin {
+            margin-top: 16px;
+        }
+
+        .signup-image-link {
+            font-size: 14px;
+            color: #222;
+            display: block;
+            text-align: center;
+        }
+
+        .term-service {
+            font-size: 13px;
+            color: #222;
+        }
+
+
+        .register-form {
+            width: 100%;
+        }
+
+        .form-group {
+            position: relative;
+            margin-bottom: 25px;
+            overflow: hidden;
+        }
+
+        .form-group:last-child {
+            margin-bottom: 0px;
+        }
+
+        input {
+            display: block;
+            border: none;
+            border-bottom: 1px solid #999;
+            padding: 6px 30px;
+            font-family: Poppins;
+            box-sizing: border-box;
+        }
+
+        input::-webkit-input-placeholder {
+            color: #999;
+        }
+
+        input::-moz-placeholder {
+            color: #999;
+        }
+
+        input:-ms-input-placeholder {
+            color: #999;
+        }
+
+        input:-moz-placeholder {
+            color: #999;
+        }
+
+        input:focus {
+            border-bottom: 1px solid #222;
+        }
+
+        input:focus::-webkit-input-placeholder {
+            color: #222;
+        }
+
+        input:focus::-moz-placeholder {
+            color: #222;
+        }
+
+        input:focus:-ms-input-placeholder {
+            color: #222;
+        }
+
+        input:focus:-moz-placeholder {
+            color: #222;
+        }
+
+        input[type=checkbox]:not(old) {
+            width: 2em;
+            margin: 0;
+            padding: 0;
+            font-size: 1em;
+        }
+
+        input[type=checkbox]:not(old) + label {
+            display: inline-block;
+            line-height: 1.5em;
+            margin-top: 6px;
+        }
+
+        input[type=checkbox]:not(old) + label > span {
+            display: inline-block;
+            width: 13px;
+            height: 13px;
+            margin-right: 15px;
+            margin-bottom: 3px;
+            border: 1px solid #999;
+            border-radius: 2px;
+            -moz-border-radius: 2px;
+            -webkit-border-radius: 2px;
+            -o-border-radius: 2px;
+            -ms-border-radius: 2px;
+            background: white;
+            background-image: -moz-linear-gradient(white, white);
+            background-image: -ms-linear-gradient(white, white);
+            background-image: -o-linear-gradient(white, white);
+            background-image: -webkit-linear-gradient(white, white);
+            background-image: linear-gradient(white, white);
+            vertical-align: bottom;
+        }
+
+        input[type=checkbox]:not(old):checked + label > span {
+            background-image: -moz-linear-gradient(white, white);
+            background-image: -ms-linear-gradient(white, white);
+            background-image: -o-linear-gradient(white, white);
+            background-image: -webkit-linear-gradient(white, white);
+            background-image: linear-gradient(white, white);
+        }
+
+        input[type=checkbox]:not(old):checked + label > span:before {
+            content: '\f26b';
+            display: block;
+            color: #222;
+            font-size: 11px;
+            line-height: 1.2;
+            text-align: center;
+            font-family: 'Material-Design-Iconic-Font';
+            font-weight: bold;
+        }
+
+        .agree-term {
+            display: inline-block;
+            width: auto;
+        }
+
+        {##}
+        {#label {#}
+        {#    position: absolute;#}
+        {#    left: 0;#}
+        {#    top: 50%;#}
+        {#    transform: translateY(-50%);#}
+        {#    -moz-transform: translateY(-50%);#}
+        {#    -webkit-transform: translateY(-50%);#}
+        {#    -o-transform: translateY(-50%);#}
+        {#    -ms-transform: translateY(-50%);#}
+        {#    color: #222;#}
+        {# } #}
+
+        .label-has-error {
+            top: 22%;
+        }
+
+        label.error {
+            position: relative;
+            background: url("../images/unchecked.gif") no-repeat;
+            background-position-y: 3px;
+            padding-left: 20px;
+            display: block;
+            margin-top: 20px;
+        }
+
+        label.valid {
+            display: block;
+            position: absolute;
+            right: 0;
+            left: auto;
+            margin-top: -6px;
+            width: 20px;
+            height: 20px;
+            background: transparent;
+        }
+
+        label.valid:after {
+            font-family: 'Material-Design-Iconic-Font';
+            content: '\f269';
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            /* right: 0; */
+            font-size: 16px;
+            color: green;
+        }
+
+        .label-agree-term {
+            position: relative;
+            top: 0%;
+            transform: translateY(0);
+            -moz-transform: translateY(0);
+            -webkit-transform: translateY(0);
+            -o-transform: translateY(0);
+            -ms-transform: translateY(0);
+        }
+
+        .material-icons-name {
+            font-size: 18px;
+        }
+
+
+        .social-login {
+            align-items: center;
+            -moz-align-items: center;
+            -webkit-align-items: center;
+            -o-align-items: center;
+            -ms-align-items: center;
+            margin-top: 80px;
+        }
+
+        .social-label {
+            display: inline-block;
+            margin-right: 15px;
+        }
+
+        .socials li {
+            padding: 5px;
+        }
+
+        .socials li:last-child {
+            margin-right: 0px;
+        }
+
+        .socials li a {
+            text-decoration: none;
+        }
+
+        .socials li a i {
+            width: 30px;
+            height: 30px;
+            color: #fff;
+            font-size: 14px;
+            border-radius: 5px;
+            -moz-border-radius: 5px;
+            -webkit-border-radius: 5px;
+            -o-border-radius: 5px;
+            -ms-border-radius: 5px;
+            transform: translateZ(0);
+            -moz-transform: translateZ(0);
+            -webkit-transform: translateZ(0);
+            -o-transform: translateZ(0);
+            -ms-transform: translateZ(0);
+            -webkit-transition-duration: 0.3s;
+            transition-duration: 0.3s;
+            -webkit-transition-property: transform;
+            transition-property: transform;
+            -webkit-transition-timing-function: ease-out;
+            transition-timing-function: ease-out;
+        }
+
+        .socials li:hover a i {
+            -webkit-transform: scale(1.3) translateZ(0);
+            transform: scale(1.3) translateZ(0);
+        }
+
+        .zmdi-facebook {
+            background: #3b5998;
+        }
+
+        .zmdi-twitter {
+            background: #1da0f2;
+        }
+
+        .zmdi-google {
+            background: #e72734;
+        }
+
+        {##}
+        {#.signin-form {#}
+        {#    margin-right: 90px;#}
+        {#    margin-left: 80px;#}
+        {# }#}
+
+        .signin-image {
+            margin-left: 110px;
+            margin-right: 20px;
+            margin-top: 10px;
+        }
+
+        @media screen and (max-width: 1200px) {
+            .container {
+                width: calc(100% - 30px);
+                max-width: 100%;
+            }
+        }
+
+        @media screen and (min-width: 1024px) {
+            .container {
+                max-width: 1200px;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .signup-content, .signin-content {
+                flex-direction: column;
+                -moz-flex-direction: column;
+                -webkit-flex-direction: column;
+                -o-flex-direction: column;
+                -ms-flex-direction: column;
+                justify-content: center;
+                -moz-justify-content: center;
+                -webkit-justify-content: center;
+                -o-justify-content: center;
+                -ms-justify-content: center;
+            }
+
+            .signup-form {
+                margin-left: 0px;
+                margin-right: 0px;
+                padding-left: 0px;
+                /* box-sizing: border-box; */
+            }
+
+            .signin-image {
+                margin-left: 0px;
+                margin-right: 0px;
+                margin-top: 50px;
+                order: 2;
+                -moz-order: 2;
+                -webkit-order: 2;
+                -o-order: 2;
+                -ms-order: 2;
+            }
+
+            .signup-form, .signup-image, .signin-form, .signin-image {
+                width: auto;
+            }
+
+            .social-login {
+                justify-content: center;
+                -moz-justify-content: center;
+                -webkit-justify-content: center;
+                -o-justify-content: center;
+                -ms-justify-content: center;
+            }
+
+            .form-button {
+                text-align: center;
+            }
+
+            .signin-form {
+                order: 1;
+                -moz-order: 1;
+                -webkit-order: 1;
+                -o-order: 1;
+                -ms-order: 1;
+                margin-right: 0px;
+                margin-left: 0px;
+                padding: 0 30px;
+            }
+
+            .form-title {
+                text-align: center;
+            }
+        }
+
+        @media screen and (max-width: 400px) {
+            .social-login {
+                flex-direction: column;
+                -moz-flex-direction: column;
+                -webkit-flex-direction: column;
+                -o-flex-direction: column;
+                -ms-flex-direction: column;
+            }
+
+            .social-label {
+                margin-right: 0px;
+                margin-bottom: 10px;
+            }
+        }
+
+        /*# sourceMappingURL=style.css.map */
+
+
+        @import url("https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap");
+
+        body {
+            background-color: #eeeeee;
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        div {
+            width: 100%;
+        }
+
+        div > nav {
+            height: auto;
+            min-height: 50px;
+            max-height: 100px;
+            width: 100%;
+            background-color: white;
+            color: black;
+        }
+
+        div > nav > div {
+            margin: auto;
+            display: flex;
+            width: 80%;
+            height: 100%;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            color: black;
+        }
+
+        div > nav > div > div {
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        div > nav > div > div:nth-child(1) {
+            font-family: "Shadows Into Light", cursive;
+            text-transform: uppercase;
+        }
+
+        .div3 {
+            text-align: right;
+            display: flex;
+            align-items: center;
+        }
+
+        .div3 > span {
+            margin: 0 10px;
+        }
+
+        .search-area {
+            border: 1px solid #dadbda;
+            border-radius: 3px;
+            transition: ease 1s 0s;
+            background-color: #fbfbfa;
+            text-align: center;
+        }
+
+        .search-area:focus {
+            outline: none;
+            text-align: left;
+        }
+
+        @media only screen and (max-width: 680px) {
+            div > nav > div > div:nth-child(2) {
+                display: none;
+            }
+        }
+
+        @media only screen and (max-width: 360px) {
+            div > nav > div > div:nth-child(1) {
+                margin-bottom: 10px;
+                height: 30px;
+            }
+
+            div > nav > div {
+                display: flex;
+                flex-direction: column;
+            }
+        }
+
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            border-style: dotted;
+            width: 100%;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+
+        h2 {
+            color: #003eaa;
+        }
+
+        h4 {
+            font-size: 25px;
+            font-style: italic;
+        }
+
+        sub {
+            font-size: 12px;
+        }
+
+        .modal-content {
+            width: 290px;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div>
+        <nav style="background-color: lightskyblue">
+            <div>
+                <div>
+                    <img src="https://tuitionwanted.com/wp-content/uploads/2021/06/TutionWanted-120x107.png"
+                         alt="Tuitionwanted.com">
+                </div>
+                <div class="div3">
+                    <span>
+					<a class="profile_view" href="">
+                        Profile <i style="font-size: 35px;" class="zmdi zmdi-account-circle"></i>
+					</a>
+				</span>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+</header>
+<div class="main">
+    <!-- Sign up form -->
+    <form method="POST" class="register-form" id="register-form">
+        <div id="myCarousel" class="carousel slide" data-interval="false" data-ride="carousel">
+            {% csrf_token %}
+            <!-- Indicators -->
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner">
+                <div class="item">
+                    <section class="signup">
+                        <a id="tutvideo" style="font-family: 'Z003'; font-size: 24px" href="/media/tut/tut-1.GIF"
+                           target="_blank">Tutorial for this slide</a>
+                        <div class="container">
+                            <div class="signup-content">
+                                <div class="signup-form">
+                                    <h2 class="form-title">Personal Information</h2>
+                                    <h2 class="form-title">{{ form.pk }}</h2>
+                                    <div class="form-group">
+                                        <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                        {{ form.Name }}
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="phone"><i class="zmdi zmdi-phone
+                                 material-icons-name"></i></label>
+                                        {{ form.Phone }}
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="phone"><i class="zmdi zmdi-lock
+                                 material-icons-name"></i></label>
+                                        {{ form.Password }}
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="tuition_style"><i class="zmdi zmdi-facebook-box
+                                 material-icons-name"></i></label>
+                                        {{ form.Facebook_Link }}
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="expected_salary"><i class="zmdi zmdi-phone
+                                 material-icons-name"></i> Parents phone number</label>
+                                        {{ form.Guardian_phone }}
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="phone"><i class="zmdi zmdi-phone
+                                 material-icons-name"></i> Local guardian phone number</label>
+                                        {{ form.Refer_phone }}
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="re-pass"><i class="zmdi zmdi-format-list-numbered"></i>
+                                            Gender</label>
+                                        {{ form.Gender }}
+                                    </div>
+                                </div>
+                                <div class="signup-image">
+                                    <figure><img
+                                            src="https://www.f-secure.com/en/home/articles/why-do-hackers-want-your-personal-information/_jcr_content/root/responsivegrid/responsivegrid/background_123873599/par/image.coreimg.svg/1628515062927/man-personal-info-check.svg"
+                                            alt="sing up image"></figure>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                <div class="item active">
+                    <section class="signup">
+                        <a id="tutvideo" style="font-family: 'Z003'; font-size: 24px" href="/media/tut/tut-2.GIF"
+                           target="_blank">Tutorial for this slide</a>
+                        <div class="container">
+                            <div class="signup-content">
+                                <div class="signin-form">
+                                    <h2 class="form-title">Areas</h2>
+                                    {#                                    <div class="form-group">#}
+                                    {#                                        <label for="your_name"><i class="zmdi zmdi-google-maps material-icons-name"></i>Present#}
+                                    {#                                            Area</label>#}
+                                    {#                                        {{ form.PresentArea }}#}
+                                    {#                                    </div>#}
+                                    <div class="form-group">
+                                        <label for="your_name"><i class="zmdi zmdi-google-maps material-icons-name"></i>Present
+                                            Address </label>
+                                        <br>
+                                        Division: {{ form.PresentLocationDivision }}<br>
+                                        District: {{ form.PresentLocationDistrict }}<br>
+                                        Thana/Area: {{ form.PresentLocationThana }}
+                                        {{ form.PresentLocation }}
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="your_name"><i class="zmdi zmdi-google-maps zmdi-calendar"></i>Preferred
+                                            Area</label>
+                                        {{ form.PreferredArea }}
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="your_name"><i class="zmdi zzmdi-google-maps"></i>Full permanent
+                                            location</label>
+                                        <br>
+                                        Division: {{ form.PermanentLocationDivision }}<br>
+                                        District: {{ form.PermanentLocationDistrict }}<br>
+                                        Thana/Area: {{ form.PermanentLocationThana }}
+                                        {{ form.PermanentLocation }}
+                                    </div>
+                                </div>
+                                <div class="signup-image">
+                                    <figure><img
+                                            src="/media/map.png"
+                                            alt="sing up image"></figure>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                <div class="item">
+                    <section class="sign-in">
+                        <a id="tutvideo" style="font-family: 'Z003'; font-size: 24px" href="/media/tut/tut-3.GIF"
+                           target="_blank">Tutorial for this slide</a>
+                        <div class="container">
+                            <div class="signin-content">
+                                <div class="signin-image">
+                                    <figure><img src="/media/work.jpg" alt="sing up image"></figure>
+                                </div>
+
+                                <div class="signin-form">
+                                    <h2 class="form-title">Experience Information</h2>
+                                    <div class="form-group">
+                                        <span style="visibility: hidden">{{ form.Experience }}</span>
+                                        <select name="temporary" style="width: 100%; font-size: 16px;"
+                                                id="temporary_experience_class" disabled hidden>
+                                        </select>
+                                        <select name="temporary" style="width: 100%; font-size: 16px;"
+                                                id="temporary_experience_medium" disabled hidden>
+                                        </select>
+                                        <select name="temporary" style="width: 100%; font-size: 16px; height: 10vw"
+                                                id="temporary_experience_subject" disabled multiple hidden>
+                                        </select>
+                                        <table style="">
+                                            <thead><span
+                                                    style="font-size: 16px; font-style: oblique;">Experienced on</span>
+                                            <br>
+                                            {{ Experience }}
+                                            </thead>
+                                            <tbody id="exp_body">
+                                            <tr>
+                                                <th data-formatter="runningFormatter">No.</th>
+                                                <th data-field="class" id="exp_exp_class_header">Class</th>
+                                                <th data-field="medium" id="exp_exp_medium_header">Medium</th>
+                                                <th data-field="subject">Subject</th>
+                                            </tr>
+                                            <tr>
+                                                <td>0</td>
+                                                <td>
+                                                    <button type="button" class="btn btn-primary" data-toggle="modal"
+                                                            data-target="#ClassModalCenterExp" id="class_btn"><i
+                                                            class="fas fa-arrow-up"></i>
+                                                    </button>
+                                                </td>
+                                                <td>
+                                                    <button id="medium_btn" type="button" class="btn btn-primary"
+                                                            data-toggle="modal" data-target="#MediumModalCenterExp"><i
+                                                            class="fas fa-arrow-up"></i>
+                                                    </button>
+                                                </td>
+                                                <td>
+                                                    <button id="subject_btn" type="button" class="btn btn-primary"
+                                                            data-toggle="modal" data-target="#SubjectModalCenterExp"><i
+                                                            class="fas fa-arrow-up"></i><i
+                                                            class="fas fa-arrow-up"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+
+                                        {#                                        <a id="exp_conf_button" type="button" class="btn" href="#exp_body"#}
+                                        {#                                           onclick="addSubject(1)"#}
+                                        {#                                           style="background-color: rgba(0,128,0,0.51); color: black" hidden>Confirm</a>  #}
+                                        <sub>Kindly select your experiences honestly as much as you have</sub>
+                                    </div>
+                                    <div class="form-group">
+                                        <span style="visibility: hidden">{{ form.Preferred }}</span>
+
+                                        <select name="temporary"
+                                                style="width: 100%; font-size: 16px;"
+                                                id="temporary_pref_class" disabled hidden>
+                                        </select>
+                                        <select name="temporary"
+                                                style="width: 100%; font-size: 16px;"
+                                                id="temporary_pref_medium" disabled hidden>
+                                        </select>
+                                        <select name="temporary"
+                                                style="width: 100%; font-size: 16px; height: 10vw"
+                                                id="temporary_pref_subject" disabled multiple hidden>
+                                        </select>
+
+                                        <table>
+                                            <thead><span
+                                                    style="font-size: 16px; font-style: oblique;">Preferred to</span>
+                                            <br>
+                                            {{ Preferred }}
+                                            </thead>
+                                            <tbody id="pref_body">
+                                            <tr>
+                                                <th data-formatter="runningFormatter">No.</th>
+                                                <th data-field="class" id="exp_pref_class_header">Class</th>
+                                                <th data-field="medium" id="exp_pref_medium_header">Medium</th>
+                                                <th data-field="subject">Subject</th>
+                                            </tr>
+                                            <tr>
+                                                <td>0</td>
+                                                <td>
+                                                    <button type="button" class="btn btn-primary" data-toggle="modal"
+                                                            data-target="#ClassModalCenter" id="class_btn"><i
+                                                            class="fas fa-arrow-up"></i>
+                                                    </button>
+                                                </td>
+                                                <td>
+                                                    <button id="medium_btn" type="button" class="btn btn-primary"
+                                                            data-toggle="modal" data-target="#MediumModalCenter"><i
+                                                            class="fas fa-arrow-up"></i>
+                                                    </button>
+                                                </td>
+                                                <td>
+                                                    <button id="subject_btn" type="button" class="btn btn-primary"
+                                                            data-toggle="modal" data-target="#SubjectModalCenter"><i
+                                                            class="fas fa-arrow-up"></i><i
+                                                            class="fas fa-arrow-up"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                        {#                                        <a id="exp_conf_button" type="button" class="btn" href="#pref_body"#}
+                                        {#                                           onclick="addSubject(0)"#}
+                                        {#                                           style="background-color: rgba(0,128,0,0.51); color: black" hidden>Confirm</a> #}
+                                        <sub>Kindly select your preferred class/classes honestly as many as you able to
+                                            teach</sub>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                <div class="item">
+                    <section class="signup">
+                        <a id="tutvideo" style="font-family: 'Z003'; font-size: 24px" href="/media/tut/tut-4.GIF"
+                           target="_blank">Tutorial for this slide</a>
+                        <div class="container">
+                            <div class="signup-content">
+                                <div class="signin-form">
+                                    <h2 class="form-title">Educational Information</h2>
+                                    <h4 class="form-title">Graduation/Diploma</h4>
+                                    <div class="form-group">
+                                        <label for="your_name"><i class="zmdi zmdi-book material-icons-name"></i>Graduation
+                                            institute</label>
+
+                                        {{ form.Graduation_Institute }}
+                                    </div>
+                                    <div class="form-group" id="other-university" hidden>
+                                        <label for="your_name"><i class="zmdi zmdi-border-color"></i>Name of others
+                                            University
+                                        </label>
+                                        {{ form.Oth_Graduation_Institute }}
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="your_name"><i class="zmdi zmdi-border-color"></i>Abroad University
+                                        </label>
+                                        {{ form.Abroad }}
+                                    </div>
+                                    <div class="form-group" id="abroad-university">
+                                        <label for="your_name"><i class="zmdi zmdi-border-color"></i>Name of abroad
+                                            University
+                                        </label>
+                                        {{ form.AbroadUniversity }}
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="your_name"><i class="zmdi zmdi-book material-icons-name"></i>Graduation
+                                            subject</label>
+                                        {{ form.Graduation_Subject }}
+                                    </div>
+                                    <div class="form-group">
+                                        {{ form.Graduation_GPA }}
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="your_name"><i class="zmdi zmdi-book zmdi-calendar"></i>Graduation
+                                            Year</label>
+                                        {{ form.Graduation_Year }}
+                                    </div>
+                                </div>
+                                <div class="signup-image">
+                                    <figure><img
+                                            src="/media/graduation.png"
+                                            alt="sing up image"></figure>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <hr>
+                    <section class="signup">
+                        <div class="container">
+                            <div class="signup-content">
+                                <div class="signin-form">
+                                    <h4 class="form-title">Post Graduation</h4>
+                                    <div class="form-group">
+                                        <label for="your_name"><i class="zmdi zmdi-book material-icons-name"></i>Post
+                                            Graduation
+                                            institute</label>
+                                        {{ form.Post_Graduation_Institute }}
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="your_name"><i class="zmdi zmdi-book material-icons-name"></i>Post
+                                            Graduation
+                                            subject</label>
+                                        {{ form.Post_Graduation_Subject }}
+                                    </div>
+                                    <div class="form-group">
+                                        {{ form.Post_Graduation_GPA }}
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="your_name"><i class="zmdi zmdi-book zmdi-calendar"></i>Post
+                                            Graduation
+                                            Year</label>
+                                        {{ form.Post_Graduation_Year }}
+                                    </div>
+
+                                </div>
+                                <div class="signup-image">
+                                    <figure><img
+                                            src="/media/books.png"
+                                            alt="sing up image"></figure>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                <div class="item">
+                    <section class="sign-in">
+                        <a id="tutvideo" style="font-family: 'Z003'; font-size: 24px" href="/media/tut/tut-5.GIF"
+                           target="_blank">Tutorial for this slide</a>
+                        <div class="container">
+                            <div class="signin-content">
+                                <div class="signin-image">
+                                    <figure><img src="/media/school.svg" alt="sing up image"></figure>
+                                </div>
+
+                                <div class="signin-form">
+                                    <h4 class="form-title">SSC</h4>
+                                    <div class="form-group"><label for="your_name"
+                                                                   style="position: relative; float: left;"><i
+                                            class="zmdi zmdi-book material-icons-name"></i>Cadet college background:
+                                    </label>{{ form.Cadet }}</div>
+                                    <div class="form-group">
+                                        <label for="your_name"><i
+                                                class="zmdi zmdi-book material-icons-name"></i>SSC Institute</label>
+                                        {{ form.SSC_Institute }}
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="your_name"><i
+                                                class="zmdi zmdi-book material-icons-name"></i>SSC Group</label>
+                                        {{ form.SSC_Subject }}
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="your_name"><i class="zmdi zmdi-book zmdi-translate"></i>SSC
+                                            Medium</label>
+                                        {{ form.SSC_MEDIUM }}
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="your_name"><i class="zmdi zmdi-book zmdi-translate"></i>Curriculum:
+                                        </label>
+                                        {{ form.SSC_MEDIUM_Curriculum }}
+                                    </div>
+                                    <div class="form-group">
+                                        {{ form.SSC_GPA }}
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="your_name">Golden</label>
+                                        {{ form.SSC_GOLDEN }}
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="your_name"><i class="zmdi zmdi-book zmdi-calendar"></i>SSC
+                                            Year</label>
+                                        {{ form.SSC_Year }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <hr>
+                    {#                </div>#}
+                    {#                <div class="item">#}
+                    <section class="sign-in">
+                        <div class="container">
+                            <div class="signin-content">
+                                <div class="signin-image">
+                                    <figure><img src="/media/college_girl.png" alt="sing up image"></figure>
+                                </div>
+
+                                <div class="signin-form">
+                                    <h4 class="form-title">HSC</h4>
+                                    <div class="form-group">
+                                        <label for="your_name"><i
+                                                class="zmdi zmdi-book material-icons-name"></i>HSC Institute</label>
+                                        {{ form.HSC_Institute }}
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="your_name"><i
+                                                class="zmdi zmdi-book material-icons-name"></i>HSC Group</label>
+                                        {{ form.HSC_Subject }}
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="your_name"><i class="zmdi zmdi-book zmdi-translate"></i>HSC
+                                            Medium</label>
+                                        {{ form.HSC_MEDIUM }}
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="your_name"><i class="zmdi zmdi-book zmdi-translate"></i>Curriculum:
+                                        </label>
+                                        {{ form.HSC_MEDIUM_Curriculum }}
+                                    </div>
+                                    <div class="form-group">
+                                        {{ form.HSC_GPA }}
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="your_name">Golden</label>
+                                        {{ form.HSC_GOLDEN }}
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="your_name"><i class="zmdi zmdi-book zmdi-calendar"></i>HSC
+                                            Year</label>
+                                        {{ form.HSC_Year }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                <div class="item" style="width: 100vw;">
+                    <section class="signup">
+                        <a id="tutvideo" style="font-family: 'Z003'; font-size: 24px" href="/media/tut/tut-6.GIF"
+                           target="_blank">Tutorial for this slide</a>
+                        <div class="container">
+                            <div class="signup-content">
+                                <div class="signin-form">
+                                    <h2 class="form-title">Information extension</h2>
+                                    <style>
+                                        .img_a {
+                                            width: 45.5vw;
+                                        }
+                                    </style>
+                                    <div>
+                                        <table style="width: 100%">
+                                            <tr>
+                                                <td onclick="browse_ava()">Your formal photo<img class="img_a"
+                                                                                                 id="imgava"
+                                                                                                 src="{{ Avatar_url }}">
+                                                </td>
+                                                <td onclick="browse_sid()">Your student ID<img class="img_a" id="imgsid"
+                                                                                               src="{{ StudentID_url }}">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td onclick="browse_nid()">NID/Driving
+                                                    linc./Passport/Birth Cert.<img class="img_a" id="imgnid"
+                                                                                   src="{{ NID_url }}">
+                                                </td>
+                                                <td onclick="browse_crt()">Your
+                                                    any certificate<img class="img_a" id="imgcrt"
+                                                                        src="{{ Certificate_url }}">
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <div class="form-group" hidden>
+                                            <div class="form-group"><label for="your_name"><i
+                                                    class="zmdi zmdi-book zmdi-border-color"></i>NID/Driving
+                                                linc./Passport</label>
+                                                {{ form.NID }}
+                                            </div>
+                                        </div>
+                                        <div class="form-group" hidden>
+                                            <div>
+                                                <label for="name"><i
+                                                        class="zmdi zmdi-account-box material-icons-name"></i> Your
+                                                    image</label>
+                                                {{ form.Avatar }}
+                                            </div>
+                                        </div>
+                                        <div class="form-group" hidden><label for="your_name">
+                                            <i class="zmdi zmdi-image"></i>
+                                            Your Student ID</label>
+                                            {{ form.StudentID }}
+                                        </div>
+                                        <div class="form-group" hidden><label for="your_name">
+                                            <i class="zmdi zmdi-image"></i>
+                                            Any important certificate you want to submit</label>
+                                            {{ form.Certificate }}
+                                        </div>
+                                        <br>
+                                        <hr>
+                                        <br>
+                                        <div class="form-group">
+                                            <label for="your_name"><i class="zmdi zmdi-border-color"></i>Physiotherapist
+                                            </label>
+                                            {{ form.Physiotherapist }}
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="your_name"><i
+                                                    class="zmdi zmdi-book zmdi-border-color"></i>Spoken
+                                                Teacher</label>
+                                            {{ form.Spoken }}
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="your_name"><i
+                                                    class="zmdi zmdi-book zmdi-border-color"></i>Drawing
+                                                Teacher</label>
+                                            {{ form.Drawing }}
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="your_name"><i
+                                                    class="zmdi zmdi-book zmdi-border-color"></i>Martial
+                                                arts Trainer
+                                            </label>
+                                            {{ form.MartialArts }}
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="your_name"><i
+                                                    class="zmdi zmdi-book zmdi-border-color"></i>Hafiz/Hafiza(Quran
+                                                shikkha)</label>
+                                            {{ form.Hafiz }}
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="your_name"><i
+                                                    class="zmdi zmdi-book zmdi-border-color"></i>TOFEL
+                                                Teacher</label>
+                                            {{ form.TOFEL }}
+                                            {{ form.TOFELPoint }}
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="your_name"><i
+                                                    class="zmdi zmdi-book zmdi-border-color"></i>Music
+                                                Teacher</label>
+                                            {{ form.Music }}
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="your_name"><i
+                                                    class="zmdi zmdi-book zmdi-border-color"></i>Dance
+                                                Teacher</label>
+                                            {{ form.Dance }}
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="your_name"><i
+                                                    class="zmdi zmdi-book zmdi-border-color"></i>GMAT
+                                                Teacher</label>
+                                            {{ form.GMAT }}
+                                            {{ form.GMATPoint }}
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="your_name"><i
+                                                    class="zmdi zmdi-book zmdi-border-color"></i>IELTS
+                                                Teacher</label>
+                                            {{ form.IELTS }}
+                                            {{ form.IELTSPoint }}
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="your_name"><i
+                                                    class="zmdi zmdi-book zmdi-border-color"></i>GRE Teacher</label>
+                                            {{ form.GRE }}
+                                            {{ form.GREPoint }}
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="pass"><i class="zmdi zmdi-format-list-numbered"></i>
+                                                Blood
+                                                group</label>
+                                            {{ form.BloodGroup }}
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="re-pass"><i
+                                                    class="zmdi zmdi-format-list-numbered"></i>
+                                                Religion</label>
+                                            {{ form.Religion }}
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="your_name"><i
+                                                    class="zmdi zmdi-book zmdi-border-color"></i>Hand
+                                                Writing</label>
+                                            {{ form.HandWriting }}
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="re-pass"><i
+                                                    class="zmdi zmdi-format-list-numbered"></i> Your Age
+                                                range</label>
+                                            {{ form.Age }}
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="your_name"><i
+                                                    class="zmdi zmdi-book material-icons-name"></i>Tuition
+                                                Style</label>
+                                            {{ form.TuitionStyle }}
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="your_name"><i class="zmdi zmdi-border-color"></i>I
+                                                am a
+                                                admission teacher
+                                                of
+                                            </label>
+                                            {{ form.Admission }}
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="re-pass"><i
+                                                    class="zmdi zmdi-format-list-numbered"></i> Expected
+                                                student style</label>
+                                            {{ form.Type }}
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="re-pass"><i
+                                                    class="zmdi zmdi-format-list-numbered"></i> Your
+                                                Birth
+                                                Date</label>
+                                            {{ form.BirthDate }}
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="your_name"><i class="zmdi zmdi-border-color"></i>I
+                                                am a teacher
+                                                of
+                                            </label>
+                                            {{ form.ImATeacherOf }}
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="your_name"><i class="zmdi zmdi-border-color"></i>Coaching
+                                                Center
+                                                Name</label>
+                                            {{ form.CoachingCenterName }}
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="email"><i class="zmdi zmdi-email"></i> What is your
+                                                email
+                                                address
+                                            </label>
+                                            {{ form.Email }}
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="your_name">Expertise in any field</label>
+                                            {{ form.Expertise }}
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="your_name"><i
+                                                    class="zmdi zmdi-book material-icons-name"></i>
+                                                Expected
+                                                Salary</label>
+                                            {{ form.ExpectedSalary }}
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="your_name"><i
+                                                    class="zmdi zmdi-book zmdi-border-color"></i>Note </label>
+                                            {{ form.Note }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <div class="item">
+                    <a id="tutvideo" style="font-family: 'Z003'; font-size: 24px" href="/media/tut/tut-7.GIF"
+                       target="_blank">Tutorial for this slide</a>
+                    <center>
+                        <h1>Congratulations<span style="font-size: 35px; font-style: italic">!</span></h1>
+                        <h4>Your profile is completed </h4>
+                        <br>
+                        <h5>
+                            Bangladesh Tutor Providers' Association (BTPA) কর্তৃক নির্ধারিত সার্ভিস চার্জ :</h5>
+                        <h4>
+                            <center>
+                                শর্ত ১: প্রথম ক্লাস থেকে শুরু করে ৮ দিনের মধ্যে ৬০% পরিশোধ করতে হবে<br>
+                                <br>
+                                শর্ত ২: প্রথম ক্লাস থেকে শুরু করে ৮ দিনের মধ্যে ৩০% এবং বকেয়া ৩০% বেতনের পর<br>
+                                <h1 style="color:red">প্রথম শর্ত পালনকারীকে দ্রুত সময়ের মধ্যে পরবর্তী টিউশন দেওয়ার
+                                    ক্ষেত্রে অগ্রঅধিকার দেওয়া হবে</h1>
+                                <i class="fas fa-arrow-right"></i> ১ মাসের টিউশন হলে ৩০%<br>
+                                <i class="fas fa-arrow-right"></i> ২মাসের টিউশন হলে ৪০%<br>
+                                <i class="fas fa-arrow-right"></i> কোর্স হলে ৩০%<br>
+                            </center>
+                        </h4>
+
+                    </center>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                </div>
+            </div>
+
+            <!-- Left and right controls -->
+        </div>
+    </form>
+    <div class="modal fade" id="ClassModalCenter" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Select Class</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <ul class="list-group" id="class_list">
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="MediumModalCenter" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Select Medium</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <ul class="list-group" id="medium_list">
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="SubjectModalCenter" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Add subject</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <ul class="list-group list-group-flush" id="subject_list"></ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="SelectPrefSubject()">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="ClassModalCenterExp" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Select Class</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <ul class="list-group" id="class_list_exp">
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="MediumModalCenterExp" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Select Medium</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <ul class="list-group" id="medium_list_exp">
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="SubjectModalCenterExp" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Add Subject</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <ul class="list-group list-group-flush" id="subject_list_exp"></ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="SelectExpSubject()">OK</button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <center>
+        <button class="form-group form-button btn btn-success" href="#myCarousel"
+                onclick="$('#prev').click()">
+            <i class="fas fa-arrow-left"></i>
+            Previous
+        </button>
+        <span>
+            <a class="profile_view" href=""><i style="font-size: 35px;" class="zmdi zmdi-account-circle"></i></a>
+        </span>
+        <button class="form-group form-button btn btn-success" href="#myCarousel"
+                onclick="FromSubmit()">
+            Next <i class="fas fa-arrow-right"></i>
+        </button>
+        <button class="form-group form-button btn btn-success" href="#myCarousel" data-slide="next" id="nxt"
+                style="visibility: hidden">
+        </button>
+        <button class="form-group form-button btn btn-success" href="#myCarousel" data-slide="prev" id="prev"
+                style="visibility: hidden">
+        </button>
+    </center>
+</div>
+<!-- <div class="text-center p-2" style="background-color: rgba(0, 0, 0, 0.05);">#}
+{#    © {% now "Y" %} Copyright:#}
+{#    <a class="text-reset fw-bold" href="https://www.facebook.com/tovfikur">Tovfikur</a> All rights#}
+{#    reserved.#}
+{# </div> -->
+
+
+<script>
+    var level = ''
+    var med = ''
+
+    function ChangePrefSubject() {
+        $.ajax({
+            url: '/teacher/api/class/subject/?medium=1&level=1'
+        })
+    }
+
+
+    var avaloadFile = function (event) {
+        var output = document.getElementById('imgava');
+        output.src = URL.createObjectURL(event.target.files[0]);
+        output.onload = function () {
+            URL.revokeObjectURL(output.src) // free memory
+        }
+    };
+
+    var sidloadFile = function (event) {
+        var output = document.getElementById('imgsid');
+        output.src = URL.createObjectURL(event.target.files[0]);
+        output.onload = function () {
+            URL.revokeObjectURL(output.src) // free memory
+        }
+    };
+
+    var nidloadFile = function (event) {
+        var output = document.getElementById('imgnid');
+        output.src = URL.createObjectURL(event.target.files[0]);
+        output.onload = function () {
+            URL.revokeObjectURL(output.src) // free memory
+        }
+    };
+
+    var crtoadFile = function (event) {
+        var output = document.getElementById('imgcrt');
+        output.src = URL.createObjectURL(event.target.files[0]);
+        output.onload = function () {
+            URL.revokeObjectURL(output.src) // free memory
+        }
+    };
+
+    function browse_ava() {
+        $('#id_Avatar').click()
+    }
+
+    function browse_sid() {
+        $('#id_StudentID').click()
+    }
+
+    function browse_nid() {
+        $('#id_NID').click()
+    }
+
+    function browse_crt() {
+        $('#id_Certificate').click()
+    }
+
+    function previewFile(input) {
+        var file = $("input[type=file]").get(0).files[0];
+
+        if (file) {
+            var reader = new FileReader();
+
+            reader.onload = function () {
+                $("#previewImg").attr("src", reader.result);
+            }
+
+            reader.readAsDataURL(file);
+        }
+    }
+
+
+    window.onload = $('.profile_view').attr("href", "/teacher/view/?id=" + window.location.pathname.replace('/teacher/update/', ''))
+
+    // JavaScript function to get cookie by name; retrieved from https://docs.djangoproject.com/en/3.1/ref/csrf/
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    var huda = 0
+
+    function CheckToogle(elem) {
+        var chekbox = $(elem).children().children().first();
+        chekbox.prop("checked", !chekbox.prop("checked"));
+        if (chekbox.prop("checked") == true) {
+            $(elem).css("background", "#00ff6496");
+        } else {
+            $(elem).css("background", "");
+        }
+    }
+
+    var xppc = 0
+    var xpec = 0
+
+    function delete_teaching_section(id, elem, xp) {
+        if (xp) {
+            xpec = xpec - 1
+        } else {
+            xppc = xppc - 1
+        }
+        $.ajax({
+            url: '/teacher/api/update/delxp?id=' + id,
+            success: () => {
+                $(elem).parent().parent().remove();
+                $('#id_Experience option[value="' + id + '"]').remove();
+                $('#id_Preferred option[value="' + id + '"]').remove();
+            }
+        })
+    }
+
+    function delete_teaching_section_selected(id, elem, xp) {
+        if (xp) {
+            xpec = xpec - 1
+        } else {
+            xppc = xppc - 1
+        }
+        $.ajax({
+            url: '/teacher/api/update/delxp?id=' + id,
+            success: () => {
+                $(elem).parent().remove();
+                $('#id_Experience option[value="' + id + '"]').remove();
+                $('#id_Preferred option[value="' + id + '"]').remove();
+            }
+        })
+    }
+
+
+    function add_other_university(name) {
+        $.ajax({
+            url: '/teacher/api/add/university?name=' + name,
+            success: (data) => {
+                $('#id_Graduation_Institute').append('<option value=' + data['university'] + ' selected>' + name + '</option>')
+            }
+        })
+    }
+
+    function FetchSubject(level, medium, elem) {
+        $.ajax({
+            url: '/teacher/api/class/subject/?level=' + level + '&medium=' + medium,
+            success: (data) => {
+                elem.empty()
+                $.each(data, (key, value) => {
+                    elem.append('<li onclick="CheckToogle(this)" class="list-group-item">' +
+                        '<div class="custom-control custom-checkbox"> ' +
+                        '<input type="checkbox" text="' + value['Title'] + '" class="custom-control-input subject" value="' + value['id'] + '" hidden> ' +
+                        '<label class="custom-control-label" for="check1">' + value['Title'] + '</label> ' +
+                        '</div> ' +
+                        '</li>')
+                })
+            }
+        })
+    }
+
+
+    function SelectPrefClass(value, name) {
+        level = value;
+        $('#temporary_pref_class').empty()
+        $('#exp_pref_class_header').empty()
+        $('#exp_pref_class_header').text(name)
+        $('#exp_pref_class_header').css('color', 'red');
+        $('#ClassModalCenter').modal('hide')
+        $('#temporary_pref_class').append('<option value="' + value + '" selected>' + name + '</option>')
+    }
+
+    function SelectPrefMedium(value, name) {
+        $('#temporary_pref_medium').empty()
+        $('#exp_pref_medium_header').empty()
+        $('#exp_pref_medium_header').text(name)
+        $('#exp_pref_medium_header').css('color', 'red');
+        $('#MediumModalCenter').modal('hide')
+        $('#temporary_pref_medium').append('<option value="' + value + '" selected>' + name + '</option>')
+        FetchSubject($('#temporary_pref_class').val(), $('#temporary_pref_medium').val(), $('#subject_list'))
+    }
+
+    function SelectPrefSubject() {
+        $('#temporary_pref_subject').empty()
+        $('#subject_list input:checked').each((key, value) => {
+            $(value).parent().parent().css("background", "")
+            $('#temporary_pref_subject').append('<option value="' + value.value + '" selected>' + $(value).attr('text') + '</option>')
+
+        })
+        $('#SubjectModalCenter').modal('hide')
+        $('#exp_pref_class_header').text('Class')
+        $('#exp_pref_class_header').css('color', 'black');
+        $('#exp_pref_medium_header').text('Medium')
+        $('#exp_pref_medium_header').css('color', 'black');
+        addSubject(0)
+
+    }
+
+    function SelectExpClass(value, name) {
+        $('#temporary_experience_class').empty()
+        $('#exp_exp_class_header').empty()
+        $('#exp_exp_class_header').text(name)
+        $('#exp_exp_class_header').css('color', 'red');
+        $('#ClassModalCenterExp').modal('hide')
+        $('#temporary_experience_class').append('<option value="' + value + '" selected>' + name + '</option>')
+    }
+
+    function SelectExpMedium(value, name) {
+        $('#temporary_experience_medium').empty()
+        $('#exp_exp_medium_header').empty()
+        $('#exp_exp_medium_header').text(name)
+        $('#exp_exp_medium_header').css('color', 'red');
+        $('#MediumModalCenterExp').modal('hide')
+        $('#temporary_experience_medium').append('<option value="' + value + '" selected>' + name + '</option>')
+        FetchSubject($('#temporary_experience_class').val(), $('#temporary_experience_medium').val(), $('#subject_list_exp'))
+
+    }
+
+    function SelectExpSubject() {
+        $('#temporary_experience_subject').empty()
+        $('#subject_list_exp input:checked').each((key, value) => {
+            $(value).parent().parent().css("background", "")
+            $('#temporary_experience_subject').append('<option value="' + value.value + '" selected>' + $(value).attr('text') + '</option>')
+        })
+        $('#SubjectModalCenterExp').modal('hide')
+        $('#exp_exp_class_header').text('Class')
+        $('#exp_exp_class_header').css('color', 'black');
+        $('#exp_exp_medium_header').text('Medium')
+        $('#exp_exp_medium_header').css('color', 'black');
+        addSubject(1)
+
+    }
+
+
+    function FromSubmit() {
+        var form = $('form')[0];
+        var data = new FormData(form);
+        {#try {#}
+        {#    data.append('Avatar', $('#id_Avatar').val());#}
+        {# } catch (e) {#}
+        {#    alert('You can add your image')#}
+        {# }#}
+        {#try {#}
+        {#    data.append('NID', $('#id_NID').val());#}
+        {# } catch (e) {#}
+        {#    alert('You can add nid image')#}
+        {# }#}
+        {#try {#}
+        {#    data.append('StudentID', $('#id_StudentID').val());#}
+        {# } catch (e) {#}
+        {#    alert('You can add student image')#}
+        {# }#}
+        $.ajax({
+            type: "PUT",
+            enctype: 'multipart/form-data',
+            url: "/teacher/api/update/" + window.location.pathname.replace('/teacher/update/', ''),
+            data: data,
+            processData: false,
+            contentType: false,
+            cache: false,
+            timeout: 800000,
+            headers: {
+                "X-CSRFToken": getCookie("csrftoken")
+            },
+            success: function (data) {
+                console.log("SUCCESS : ", data);
+                $('#nxt').click();
+                window.scrollTo(0, 0);
+                var ko = confirm('Do you need tutorial for this page')
+                if (ko) {
+                    window.open($('.active a')[0].href);
+                }
+            },
+
+            error: function (e) {
+                $.each(e.responseJSON, (data) => {
+                    if (data == 'SSC_GOLDEN') {
+                        $('#id_SSC_GOLDEN').val('false')
+                    } else if (data == 'HSC_GOLDEN') {
+                        $('#id_HSC_GOLDEN').val('false')
+                    } else {
+                        $("#id_" + data).css('background-color', 'red');
+                    }
+                    {#$('#prev').click()#}
+                })
+            }
+        });
+    }
+
+
+    function FPrLDivi(elem) {
+        $.ajax({
+            url: '/teacher/api/areas/district/?id=' + $(elem).val(),
+            success: (data) => {
+                $('#id_PresentLocationDistrict').empty()
+                $.each(data, (key, value) => {
+                    $('#id_PresentLocationDistrict').append('<option value="' + value['id'] + '">' + value['Name'] + '</option>')
+
+                })
+            }
+        })
+    }
+
+    function FPrLDist(elem) {
+        $.ajax({
+            url: '/teacher/api/areas/thana/?id=' + $(elem).val(),
+            success: (data) => {
+                $('#id_PresentLocationThana').empty()
+                $('#location_list').empty()
+                $('#id_PreferredArea').empty()
+                $.each(data, (key, value) => {
+                    $('#id_PresentLocationThana').append('<option value="' + value['id'] + '">' + value['Name'] + '</option>')
+                    $('#id_PreferredArea').append('<option value="' + value['id'] + '">' + value['Name'] + '</option>')
+                    $('#location_list').append('<option onclick="AddPrefArea(this, ' + value['id'] + ',\'' + value['Name'] + '\')" value="' + value['id'] + '">' + value['Name'] + '</option>')
+                })
+            }
+        })
+    }
+
+
+    function FPeLDivi(elem) {
+        $.ajax({
+            url: '/teacher/api/areas/district/?id=' + $(elem).val(),
+            success: (data) => {
+                $('#id_PermanentLocationDistrict').empty()
+                $.each(data, (key, value) => {
+                    $('#id_PermanentLocationDistrict').append('<option value="' + value['id'] + '">' + value['Name'] + '</option>')
+                })
+            }
+        })
+    }
+
+    function FPeLDist(elem) {
+        $.ajax({
+            url: '/teacher/api/areas/thana/?id=' + $(elem).val(),
+            success: (data) => {
+                $('#id_PermanentLocationThana').empty()
+                $.each(data, (key, value) => {
+                    $('#id_PermanentLocationThana').append('<option value="' + value['id'] + '">' + value['Name'] + '</option>')
+                })
+            }
+        })
+    }
+
+
+    function show_university_name() {
+        $('#other-university').show()
+    }
+
+    $(function () {
+        $('#id_SSC_MEDIUM_Curriculum').hide()
+        $('#id_HSC_MEDIUM_Curriculum').hide()
+
+        {#$('#id_Graduation_Institute').append('<option value="13" onclick="">Others</option>')#}
+        $('#id_Graduation_Institute').append('<option value="13" onclick="show_university_name()">Others</option>')
+
+        $('#Avatar-clear_id').remove();
+        $('#NID-clear_id').remove();
+        $('#StudentID-clear_id').remove();
+        $('#Certificate-clear_id').remove();
+
+        $('[for=Avatar-clear_id]').remove();
+        $('[for=NID-clear_id]').remove();
+        $('[for=StudentID-clear_id]').remove();
+        $('[for=Certificate-clear_id]').remove();
+
+        if (!$('#id_Abroad')[0].checked) {
+            $('#abroad-university').hide()
+        }
+
+        $('#id_Abroad').on('click', () => {
+            $('#abroad-university').show()
+        })
+
+        $('#id_SSC_MEDIUM').on('change', function () {
+            if (this.value == 2) {
+                $('#id_SSC_MEDIUM_Curriculum').show()
+            } else {
+                $('#id_SSC_MEDIUM_Curriculum').hide()
+            }
+        });
+
+        $('#id_HSC_MEDIUM').on('change', function () {
+            if (this.value == 2) {
+                $('#id_HSC_MEDIUM_Curriculum').show()
+            } else {
+                $('#id_HSC_MEDIUM_Curriculum').hide()
+            }
+        });
+
+
+        $.ajax({
+            url: '/teacher/api/class/',
+            success: (data) => {
+                $.each(data, (key, value) => {
+                    $('#class_list').append('<li class="list-group-item" onclick="SelectPrefClass(\'' + value[0] + '\', \'' + value[1] + '\')">' + value[1] + '</li>')
+                    $('#class_list_exp').append('<li class="list-group-item" onclick="SelectExpClass(\'' + value[0] + '\', \'' + value[1] + '\')">' + value[1] + '</li>')
+                    {#$('#temporary_experience_class').append('<option value="' + value[0] + '">' + value[1] + '</option>')#}
+                    {#$('#temporary_pref_class').append('<option value="' + value[0] + '">' + value[1] + '</option>')#}
+                })
+            }
+        })
+        $.ajax({
+            url: '/teacher/api/medium/',
+            success: (data) => {
+                $.each(data, (key, value) => {
+                    $('#medium_list').append('<li class="list-group-item" onclick="SelectPrefMedium(\'' + value[0] + '\', \'' + value[1] + '\')">' + value[1] + '</li>')
+                    $('#medium_list_exp').append('<li class="list-group-item" onclick="SelectExpMedium(\'' + value[0] + '\', \'' + value[1] + '\')">' + value[1] + '</li>')
+                    {#$('#temporary_experience_medium').append('<option value="' + value[0] + '">' + value[1] + '</option>')#}
+                    {#$('#temporary_pref_medium').append('<option value="' + value[0] + '">' + value[1] + '</option>')#}
+                })
+            }
+        })
+        $.ajax({
+            url: '/teacher/api/subject/',
+            success: (data) => {
+                $.each(data, (key, value) => {
+
+                    $('#subject_list').append('<li onclick="CheckToogle(this)" class="list-group-item">' +
+                        '<div class="custom-control custom-checkbox"> ' +
+                        '<input type="checkbox" text="' + value['Title'] + '" class="custom-control-input subject" value="' + value['id'] + '" hidden> ' +
+                        '<label class="custom-control-label" for="check1">' + value['Title'] + '</label> ' +
+                        '</div> ' +
+                        '</li>')
+
+                    $('#subject_list_exp').append('<li onclick="CheckToogle(this)"" class="list-group-item">' +
+                        '<div class="custom-control custom-checkbox"> ' +
+                        '<input type="checkbox" text="' + value['Title'] + '" class="custom-control-input subject" value="' + value['id'] + '" hidden> ' +
+                        '<label class="custom-control-label" for="check1">' + value['Title'] + '</label> ' +
+                        '</div> ' +
+                        '</li>')
+
+                    {#$('#temporary_experience_subject').append('<option value="' + value['id'] + '">' + value['Title'] + '</option>')#}
+                    {#$('#temporary_pref_subject').append('<option value="' + value['id'] + '">' + value['Title'] + '</option>')#}
+                })
+            }
+        })
+        $('#id_BirthDate').attr('type', 'date')
+    });
+
+    var subject = 0
+    var medium = 0
+    var subject = []
+
+    function addSubject(xp) {
+        if (xp) {
+            $.ajax({
+                url: '/teacher/api/update/addxp?exp=' + xp + '&id=' + window.location.pathname.replace('/teacher/update/', '') +
+                    '&class=' + $('#temporary_experience_class').val() + '&medium=' + $('#temporary_experience_medium').val() +
+                    '&subject=' + $('#temporary_experience_subject').val(),
+                success: (data) => {
+                    xpec = xpec + 1;
+                    $('#exp_body').append('<tr><td><i class="fas fa-window-close fa-2x" onclick="delete_teaching_section(\'' + data['id'] + '\', this, 1)"></i> &nbsp;<span class="exp_counter"></span></td><td>' + data['class'] + '</td><td>' + data['medium'] + '</td><td>' + data['subject'] + '</td></tr>')
+                    $('#id_Experience').append('<option value="' + data['id'] + '" selected="">Added</option>')
+                }
+            })
+        } else {
+            $.ajax({
+                url: '/teacher/api/update/addxp?exp=' + xp + '&id=' + window.location.pathname.replace('/teacher/update/', '') +
+                    '&class=' + $('#temporary_pref_class').val() + '&medium=' + $('#temporary_pref_medium').val() +
+                    '&subject=' + $('#temporary_pref_subject').val(),
+                success: (data) => {
+                    xppc = xppc + 1;
+                    $('#id_Preferred').append('<option value="' + data['id'] + '" selected="">Added</option>')
+                    $('#pref_body').append('<tr><td><i class="fas fa-window-close fa-2x" onclick="delete_teaching_section(\'' + data['id'] + '\', this, 0 )" ></i> &nbsp; <span class="pref_counter"></span></td><td>' + data['class'] + '</td><td>' + data['medium'] + '</td><td>' + data['subject'] + '</td></tr>')
+                }
+            })
+        }
+        $('#temporary_experience_class').empty()
+        $('#temporary_experience_medium').empty()
+        $('#temporary_experience_subject').empty()
+
+        $('#temporary_pref_class').empty()
+        $('#temporary_pref_medium').empty()
+        $('#temporary_pref_subject').empty()
+        $('#subject_list_exp input:checked').prop('checked', false)
+        $('#subject_list input:checked').prop('checked', false)
+
+        $(".exp_counter").each(function (index, object) {
+            $(object).text(index + 1);
+        })
+        $(".pref_counter").each(function (index, object) {
+            $(object).text(index + 1);
+        })
+    }
+
+    $(document).ready(function () {
+        $('#id_Phone').keyup(function () {
+            $('#username').text($('#id_Phone').val().replace('+88', ''))
+        });
+
+        var ko = confirm('Do you need tutorial for this page')
+        if (ko) {
+            window.open($('.active a')[0].href);
+        }
+    });
+
+
+</script>
+
+<script>
+    $("#id_PresentLocationDivision").select2({
+        placeholder: "Division",
+        allowClear: true
+    });
+    $("#id_PresentLocationDistrict").select2({
+        placeholder: "District",
+        allowClear: true
+    });
+    $("#id_PresentLocationThana").select2({
+        placeholder: "Thana",
+        allowClear: true
+    });
+    $("#id_PermanentLocationDivision").select2({
+        placeholder: "Division",
+        allowClear: true
+    });
+    $("#id_PermanentLocationDistrict").select2({
+        placeholder: "District",
+        allowClear: true
+    });
+    $("#id_PermanentLocationThana").select2({
+        placeholder: "Thana",
+        allowClear: true
+    });
+    $("#id_Graduation_Institute").select2({
+        placeholder: "Institute",
+        allowClear: true
+    });
+    $("#id_Graduation_Subject").select2({
+        placeholder: "Subject",
+        allowClear: true
+    });
+    $("#id_Post_Graduation_Institute").select2({
+        placeholder: "Institute",
+        allowClear: true
+    });
+    $("#id_Post_Graduation_Subject").select2({
+        placeholder: "Subject",
+        allowClear: true
+    });
+</script>
+
+
+<script>
+    function autocomplete(inp, arr) {
+        /*the autocomplete function takes two arguments,
+        the text field element and an array of possible autocompleted values:*/
+        var currentFocus;
+        /*execute a function when someone writes in the text field:*/
+        inp.addEventListener("input", function (e) {
+            var a, b, i, val = this.value;
+            /*close any already open lists of autocompleted values*/
+            closeAllLists();
+            if (!val) {
+                return false;
+            }
+            currentFocus = -1;
+            /*create a DIV element that will contain the items (values):*/
+            a = document.createElement("DIV");
+            a.setAttribute("id", this.id + "autocomplete-list");
+            a.setAttribute("class", "autocomplete-items");
+            /*append the DIV element as a child of the autocomplete container:*/
+            this.parentNode.appendChild(a);
+            /*for each item in the array...*/
+            for (i = 0; i < arr.length; i++) {
+                /*check if the item starts with the same letters as the text field value:*/
+                if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+                    /*create a DIV element for each matching element:*/
+                    b = document.createElement("DIV");
+                    /*make the matching letters bold:*/
+                    b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+                    b.innerHTML += arr[i].substr(val.length);
+                    /*insert a input field that will hold the current array item's value:*/
+                    b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+                    /*execute a function when someone clicks on the item value (DIV element):*/
+                    b.addEventListener("click", function (e) {
+                        /*insert the value for the autocomplete text field:*/
+                        inp.value = this.getElementsByTagName("input")[0].value;
+                        /*close the list of autocompleted values,
+                        (or any other open lists of autocompleted values:*/
+                        closeAllLists();
+                    });
+                    a.appendChild(b);
+                }
+            }
+        });
+        /*execute a function presses a key on the keyboard:*/
+        inp.addEventListener("keydown", function (e) {
+            var x = document.getElementById(this.id + "autocomplete-list");
+            if (x) x = x.getElementsByTagName("div");
+            if (e.keyCode == 40) {
+                /*If the arrow DOWN key is pressed,
+                increase the currentFocus variable:*/
+                currentFocus++;
+                /*and and make the current item more visible:*/
+                addActive(x);
+            } else if (e.keyCode == 38) { //up
+                /*If the arrow UP key is pressed,
+                decrease the currentFocus variable:*/
+                currentFocus--;
+                /*and and make the current item more visible:*/
+                addActive(x);
+            } else if (e.keyCode == 13) {
+                /*If the ENTER key is pressed, prevent the form from being submitted,*/
+                e.preventDefault();
+                if (currentFocus > -1) {
+                    /*and simulate a click on the "active" item:*/
+                    if (x) x[currentFocus].click();
+                }
+            }
+        });
+
+        function addActive(x) {
+            /*a function to classify an item as "active":*/
+            if (!x) return false;
+            /*start by removing the "active" class on all items:*/
+            removeActive(x);
+            if (currentFocus >= x.length) currentFocus = 0;
+            if (currentFocus < 0) currentFocus = (x.length - 1);
+            /*add class "autocomplete-active":*/
+            x[currentFocus].classList.add("autocomplete-active");
+        }
+
+        function removeActive(x) {
+            /*a function to remove the "active" class from all autocomplete items:*/
+            for (var i = 0; i < x.length; i++) {
+                x[i].classList.remove("autocomplete-active");
+            }
+        }
+
+        function closeAllLists(elmnt) {
+            /*close all autocomplete lists in the document,
+            except the one passed as an argument:*/
+            var x = document.getElementsByClassName("autocomplete-items");
+            for (var i = 0; i < x.length; i++) {
+                if (elmnt != x[i] && elmnt != inp) {
+                    x[i].parentNode.removeChild(x[i]);
+                }
+            }
+        }
+
+        /*execute a function when someone clicks in the document:*/
+        document.addEventListener("click", function (e) {
+            closeAllLists(e.target);
+        });
+    }
+
+    /*An array containing all the country names in the world:*/
+    /*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
+    autocomplete(document.getElementById("id_SSC_Institute"),
+        [{% for school in schools %}
+            '{{ school }}',
+        {% endfor %}]
+    );
+
+    autocomplete(document.getElementById("id_HSC_Institute"),
+        [{% for school in schools %}
+            '{{ school }}',
+        {% endfor %}]
+    );
+</script>
+
+
+</body>
+</html>

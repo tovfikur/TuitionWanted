@@ -1,0 +1,115 @@
+{% extends "FollowUp/follow-upper-base.html" %}
+{% load i18n admin_urls static admin_list jazzmin %}
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>{% block title %}Tuition Wanted | SMS{% endblock %}</title>
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="{% static "vendor/fontawesome-free/css/all.min.css" %}">
+
+    <!-- Bootstrap and adminLTE -->
+    <link rel="stylesheet" href="{% static "vendor/adminlte/css/adminlte.min.css" %}" id="adminlte-css">
+
+    <!-- Bootswatch theme -->
+    {% if jazzmin_ui.theme.name != 'default' %}
+        <link rel="stylesheet" href="{{ jazzmin_ui.theme.src }}" id="jazzmin-theme"/>
+    {% endif %}
+
+    {% if jazzmin_ui.dark_mode_theme %}
+        <link rel="stylesheet" href="{{ jazzmin_ui.dark_mode_theme.src }}" id="jazzmin-dark-mode-theme"
+              media="(prefers-color-scheme: dark)"/>
+    {% endif %}
+
+    <!-- Custom fixes for django -->
+    <link rel="stylesheet" href="{% static "jazzmin/css/main.css" %}">
+
+    {% if jazzmin_settings.custom_css %}
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="{% static jazzmin_settings.custom_css %}">
+    {% endif %}
+
+    <!-- favicons -->
+    <link rel="shortcut icon" href="{% static jazzmin_settings.site_icon %}" type="image/png">
+    <link rel="icon" href="{% static jazzmin_settings.site_icon %}" sizes="32x32" type="image/png">
+
+    <!-- Google Font: Source Sans Pro -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <style>
+        tr {
+            font-size: 0.8rem;
+            line-height: 1;
+        }
+    </style>
+
+    {% block extrastyle %} {% endblock %}
+    {% block extrahead %} {% endblock %}
+</head>
+{% block page_content %}
+    <style>
+        textarea, input {
+            text-align: center;
+        }
+
+        ::-webkit-input-placeholder {
+            text-align: center;
+        }
+
+        :-moz-placeholder {
+            text-align: center;
+        }
+    </style>
+    <center>
+        <div class="card" style="width: 18rem;">
+            <center>
+                <img style="height: 55px; width: 50px; " class="card-img-top"
+                     src="https://assets.ifttt.com/images/channels/5/icons/large.png" alt="Tovfikur">
+            </center>
+            <div class="card-body">
+                <label for="phone_number" class="form-label">Phone</label>
+                <input placeholder="01796693300" type="text" id="phone_number" class="form-control">
+                <label for="phone_number" class="form-label">Text</label>
+                <textarea maxlength="155" placeholder="This is for you" class="form-control" id="text" rows="3"></textarea>
+                <hr>
+                <button onclick="send(this)" type="button" class="btn btn-primary">Send</button>
+            </div>
+        </div>
+    </center>
+{% endblock %}
+
+{% block extrajs %}
+    <script>
+
+
+        function send(x) {
+            x.disabled = true;
+            var phone_number = document.getElementById('phone_number').value
+            var text = document.getElementById('text').value
+            var url_string = '/send_sms/?phone=' + phone_number + '&text=' + text
+            $.ajax({
+                url: encodeURI(url_string),
+                success: (data) => {
+                    try {
+                        if (data.ok !== 'ok') {
+                            window.location = '/follow/sms/'
+                        }
+                    } catch {
+                        window.location = '/follow/sms/'
+                    }
+                }
+            }).done(function () {
+                alert('SMS sent to ' + phone_number)
+                x.disabled = false;
+                document.getElementById('phone_number').value = 'Done'
+                document.getElementById('text').value = ''
+            });
+        }
+        function set_phone() {
+            var url = new URL(window.location)
+            $('#phone_number').val('+'+url.searchParams.get("phone").replace(' ', ''))
+        }
+        window.onload = set_phone;
+    </script>
+{% endblock %}
