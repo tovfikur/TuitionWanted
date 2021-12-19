@@ -3,6 +3,7 @@ from django.template.defaultfilters import slugify
 from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
 
+import FollowUp.models
 import GuardianArea.models
 from Teacher.models import Teacher, University, Subject
 from django_currentuser.db.models import CurrentUserField
@@ -144,7 +145,6 @@ def nested_tuple_text(index, x):
             return i[1]
 
 
-
 class Child(models.Model):
     slug = models.SlugField(max_length=5, blank=False, null=False, primary_key=True, default=0,  help_text='Do not change it')
     Name = models.CharField(max_length=40, blank=False, null=False, default='')
@@ -187,6 +187,57 @@ class Child(models.Model):
     Teacher_Religion = models.IntegerField(blank=True, null=True, choices=Teacher_Religion_CHOICE, default=5)
     Guardian = models.ForeignKey('GuardianArea.GuardianDetails', on_delete=models.DO_NOTHING, null=True, blank=True)
     active = models.BooleanField(default=True)
+    is_reserved = models.BooleanField(default=True)
+    is_short = models.BooleanField(default=True)
+    is_assign = models.BooleanField(default=True)
+    is_demo = models.BooleanField(default=True)
+    is_permanent = models.BooleanField(default=True)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        try:
+            if FollowUp.models.TemporaryTuitionForChild.objects.get(Child=self):
+                self.is_reserved = True
+        except:
+            self.is_reserved = False
+
+        try:
+            if FollowUp.models.ShortListedTuitionForChild.objects.get(Child=self):
+                self.is_reserved = False
+                self.is_short = True
+        except:
+            self.is_short = False
+
+        try:
+            if FollowUp.models.AssignedTeacherForChild.objects.get(Child=self):
+                self.is_reserved = False
+                self.is_short = False
+                self.is_assign = True
+        except:
+            self.is_assign = False
+
+        try:
+
+            if FollowUp.models.DemoTeacherForChild.objects.get(Child=self):
+                self.is_reserved = False
+                self.is_short = False
+                self.is_assign = False
+                self.is_demo = True
+        except:
+            self.is_demo = False
+
+        try:
+            if FollowUp.models.PermanentTuitionForChild.objects.get(Child=self):
+                self.is_reserved = False
+                self.is_short = False
+                self.is_assign = False
+                self.is_demo = False
+                self.is_permanent = True
+        except:
+            self.is_permanent = False
+
+
+
 
     def __str__(self):
         return self.Name + ' (' + str(self.slug) + ')'
@@ -322,7 +373,7 @@ class GuardianDetails(models.Model):
     auth = models.ForeignKey('FollowUp.User', null=True, blank=True, on_delete=models.CASCADE, related_name='auth')
     Name = models.CharField(max_length=40, blank=False, null=True, default='Tovfikur Rahman')
     Phone = models.CharField(max_length=20, blank=False, null=False, default='+8801', unique=True)
-    Email = models.EmailField( blank=True, null=True)
+    Email = models.EmailField(blank=True, null=True)
     Password = models.CharField(max_length=20, blank=False, null=False, default='+8801')
     Address = models.CharField(max_length=250, null=True, blank=True)
     LastAddress = models.CharField(max_length=250, null=True, blank=True)

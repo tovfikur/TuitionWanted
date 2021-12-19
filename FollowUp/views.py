@@ -621,7 +621,7 @@ class FollowUpPaid(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         obj = PermanentTuitionForChild.objects.all()
-        obj = obj.filter(Child__Paid=False).order_by('date')
+        obj = obj.filter(Child__Paid=True).order_by('date')
         context['childs'] = obj
         print(obj)
         return context
