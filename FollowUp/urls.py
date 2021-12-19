@@ -19,7 +19,7 @@ from .views import (TestView,
                     SendSMSView, SendSMSViewtest, ReminderListView,
                     ReminderListUpdateView, ReminderView,
                     FollowUpConfirm, FollowUpAssign, FollowUpPaid, FollowUpCanceled,
-                    AddRating, SetPaid, DemoToPermanent, DemoShortListView)
+                    AddRating, SetPaid, DemoToPermanent, DemoShortListView, ChildRetriveView)
 
 urlpatterns = [
     path('api/temporary/', TemporaryTuitionForChildListView.as_view()),
@@ -36,6 +36,7 @@ urlpatterns = [
     path('api/guardian/<pk>/note/', AddNoteToGuardian.as_view()),
     path('api/child/<pk>/note/', AddNoteToChild.as_view()),
     path('api/child/<pk>', ChildUpdateView.as_view()),
+    path('api/child/<pk>/show', ChildRetriveView.as_view()),
     path('api/guardian/history/<pk>', GuardianHistoryView.as_view()),
     path('api/reminder/', ReminderListView.as_view()),
     path('api/reminder/<pk>', ReminderListUpdateView.as_view()),

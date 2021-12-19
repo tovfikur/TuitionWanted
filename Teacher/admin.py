@@ -198,6 +198,24 @@ class TeacherAdmin(admin.ModelAdmin):
     ]
     actions_on_bottom = True,
     actions = [set_teacher, see_requirements]
+    change_list_template = 'admin/teacher_change_list.html'
+
+    def changelist_view(self, request, extra_context=None):
+        response = super(TeacherAdmin, self).changelist_view(request, extra_context)
+        if not extra_context:
+            extra_context = {}
+        try:
+            cobj = Child.objects.get(slug=request.session['child_id'])
+            extra_context['child'] = cobj
+        except:
+            pass
+
+        try:
+            response.context_data.update(extra_context)
+        except Exception as e:
+            print(e)
+            pass
+        return response
 
 
 class DistrictAdmin(admin.ModelAdmin):

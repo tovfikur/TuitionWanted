@@ -20,6 +20,13 @@ class ChildSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class ChildSerializerRetrive(serializers.ModelSerializer):
+    class Meta:
+        model = Child
+        fields = '__all__'
+        depth = 2
+
+
 class GuardianListSerializer(serializers.ModelSerializer):
     class Meta:
         model = GuardianDetails

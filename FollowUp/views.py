@@ -23,7 +23,7 @@ from .serializers import (GuardianListSerializer,
                           ChildGroupSerializer,
                           TemporaryTuitionForChildSerializer, ShortlistTuitionForChildSerializer,
                           ShortlistTuitionForChildCreateSerializer, PermanentTuitionForChildSerializer,
-                          ChildSerializer, GuardianUpdateSerializer, ReminderSerializer)
+                          ChildSerializer, GuardianUpdateSerializer, ReminderSerializer, ChildSerializerRetrive)
 
 
 # Create your views here.
@@ -357,10 +357,10 @@ class AssignedToDemo(APIView):
 class DemoToPermanent(APIView):
     def get(self, request):
         try:
-
             if self.request.GET.get('cid'):
                 if self.request.GET.get('tid'):
                     try:
+
                         obj = PermanentTuitionForChild.objects.get(Child_id=self.request.GET.get('cid'))
                         obj.Teacher_id = self.request.GET.get('tid')
                         obj.money = self.request.GET.get('mny')
@@ -374,7 +374,9 @@ class DemoToPermanent(APIView):
                                 obj.TalksJson = {self.request.GET.get('tid'): self.request.GET.get('talk')}
                                 obj.save()
                         obj.save()
-                        print(obj)
+                        temp_obj = DemoTeacherForChild.objects.get(Child__slug=self.request.GET.get('cid'))
+                        temp_obj.permanent = True
+                        temp_obj.save()
                     except Exception as e:
                         if 'matching query does not exist' in str(e):
                             obj = PermanentTuitionForChild.objects.create(Child_id=self.request.GET.get('cid'),
@@ -390,7 +392,9 @@ class DemoToPermanent(APIView):
                             obj.money = self.request.GET.get('mny')
                             obj.User = self.request.user
                             obj.save()
-                            print(obj)
+                            temp_obj = DemoTeacherForChild.objects.get(Child__slug=self.request.GET.get('cid'))
+                            temp_obj.permanent = True
+                            temp_obj.save()
                 else:
                     obj = PermanentTuitionForChild.objects.get(Child_id=self.request.GET.get('cid'))
                     obj.money = self.request.GET.get('mny')
@@ -564,6 +568,14 @@ class ChildUpdateView(RetrieveUpdateAPIView):
     lookup_field = 'pk'
 
 
+class ChildRetriveView(RetrieveAPIView):
+    permission_classes = [IsAuthenticated]
+    pagination_class = None
+    serializer_class = ChildSerializerRetrive
+    queryset = Child.objects.all()
+    lookup_field = 'pk'
+
+
 # Teacher section
 
 
@@ -591,6 +603,18 @@ class FollowUpView(TemplateView):
     template_name = 'FollowUp/index.html'
 
 
+class FollowUpPaid(TemplateView):
+    template_name = 'FollowUp/permanent_tuition_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        obj = PermanentTuitionForChild.objects.all()
+        obj = obj.filter(Child__Paid=True).order_by('date')
+        context['childs'] = obj
+        print(obj)
+        return context
+
+
 class FollowUpConfirm(TemplateView):
     template_name = 'FollowUp/permanent_tuition_list.html'
 
@@ -608,20 +632,8 @@ class FollowUpAssign(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        obj = AssignedTeacherForChild.objects.all()
-        obj = obj.filter(Child__Paid=False)
-        context['childs'] = obj
-        print(obj)
-        return context
-
-
-class FollowUpPaid(TemplateView):
-    template_name = 'FollowUp/permanent_tuition_list.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        obj = PermanentTuitionForChild.objects.all()
-        obj = obj.filter(Child__Paid=True).order_by('date')
+        obj = DemoTeacherForChild.objects.all()
+        obj = obj.filter(Child__Paid=False, permanent=False)
         context['childs'] = obj
         print(obj)
         return context
@@ -701,6 +713,7 @@ class SetPaid(GenericAPIView):
         tip = PermanentTuitionForChild.objects.get(Child_id=self.request.GET.get('id'))
         ch = Child.objects.get(slug = tip.Child.slug)
         ch.active = False
+        ch.Paid=True
         ch.save()
         tip.paid = True
         tip.save()

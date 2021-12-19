@@ -50,6 +50,48 @@
 {% block coltype %}flex{% endblock %}
 
 {% block content %}
+    <div id="requerement_div"><div class="row" id="requirement">
+                        <div class="col-12">
+                            <ul class="widget-49-meeting-points">
+                                <li class="widget-49-meeting-item">
+                                    <span>{{ child.teacher_medium_text }}</span>
+                                </li>
+                                <li class="widget-49-meeting-item">
+                                    <span>{{ child.gender_text }}</span>
+                                </li>
+                                <li class="widget-49-meeting-item">
+                                    {% for Expected_Subject in child.Expected_Subjects.all %}
+                                        <span>{{ Expected_Subject.Title }},&nbsp;</span>
+                                    {% endfor %}
+                                    </span>
+                                </li>
+                                <li class="widget-49-meeting-item">
+                                    <span>{{ child.teacher_level_text }}</span></li>
+                                <li class="widget-49-meeting-item">
+                                    <span>{{ child.background_text }}</span></li>
+                                <li class="widget-49-meeting-item">
+                                    <span>{{ child.teacher_university_text }}</span></li>
+                                <li class="widget-49-meeting-item">
+                                    <span>{{ child.experience_text }}</span></li>
+                                <li class="widget-49-meeting-item">
+                                    <span>{{ child.Expected_Salary }}</span>
+                                </li>
+                                <li class="widget-49-meeting-item"><span>{{ child.Expected_Day }} Day/Week</span>
+                                </li>
+                                <li class="widget-49-meeting-item">
+                                    <span>{{ child.style_text }}</span>
+                                </li>
+                                <li class="widget-49-meeting-item">
+                                    <span>{{ child.teacher_type_text }}</span></li>
+                                <li class="widget-49-meeting-item">
+                                    <span>{{ child.teacher_age_text }}</span></li>
+                                <li class="widget-49-meeting-item">
+                                    <span>{{ child.teacher_religion_text }}</span></li>
+                                <li class="widget-49-meeting-item">
+                                    <span>{{ child.Free_Time }}</span></li>
+                            </ul>
+                        </div>
+                    </div></div>
     <div class="col-12">
         <div class="card card-primary card-outline">
             <div class="card-header">
@@ -128,7 +170,15 @@
     {{ block.super }}
     <script type="text/javascript" src="{% static 'vendor/select2/js/select2.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'jazzmin/js/change_list.js' %}"></script>
-    <script>
-
-    </script>
+{#    <script>#}
+{#    if('{{ request.session.child_id }}'){#}
+{#        $.ajax({#}
+{#            url:'/follow/api/child/{{ request.session.child_id }}/show',#}
+{#            success:(data)=>{#}
+{#                console.log(data)#}
+{#                var string_ = data['Address'] + ' ' + data['Address'] + ' '#}
+{#            }#}
+{#        })#}
+{#    }#}
+{#    </script>#}
 {% endblock %}

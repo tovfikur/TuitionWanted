@@ -121,6 +121,7 @@ class DemoTeacherForChild(models.Model):
     Teacher = models.ManyToManyField(to=Teacher)
     Talks = models.CharField(max_length=200, null=True, blank=True)
     TalksJson = models.JSONField(null=True, blank=True)
+    permanent = models.BooleanField(default=False)
 
 
 class PermanentTuitionForChild(models.Model):
