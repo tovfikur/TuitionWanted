@@ -30,7 +30,7 @@ class ChildAdmin(admin.ModelAdmin):
     fieldsets = (('Details', {
         'fields': ('Name', 'Phone', 'Address', 'Education_Level',
                    'Education_Institute', 'Education_Medium', 'Gender',
-                   'Type', 'Paid', 'active', 'Note', 'Free_Time', 'Free_Duration', 'Important_Note', 'Leads', 'Reserved',)
+                   'Type', 'Paid', 'active', 'Canceled', 'Note', 'Free_Time', 'Free_Duration', 'Important_Note', 'Leads', 'Reserved',)
     }), ('Requirement', {
         'fields': ('Expected_Salary', 'PerClass', 'PerCourse', 'Expected_Day', 'Expected_Style', 'Expected_Subjects',
                    'Teacher_HSC_GOLD', 'Expected_School', 'Expected_College', 'Teacher_Gender', 'Teacher_Level',

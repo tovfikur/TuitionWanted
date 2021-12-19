@@ -1320,6 +1320,32 @@
                                     '</tr>',
                                 )}
                             }
+                            else if (data[i]['Child'][k]['Canceled']) {
+                                {$('#t_body').append(
+                                    '<tr style="background-color: red">' +
+                                    '<td>' + data[i]['Child'][k]['slug'] + '</td>' +
+
+                                    '<td>' + new Date(data[i]['Child'][k]['Created']).getFullYear() + '-' +
+                                    getTwoDigit(parseInt(new Date(data[i]['Child'][k]['Created']).getMonth())) + '-' +
+                                    getTwoDigit(parseInt(new Date(data[i]['Child'][k]['Created']).getDate())) + '</td>' +
+
+                                    '<td class="gpart">' + data[i]['Child'][k]['Education_Level'] + '</td>' +
+                                    '<td class="gpart">' + gender(data[i]['Child'][k]['Gender']) + '</td>' +
+                                    '<td class="gpart">' + data[i]['Child'][k]['Expected_Day'] + '</td>' +
+                                    '<td class="gpart">' + data[i]['Address'] + '</td>' +
+                                    '<td class="gpart">' + data[i]['Child'][k]['Education_Institute'] + '</td>' +
+                                    '<td class="gpart">' + es + '</td>' +
+                                    '<td class="gpart">' + data[i]['Child'][k]['Expected_Salary'] + '</td>' +
+                                    '<td class="gpart">' + data[i]['Phone'] + '</td>' +
+                                    '<td class="tpart">' + medium(data[i]['Child'][k]['Expected_Style']) + '</td>' +
+                                    '<td class="tpart">' + gender(data[i]['Child'][k]['Teacher_Gender']) + '</td>' +
+                                    '<td class="tpart">' + level(data[i]['Child'][k]['Teacher_Level']) + '</td>' +
+                                    '<td class="tpart">' + university(data[i]['Child'][k]['Teacher_University']) + '</td>' +
+                                    '<td class="tpart">' + medium(data[i]['Child'][k]['Education_Medium']) + '</td>' +
+                                    '<td class="gpart">' + data[i]['id'] + '</td>' +
+                                    '</tr>',
+                                )}
+                            }
                             else {$('#t_body').append(
                                     '<tr>' +
                                     '<td>' + data[i]['Child'][k]['slug'] + '</td>' +

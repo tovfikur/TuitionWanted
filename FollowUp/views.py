@@ -609,7 +609,7 @@ class FollowUpPaid(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         obj = PermanentTuitionForChild.objects.all()
-        obj = obj.filter(Child__Paid=True).order_by('date')
+        obj = obj.filter(Child__Paid=True, Child__Canceled=False).order_by('date')
         context['childs'] = obj
         print(obj)
         return context
@@ -621,7 +621,7 @@ class FollowUpConfirm(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         obj = PermanentTuitionForChild.objects.all()
-        obj = obj.filter(Child__Paid=False).order_by('date')
+        obj = obj.filter(Child__Paid=False, Child__Canceled=False).order_by('date')
         context['childs'] = obj
         print(obj)
         return context
@@ -633,7 +633,7 @@ class FollowUpAssign(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         obj = DemoTeacherForChild.objects.all()
-        obj = obj.filter(Child__Paid=False, permanent=False)
+        obj = obj.filter(Child__Paid=False, permanent=False, Child__Canceled=False)
         context['childs'] = obj
         print(obj)
         return context

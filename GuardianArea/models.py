@@ -195,6 +195,9 @@ class Child(models.Model):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
+        if self.Canceled:
+            self.active = False
         try:
             if FollowUp.models.TemporaryTuitionForChild.objects.get(Child=self):
                 self.is_reserved = True
