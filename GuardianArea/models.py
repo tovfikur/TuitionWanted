@@ -2,6 +2,8 @@ import re
 from django.template.defaultfilters import slugify
 from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
+
+import GuardianArea.models
 from Teacher.models import Teacher, University, Subject
 from django_currentuser.db.models import CurrentUserField
 from django_currentuser.middleware import get_current_user
@@ -142,6 +144,7 @@ def nested_tuple_text(index, x):
             return i[1]
 
 
+
 class Child(models.Model):
     slug = models.SlugField(max_length=5, blank=False, null=False, primary_key=True, default=0,  help_text='Do not change it')
     Name = models.CharField(max_length=40, blank=False, null=False, default='')
@@ -182,13 +185,17 @@ class Child(models.Model):
     Teacher_Age = models.SmallIntegerField(choices=Teacher_AGE_CHOICE, default=6)
     Teacher_University = models.ManyToManyField(University, blank=True)
     Teacher_Religion = models.IntegerField(blank=True, null=True, choices=Teacher_Religion_CHOICE, default=5)
-
+    Guardian = models.ForeignKey('GuardianArea.GuardianDetails', on_delete=models.DO_NOTHING, null=True, blank=True)
     active = models.BooleanField(default=True)
 
     def __str__(self):
         return self.Name + ' (' + str(self.slug) + ')'
 
     def save(self, *args, **kwargs):
+        if self.Guardian:
+            obj = GuardianArea.models.GuardianDetails.objects.get(id=self.Guardian.id)
+            obj.Child.add(self)
+            obj.save()
         obj = None
         if not self.slug:
             slug_str = "%s %s %s 0" % (
@@ -212,10 +219,7 @@ class Child(models.Model):
 
 
     def medium_text(self):
-        for i in MEDIUM_CHOICE:
-            if i[0] is self.Education_Medium:
-                return MEDIUM_CHOICE[self.Education_Medium][1]
-        return ''
+        return nested_tuple_text(self.Education_Medium, MEDIUM_CHOICE)
 
     def gender_text(self):
         if self.Teacher_Gender == 1:
@@ -339,7 +343,7 @@ class GuardianDetails(models.Model):
     Partner_Phone = PhoneNumberField(blank=True, null=True)
 
     def __str__(self):
-        return str(self.Name) + ' (' + str(self.id) + ')'
+        return str(self.Name) + ' ( ' + str(self.id) + ' )' + ' ( ' + str(self.Phone) + ' )'
 
     def save(self, *args, **kwargs):
         try:

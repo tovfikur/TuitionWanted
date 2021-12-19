@@ -314,6 +314,8 @@ class AssignedToDemo(APIView):
                         obj.money = self.request.GET.get('mny')
                         obj.User = self.request.user
                         try:
+                            obj = DemoTeacherForChild.objects.create(Child_id=self.request.GET.get('cid'))
+                            obj.Teacher.add(self.request.GET.get('tid'))
                             obj.TalksJson[self.request.GET.get('tid')] = [self.request.GET.get('talk'),
                                                                           str(datetime.date.today())]
                             obj.save()
@@ -325,8 +327,8 @@ class AssignedToDemo(APIView):
                         print(obj)
                     except Exception as e:
                         if 'matching query does not exist' in str(e):
-                            obj = DemoTeacherForChild.objects.create(Child_id=self.request.GET.get('cid'),
-                                                                          Teacher_id=self.request.GET.get('tid'))
+                            obj = DemoTeacherForChild.objects.create(Child_id=self.request.GET.get('cid'))
+                            obj.Teacher.add(self.request.GET.get('tid'))
                             try:
                                 obj.TalksJson[self.request.GET.get('tid')] = [self.request.GET.get('talk'),
                                                                               str(datetime.date.today())]

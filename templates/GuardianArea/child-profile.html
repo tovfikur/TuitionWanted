@@ -379,12 +379,15 @@
                 </div>
             </nav>
             <div class="tab-content" id="nav-tabContent">
-            {#        asssign#}
+                {#        asssign#}
                 <div class="tab-pane fade" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                     <table class="table" cellspacing="0">
                         <thead>
                         <tr>
                             <th>Name</th>
+                            <th>Location</th>
+                            <th>Institute</th>
+                            <th>Subject</th>
                             <th>Phone</th>
                             <th>Talks</th>
                         </tr>
@@ -394,6 +397,9 @@
                             <tr>
                                 <td><a target="_blank" href="/teacher/view?id={{ teacher.id }}">{{ teacher.Name }}</a>
                                 </td>
+                                <td>{{ teacher.PresentLocation }}</td>
+                                <td>{{ teacher.Last_Institute }}</td>
+                                <td>{{ teacher.Graduation_Subject.Title }}</td>
                                 <td>
                                     <a class="icon" href="tel:{{ teacher.Phone }}"><i
                                             class="fas fa-phone-square-alt fa-2x"></i></a>
@@ -414,6 +420,9 @@
                         <thead>
                         <tr>
                             <th>Name</th>
+                            <th>Location</th>
+                            <th>Institute</th>
+                            <th>Subject</th>
                             <th>Phone</th>
                             <th>Talks</th>
                         </tr>
@@ -423,6 +432,9 @@
                             <tr>
                                 <td><a target="_blank" href="/teacher/view?id={{ teacher.id }}">{{ teacher.Name }}</a>
                                 </td>
+                                <td>{{ teacher.PresentLocation }}</td>
+                                <td>{{ teacher.Last_Institute }}</td>
+                                <td>{{ teacher.Graduation_Subject.Title }}</td>
                                 <td>
                                     <a class="icon" href="tel:{{ teacher.Phone }}"><i
                                             class="fas fa-phone-square-alt fa-2x"></i></a>
@@ -438,12 +450,15 @@
                         </tbody>
                     </table>
                 </div>
-{#            shorlist#}
+                {#            shorlist#}
                 <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                     <table class="table" cellspacing="0">
                         <thead>
                         <tr>
                             <th>Name</th>
+                            <th>Location</th>
+                            <th>Institute</th>
+                            <th>Subject</th>
                             <th>Phone</th>
                             <th>Talks</th>
                         </tr>
@@ -453,6 +468,9 @@
                             <tr>
                                 <td><a target="_blank" href="/teacher/view?id={{ teacher.id }}">{{ teacher.Name }}</a>
                                 </td>
+                                <td>{{ teacher.PresentLocation }}</td>
+                                <td>{{ teacher.Last_Institute }}</td>
+                                <td>{{ teacher.Graduation_Subject.Title }}</td>
                                 <td>
                                     <a class="icon" href="tel:{{ teacher.Phone }}"><i
                                             class="fas fa-phone-square-alt fa-2x"></i></a>
@@ -468,12 +486,15 @@
                         </tbody>
                     </table>
                 </div>
-{#            temporary#}
+                {#            temporary#}
                 <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
                     <table class="table" cellspacing="0">
                         <thead>
                         <tr>
                             <th>Name</th>
+                            <th>Location</th>
+                            <th>Institute</th>
+                            <th>Subject</th>
                             <th>Phone</th>
                             <th>Talks</th>
                         </tr>
@@ -483,6 +504,9 @@
                             <tr>
                                 <td><a target="_blank" href="/teacher/view?id={{ teacher.id }}">{{ teacher.Name }}</a>
                                 </td>
+                                <td>{{ teacher.PresentLocation }}</td>
+                                <td>{{ teacher.Last_Institute }}</td>
+                                <td>{{ teacher.Graduation_Subject.Title }}</td>
                                 <td>
                                     <a class="icon" href="tel:{{ teacher.Phone }}"><i
                                             class="fas fa-phone-square-alt fa-2x"></i></a>
@@ -567,6 +591,9 @@
                                 $('#shorlistbody').append('' +
                                     '<tr>' +
                                     '<td><a target="_blank" href="/teacher/view?id=' + data[i]['Teacher'][j]['id'] + '">' + data[i]['Teacher'][j]['Name'] + '</a></td>' +
+                                    '<td>' + data[i]["Teacher"][j]["PermanentLocation"] + '</td>' +
+                                    '<td>' + data[i]["Teacher"][j]["Last_Institute"] + '</td>' +
+                                    '<td>' + data[i]["Teacher"][j]["Graduation_Subject"]["Title"] + '</td>' +
                                     '<td>' +
                                     '<a class="icon" href="tel:' + data[i]['Teacher'][j]['Phone'] + '"><i ' +
                                     'class="fas fa-phone-square-alt fa-2x"></i></a>' +
@@ -581,6 +608,9 @@
                                 $('#shorlistbody').append('' +
                                     '<tr>' +
                                     '<td><a target="_blank" href="/teacher/view?id=' + data[i]['Teacher'][j]['id'] + '">' + data[i]['Teacher'][j]['Name'] + '</a></td>' +
+                                    '<td>' + data[i]["Teacher"][j]["PermanentLocation"] + '</td>' +
+                                    '<td>' + data[i]["Teacher"][j]["Last_Institute"] + '</td>' +
+                                    '<td>' + data[i]["Teacher"][j]["Graduation_Subject"]["Title"] + '</td>' +
                                     '<td>' +
                                     '<a class="icon" href="tel:' + data[i]['Teacher'][j]['Phone'] + '"><i ' +
                                     'class="fas fa-phone-square-alt fa-2x"></i></a>' +
@@ -651,6 +681,9 @@
                             $('#assingbody').append('' +
                                 '<tr>' +
                                 '<td><a target="_blank" href="/teacher/view?id=' + data[i]['Teacher'][j]['id'] + '">' + data[i]['Teacher'][j]['Name'] + '</a></td>' +
+                                '<td>' + data[i]["Teacher"][j]["PermanentLocation"] + '</td>' +
+                                '<td>' + data[i]["Teacher"][j]["Last_Institute"] + '</td>' +
+                                '<td>' + data[i]["Teacher"][j]["Graduation_Subject"]["Title"] + '</td>' +
                                 '<td>' +
                                 '<a class="icon" href="tel:' + data[i]['Teacher'][j]['Phone'] + '"><i ' +
                                 'class="fas fa-phone-square-alt fa-2x"></i></a>' +
@@ -720,6 +753,9 @@
                             $('#demobody').append('' +
                                 '<tr>' +
                                 '<td><a target="_blank" href="/teacher/view?id=' + data[i]['Teacher'][j]['id'] + '">' + data[i]['Teacher'][j]['Name'] + '</a></td>' +
+                                '<td>' + data[i]["Teacher"][j]["PermanentLocation"] + '</td>' +
+                                '<td>' + data[i]["Teacher"][j]["Last_Institute"] + '</td>' +
+                                '<td>' + data[i]["Teacher"][j]["Graduation_Subject"]["Title"] + '</td>' +
                                 '<td>' +
                                 '<a class="icon" href="tel:' + data[i]['Teacher'][j]['Phone'] + '"><i ' +
                                 'class="fas fa-phone-square-alt fa-2x"></i></a>' +
@@ -801,6 +837,9 @@
                                         $('#shorlistbody').append('' +
                                             '<tr>' +
                                             '<td><a target="_blank" href="/teacher/view?id=' + data[i]['Teacher'][j]['id'] + '">' + data[i]['Teacher'][j]['Name'] + '</a></td>' +
+                                            '<td>' + data[i]["Teacher"][j]["PermanentLocation"] + '</td>' +
+                                            '<td>' + data[i]["Teacher"][j]["Last_Institute"] + '</td>' +
+                                            '<td>' + data[i]["Teacher"][j]["Graduation_Subject"]["Title"] + '</td>' +
                                             '<td>' +
                                             '<a class="icon" href="tel:' + data[i]['Teacher'][j]['Phone'] + '"><i ' +
                                             'class="fas fa-phone-square-alt fa-2x"></i></a>' +
@@ -815,6 +854,9 @@
                                         $('#shorlistbody').append('' +
                                             '<tr>' +
                                             '<td><a target="_blank" href="/teacher/view?id=' + data[i]['Teacher'][j]['id'] + '">' + data[i]['Teacher'][j]['Name'] + '</a></td>' +
+                                            '<td>' + data[i]["Teacher"][j]["PermanentLocation"] + '</td>' +
+                                            '<td>' + data[i]["Teacher"][j]["Last_Institute"] + '</td>' +
+                                            '<td>' + data[i]["Teacher"][j]["Graduation_Subject"]["Title"] + '</td>' +
                                             '<td>' +
                                             '<a class="icon" href="tel:' + data[i]['Teacher'][j]['Phone'] + '"><i ' +
                                             'class="fas fa-phone-square-alt fa-2x"></i></a>' +
@@ -897,6 +939,9 @@
                                     $('#assingbody').append('' +
                                         '<tr>' +
                                         '<td><a target="_blank" href="/teacher/view?id=' + data[i]['Teacher'][j]['id'] + '">' + data[i]['Teacher'][j]['Name'] + '</a></td>' +
+                                        '<td>' + data[i]["Teacher"][j]["PermanentLocation"] + '</td>' +
+                                        '<td>' + data[i]["Teacher"][j]["Last_Institute"] + '</td>' +
+                                        '<td>' + data[i]["Teacher"][j]["Graduation_Subject"]["Title"] + '</td>' +
                                         '<td>' +
                                         '<a class="icon" href="tel:' + data[i]['Teacher'][j]['Phone'] + '"><i ' +
                                         'class="fas fa-phone-square-alt fa-2x"></i></a>' +
@@ -914,6 +959,7 @@
                 },
             })
         }
+
         function ajaxAssignedToDemo(url) {
             var hu = prompt('Any thing want write : ')
             url = url + '&talk=' + hu
@@ -978,6 +1024,9 @@
                                     $('#demobody').append('' +
                                         '<tr>' +
                                         '<td><a target="_blank" href="/teacher/view?id=' + data[i]['Teacher'][j]['id'] + '">' + data[i]['Teacher'][j]['Name'] + '</a></td>' +
+                                        '<td>' + data[i]["Teacher"][j]["PermanentLocation"] + '</td>' +
+                                        '<td>' + data[i]["Teacher"][j]["Last_Institute"] + '</td>' +
+                                        '<td>' + data[i]["Teacher"][j]["Graduation_Subject"]["Title"] + '</td>' +
                                         '<td>' +
                                         '<a class="icon" href="tel:' + data[i]['Teacher'][j]['Phone'] + '"><i ' +
                                         'class="fas fa-phone-square-alt fa-2x"></i></a>' +
@@ -1126,7 +1175,7 @@
         function add_paid() {
             $.ajax({
                 url: '/follow/setpaid?id={{ child.slug }}',
-                success: ()=>{
+                success: () => {
                     alert('Tuition are going to disappear from followupper')
                     location.reload();
                 }

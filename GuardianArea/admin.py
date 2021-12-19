@@ -36,6 +36,8 @@ class ChildAdmin(admin.ModelAdmin):
                    'Teacher_HSC_GOLD', 'Expected_School', 'Expected_College', 'Teacher_Gender', 'Teacher_Level',
                    'Teacher_Background', 'Teacher_Medium', 'Teacher_Type', 'Teacher_Experience', 'Teacher_Age',
                    'Teacher_University', 'Teacher_Religion')
+    }), ('Guardian', {
+        'fields': ('Guardian',)
     })
                  )
 
