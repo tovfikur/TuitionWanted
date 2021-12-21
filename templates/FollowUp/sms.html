@@ -108,7 +108,7 @@
         }
         function set_phone() {
             var url = new URL(window.location)
-            $('#phone_number').val('+'+url.searchParams.get("phone").replace(' ', ''))
+            $('#phone_number').val(url.searchParams.get("phone").replace(' ', ''))
         }
         window.onload = set_phone;
     </script>

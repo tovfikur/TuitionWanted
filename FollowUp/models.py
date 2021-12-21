@@ -83,11 +83,18 @@ class User(AbstractUser):
     Teacher = models.ManyToManyField(Teacher, blank=True)
 
 
+class RoughNote(models.Model):
+    user = models.ForeignKey(User, on_delete=models.DO_NOTHING, blank=False, null=False)
+    Child = models.ForeignKey(Child, on_delete=models.CASCADE, blank=False, null=False, default=1)
+    Text = models.JSONField(null=True, blank=True)
+    time = models.DateTimeField(auto_now_add=True)
+
+
 class TemporaryTuitionForChild(models.Model):
     Child = models.OneToOneField(Child, on_delete=models.CASCADE, blank=False, null=False, default=1)
     Teacher = models.ManyToManyField(to=Teacher)
     Talks = models.CharField(max_length=200, null=True, blank=True)
-    TalksJson = models.JSONField( null=True, blank=True)
+    TalksJson = models.JSONField(null=True, blank=True)
 
 
 class ShortListedTuitionForChild(models.Model):
@@ -95,18 +102,6 @@ class ShortListedTuitionForChild(models.Model):
     Teacher = models.ManyToManyField(to=Teacher)
     Talks = models.CharField(max_length=200, null=True, blank=True)
     TalksJson = models.JSONField(null=True, blank=True)
-
-    # def save(self, *args, **kwargs):
-    #     try:
-    #         temporary_child_obj = TemporaryTuitionForChild.objects.filter(Child = self.Child)
-    #         for i in temporary_child_obj:
-    #             for temporary_teacher in i.Teacher.all():
-    #                 for self_teacher in self.Teacher.all():
-    #                     if temporary_teacher == self_teacher:
-    #                         self.TalksJson = i.TalksJson
-    #     except:
-    #         pass
-    #     super().save(*args, **kwargs)
 
 
 class AssignedTeacherForChild(models.Model):
@@ -159,7 +154,7 @@ class GuardianHistory(models.Model):
                                     related_name='FollowUpper')
     Checker = models.ForeignKey(User, on_delete=models.DO_NOTHING, blank=False, null=True,
                                 related_name='Checker')
-    Time = models.DateTimeField(auto_now_add=True, )
+    Time = models.DateTimeField(auto_now=True, )
 
 
 class TeacherHistory(models.Model):
@@ -182,10 +177,10 @@ class SMS(models.Model):
     sender = models.ForeignKey(User, null=True, blank=True, on_delete=models.DO_NOTHING)
     number = PhoneNumberField()
     text = models.TextField(null=True, blank=True)
+    time = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return str(self.sender)
-
 
 # signals
 
@@ -211,4 +206,3 @@ def guardian_post_created(sender, instance, created, *args, **kwargs):
         ins_obj.auth = user
         ins_obj.save()
 post_save.connect(guardian_post_created, sender=GuardianDetails)
-

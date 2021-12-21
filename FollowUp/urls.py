@@ -19,7 +19,7 @@ from .views import (TestView,
                     SendSMSView, SendSMSViewtest, ReminderListView,
                     ReminderListUpdateView, ReminderView,
                     FollowUpConfirm, FollowUpAssign, FollowUpPaid, FollowUpCanceled,
-                    AddRating, SetPaid, DemoToPermanent, DemoShortListView, ChildRetriveView)
+                    AddRating, SetPaid, DemoToPermanent, DemoShortListView, ChildRetriveView, RoughNoteAdd)
 
 urlpatterns = [
     path('api/temporary/', TemporaryTuitionForChildListView.as_view()),
@@ -62,4 +62,5 @@ urlpatterns = [
     path('sms/', login_required(SendSMSView.as_view())),
     path('smstest/', SendSMSViewtest.as_view()),
     path('setpaid', SetPaid.as_view()),
+    path('add_rough', RoughNoteAdd.as_view()),
 ]

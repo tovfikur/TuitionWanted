@@ -352,6 +352,7 @@ class Teacher(models.Model):
         self.initial_StudentID = self.StudentID
         self.initial_Certificate = self.Certificate
         self.initial_Oth_Graduation_Institute = self.Oth_Graduation_Institute
+        self.PresentLocation = str(self.PresentLocation) +', '+ str(self.PresentLocationThana)+', '+ str(self.PresentLocationDistrict)
 
     def __str__(self):
         return self.Name + ' (' + str(self.id) + ')'

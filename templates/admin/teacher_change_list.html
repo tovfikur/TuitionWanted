@@ -55,41 +55,57 @@
             <div class="col-12">
                 <ul class="widget-49-meeting-points">
                     <li class="widget-49-meeting-item">
-                        <span>{{ child.teacher_medium_text }}</span>
+                        <span>Student Address: </span><span
+                            style="font-size: larger; color: darkred">{{ child.Address }}</span>
                     </li>
                     <li class="widget-49-meeting-item">
-                        <span>{{ child.gender_text }}</span>
+                        <span>Teacher Medium : </span><span
+                            style="font-size: larger; color: darkred">{{ child.teacher_medium_text }}</span>
                     </li>
                     <li class="widget-49-meeting-item">
+                        <span>Teacher gender : </span><span style="font-size: larger; color: darkred">{{ child.gender_text }}</span>
+                    </li>
+                    <li class="widget-49-meeting-item">
+                        <span>Responsibility subjects : </span>
                         {% for Expected_Subject in child.Expected_Subjects.all %}
-                            <span>{{ Expected_Subject.Title }},&nbsp;</span>
+                            <span style="font-size: larger; color: darkred">{{ Expected_Subject.Title }},&nbsp;</span>
                         {% endfor %}
                         </span>
                     </li>
                     <li class="widget-49-meeting-item">
-                        <span>{{ child.teacher_level_text }}</span></li>
+                        <span>Teacher level : </span><span
+                            style="font-size: larger; color: darkred">{{ child.teacher_level_text }}</span></li>
                     <li class="widget-49-meeting-item">
-                        <span>{{ child.background_text }}</span></li>
+                        <span>Teacher Background : </span><span
+                            style="font-size: larger; color: darkred">{{ child.background_text }}</span></li>
                     <li class="widget-49-meeting-item">
-                        <span>{{ child.teacher_university_text }}</span></li>
+                        <span>Teacher University : </span><span
+                            style="font-size: larger; color: darkred">{{ child.teacher_university_text }}</span></li>
                     <li class="widget-49-meeting-item">
-                        <span>{{ child.experience_text }}</span></li>
+                        <span>Teacher experience : </span><span
+                            style="font-size: larger; color: darkred">{{ child.experience_text }}</span></li>
                     <li class="widget-49-meeting-item">
-                        <span>{{ child.Expected_Salary }}</span>
+                        <span>Salary: </span><span style="font-size: larger; color: darkred">{{ child.Expected_Salary }}</span>
                     </li>
-                    <li class="widget-49-meeting-item"><span>{{ child.Expected_Day }} Day/Week</span>
+                    <li class="widget-49-meeting-item">
+                        <span>Responsible Day: </span><span
+                            style="font-size: larger; color: darkred">{{ child.Expected_Day }} Day/Week</span>
                     </li>
                     <li class="widget-49-meeting-item">
-                        <span>{{ child.style_text }}</span>
+                        <span>Tuition Style : </span><span style="font-size: larger; color: darkred">{{ child.style_text }}</span>
                     </li>
                     <li class="widget-49-meeting-item">
-                        <span>{{ child.teacher_type_text }}</span></li>
+                        <span>Teacher Type : </span><span style="font-size: larger; color: darkred">{{ child.teacher_type_text }}</span>
+                    </li>
                     <li class="widget-49-meeting-item">
-                        <span>{{ child.teacher_age_text }}</span></li>
+                        <span>Teacher Age : </span><span style="font-size: larger; color: darkred">{{ child.teacher_age_text }}</span>
+                    </li>
                     <li class="widget-49-meeting-item">
-                        <span>{{ child.teacher_religion_text }}</span></li>
+                        <span>Teacher religion : </span><span
+                            style="font-size: larger; color: darkred">{{ child.teacher_religion_text }}</span></li>
                     <li class="widget-49-meeting-item">
-                        <span>{{ child.Free_Time }}</span></li>
+                        <span>Student Free time : </span><span style="font-size: larger; color: darkred">{{ child.Free_Time }}</span>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -181,7 +197,7 @@
 
             for (i = 0; i < (sURLVariables.length) - 1; i++) {
                 sParameterName = sURLVariables[i].split('=');
-                $("[id*=" + sParameterName[0] + "]").parent().css({'backgroundColor': '#317cf5', 'fontColor':'black'})
+                $("[id*=" + sParameterName[0] + "]").parent().css({'backgroundColor': '#317cf5', 'fontColor': 'black'})
             }
         };
         $('body').mousemove(() => {

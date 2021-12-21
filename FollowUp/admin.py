@@ -1,7 +1,7 @@
 from django.contrib import admin
 from .models import TemporaryTuitionForChild, PermanentTuitionForChild, \
     TeacherHistory, GuardianHistory, User, ShortListedTuitionForChild, \
-    AssignedTeacherForChild, SMS, EmployeeLoginHistory, Reminder, DemoTeacherForChild
+    AssignedTeacherForChild, SMS, EmployeeLoginHistory, Reminder, DemoTeacherForChild, RoughNote
 from django.contrib.admin.models import LogEntry
 from .forms import CustomUserCreationForm
 from django.contrib.auth.admin import UserAdmin
@@ -15,6 +15,7 @@ admin.site.register(TemporaryTuitionForChild, TeacherListAdmin)
 admin.site.register(PermanentTuitionForChild,TeacherListAdmin )
 admin.site.register(TeacherHistory)
 admin.site.register(GuardianHistory)
+admin.site.register(RoughNote)
 admin.site.register(ShortListedTuitionForChild, TeacherListAdmin)
 admin.site.register(AssignedTeacherForChild, TeacherListAdmin)
 admin.site.register(DemoTeacherForChild, TeacherListAdmin)

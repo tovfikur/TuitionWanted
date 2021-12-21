@@ -5,13 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0469798d-eca3-4b93-b226-dda40ee8c2ba" name="Changes" comment="DEC 19">
+      <change afterPath="$PROJECT_DIR$/FollowUp/migrations/0030_roughnote.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FollowUp/migrations/0031_auto_20211220_1350.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FollowUp/migrations/0032_sms_time.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FollowUp/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/FollowUp/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FollowUp/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/FollowUp/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FollowUp/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/FollowUp/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FollowUp/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/FollowUp/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GuardianArea/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/GuardianArea/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GuardianArea/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/GuardianArea/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GuardianArea/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/GuardianArea/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Teacher/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/Teacher/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Teacher/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/Teacher/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/FollowUp/follow-upper-base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/FollowUp/follow-upper-base.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/FollowUp/portal.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/FollowUp/portal.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/FollowUp/sms.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/FollowUp/sms.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/GuardianArea/child-profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/GuardianArea/child-profile.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/admin/teacher_change_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/teacher_change_list.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -121,7 +129,9 @@
       <workItem from="1639899255962" duration="3194000" />
       <workItem from="1639903401442" duration="4620000" />
       <workItem from="1639909685505" duration="7831000" />
-      <workItem from="1639924844836" duration="1549000" />
+      <workItem from="1639924844836" duration="3380000" />
+      <workItem from="1639985618617" duration="9857000" />
+      <workItem from="1640007818162" duration="3558000" />
     </task>
     <task id="LOCAL-00001" summary="DEC 19">
       <created>1639892819027</created>
@@ -165,7 +175,14 @@
       <option name="project" value="LOCAL" />
       <updated>1639914134996</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="DEC 19">
+      <created>1639926572568</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1639926572568</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

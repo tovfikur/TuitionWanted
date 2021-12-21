@@ -161,7 +161,7 @@
                         <th><span>Contact</span></th>
                         <th><span>T.Type</span></th>
                         <th><span>T.Gender</span></th>
-                        <th><span>Degree</span></th>
+                        <th><span>T.Level</span></th>
                         <th><span>T.Institute</span></th>
                         <th><span>T.Medium</span></th>
                         <th><span>G.Code</span></th>
@@ -1185,7 +1185,7 @@
                             }
                             var es = ''
                             for (var em in data[i]['Child'][k]['Expected_Subjects']) {
-                                es = es + data[i]['Child'][k]['Expected_Subjects'][em]['SHORT'] +
+                                es = es + data[i]['Child'][k]['Expected_Subjects'][em]['Title'] +
                                     ' | ' +
                                     '<span hidden>' + data[i]['Child'][k]['Expected_Subjects'][em]['Title'] + '</span>'
                             }

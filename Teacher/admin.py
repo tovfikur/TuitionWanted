@@ -135,9 +135,8 @@ class TeacherAdmin(admin.ModelAdmin):
                     'HSC_Institute', 'HSC_Subject',
                     'HSC_GPA', 'Gender',
                     'Rating', 'RatedPerson']
-    list_filter = ('PresentArea', 'Last_Institute', 'Graduation_Subject', 'Gender',
-                   ('PreferredArea', custom_titled_filter('Preferred Area')),
-                   'SSC_MEDIUM',
+    list_filter = ('Last_Institute', 'Graduation_Subject', 'Gender',
+                   ('PresentLocationThana', custom_titled_filter('Thana')), 
                    # Last medium
                    # Prefred subject
                    'SSC_Institute', 'SSC_Subject', 'SSC_GPA', 'SSC_GOLDEN', 'SSC_MEDIUM',
@@ -147,7 +146,7 @@ class TeacherAdmin(admin.ModelAdmin):
                    'Graduation_Institute__Category',
                    'Graduation_Subject',
                    # 'PresentLocation',
-                   'PermanentLocation',
+                   # 'PermanentLocation',
                    # ('PreferredArea', custom_titled_filter('Preferred Area')),
                    # 'Location3',
                    'Religion', 'Age',
@@ -168,7 +167,8 @@ class TeacherAdmin(admin.ModelAdmin):
                    'ImATeacherOf', 'TuitionStyle', 'Admission',  ('ImATeacherOf', custom_titled_filter('Institute Teacher')),
                    'CoachingCenterName',
 
-                    'BloodGroup',  'PresentLocationThana', 'PermanentLocationThana',
+                    'BloodGroup',
+                   # 'PresentLocationThana', 'PermanentLocationThana',
 
 
                    'Physiotherapist',

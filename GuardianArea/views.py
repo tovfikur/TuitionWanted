@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from .models import Child, GuardianDetails, Note
 from Teacher.models import Teacher
 from FollowUp.models import PermanentTuitionForChild, TemporaryTuitionForChild, ShortListedTuitionForChild, \
-    AssignedTeacherForChild, DemoTeacherForChild
+    AssignedTeacherForChild, DemoTeacherForChild, RoughNote
 
 # serializers
 from .serializers import GuardianListSerializers, NoteSerializers, ChildSerializer
@@ -65,8 +65,13 @@ class ChildProfile(TemplateView):
     template_name = 'GuardianArea/child-profile.html'
 
     def get_context_data(self, *args, **kwargs):
+        note_obj = None
         context = super(ChildProfile, self).get_context_data(*args, **kwargs)
         try:
+            note_obj = RoughNote.objects.filter(Child__slug=self.kwargs['id'])
+
+
+            context['roughs'] = note_obj
             cobj = Child.objects.get(slug=self.kwargs['id'])
             context['child'] = cobj
             self.request.session['child_id'] = cobj.slug
@@ -102,6 +107,12 @@ class ChildProfile(TemplateView):
         try:
             temp_tobj = PermanentTuitionForChild.objects.get(Child_id=self.kwargs['id'])
             context['permanent'] = temp_tobj
+
+            p_rough = []
+            for note in note_obj:
+                if temp_tobj.Teacher.Name.replace(' ', '') == note.Text.split(' : ')[0].replace(' ', ''):
+                    p_rough.append(note.Text.split(' : ')[1])
+            context['p_rough'] = p_rough
         except:
             pass
 
