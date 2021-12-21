@@ -15,7 +15,6 @@ admin.site.register(TemporaryTuitionForChild, TeacherListAdmin)
 admin.site.register(PermanentTuitionForChild,TeacherListAdmin )
 admin.site.register(TeacherHistory)
 admin.site.register(GuardianHistory)
-admin.site.register(RoughNote)
 admin.site.register(ShortListedTuitionForChild, TeacherListAdmin)
 admin.site.register(AssignedTeacherForChild, TeacherListAdmin)
 admin.site.register(DemoTeacherForChild, TeacherListAdmin)
@@ -92,3 +91,10 @@ class SMSAdmin(admin.ModelAdmin):
 @admin.register(Reminder)
 class ReminderAdmin(admin.ModelAdmin):
     list_display = ['User', 'Time', 'Note', ]
+
+
+@admin.register(RoughNote)
+class ReminderAdmin(admin.ModelAdmin):
+    list_display = ['user', 'Child', 'Text', 'time']
+
+    search_fields = ['Child__Name', 'Child__slug', 'Child__slug', 'Child__Important_Note']

@@ -954,7 +954,7 @@
                                     } catch (e) {
                                         {#empty#}
                                     }
-                                    $('.short').append('<div class="row teacher text-center flex-nowrap" style="background-color: lightskyblue; padding: 5px; padding-right: 0px; border-top-left-radius: 50px; border-bottom-left-radius: 50px; margin-bottom: 3px"> ' +
+                                    $('.short').append('<div class="row teacher text-center flex-nowrap" style=" padding: 5px; padding-right: 0px; border-top-left-radius: 50px; border-bottom-left-radius: 50px; margin-bottom: 3px"> ' +
                                         '<div class="col-1" style="margin-left: -5px;"> ' +
                                         '<img style="height: 100%; width: 100%" src="' + avatar + '" class="brand-image img-circle zoom "> ' +
                                         '</div> ' +
@@ -1022,7 +1022,7 @@
                                             } catch (e) {
                                                 {#empty#}
                                             }
-                                            $('.assigned').append('<div class="row teacher text-center flex-nowrap" style="background-color: lightseagreen; padding: 5px; padding-right: 0px; border-top-left-radius: 50px; border-bottom-left-radius: 50px; margin-bottom: 3px"> ' +
+                                            $('.assigned').append('<div class="row teacher text-center flex-nowrap" style="background-color: #ff6d01; padding: 5px; padding-right: 0px; border-top-left-radius: 50px; border-bottom-left-radius: 50px; margin-bottom: 3px"> ' +
                                                 '<div class="col-1" style="margin-left: -5px;"> ' +
                                                 '<img style="height: 100%; width: 100%" src="' + avatar + '" class="brand-image img-circle zoom "> ' +
                                                 '</div> ' +
@@ -1046,7 +1046,7 @@
                                             try {
                                                 if (data[0]['money']) {
                                                     try {
-                                                        $('.permanent').append('<div class="row teacher text-center flex-nowrap" style="background-color: lightseagreen; padding: 5px; padding-right: 0px; border-top-left-radius: 50px; border-bottom-left-radius: 50px; margin-bottom: 3px"> ' +
+                                                        $('.permanent').append('<div class="row teacher text-center flex-nowrap" style="background-color: #35a853; padding: 5px; padding-right: 0px; border-top-left-radius: 50px; border-bottom-left-radius: 50px; margin-bottom: 3px"> ' +
                                                             '<div class="col-1" style="margin-left: -5px;"> ' +
                                                             '<img style="height: 100%; width: 100%" src="' + data[0]['Teacher']['Avatar'] + '" class="brand-image img-circle zoom "> ' +
                                                             '</div> ' +
@@ -1066,7 +1066,7 @@
                                                 } else {
                                                     try {
 
-                                                        $('.permanent').append('<div class="row teacher text-center flex-nowrap" style="background-color: lightseagreen; padding: 5px; padding-right: 0px; border-top-left-radius: 50px; border-bottom-left-radius: 50px; margin-bottom: 3px"> ' +
+                                                        $('.permanent').append('<div class="row teacher text-center flex-nowrap" style="background-color: 35a853; padding: 5px; padding-right: 0px; border-top-left-radius: 50px; border-bottom-left-radius: 50px; margin-bottom: 3px"> ' +
                                                             '<div class="col-1" style="margin-left: -5px;"> ' +
                                                             '<img style="height: 100%; width: 100%" src="' + data[0]['Teacher']['Avatar'] + '" class="brand-image img-circle zoom "> ' +
                                                             '</div> ' +
@@ -1192,7 +1192,7 @@
 
                             {if (data[i]['Child'][k]['is_reserved']) {
                                 {$('#t_body').append(
-                                    '<tr style="background-color: white">' +
+                                    '<tr>' +
                                     '<td>' + data[i]['Child'][k]['slug'] + '</td>' +
 
                                     '<td>' + new Date(data[i]['Child'][k]['Created']).getFullYear() + '-' +
@@ -1218,7 +1218,7 @@
                             }
                             else if (data[i]['Child'][k]['is_short']) {
                                 {$('#t_body').append(
-                                    '<tr style="background-color: skyblue">' +
+                                    '<tr>' +
                                     '<td>' + data[i]['Child'][k]['slug'] + '</td>' +
 
                                     '<td>' + new Date(data[i]['Child'][k]['Created']).getFullYear() + '-' +
@@ -1244,7 +1244,7 @@
                             }
                             else if (data[i]['Child'][k]['is_assign']) {
                                 {$('#t_body').append(
-                                    '<tr style="background-color: orange">' +
+                                    '<tr style="background-color: #ff6d01">' +
                                     '<td>' + data[i]['Child'][k]['slug'] + '</td>' +
 
                                     '<td>' + new Date(data[i]['Child'][k]['Created']).getFullYear() + '-' +
@@ -1296,7 +1296,7 @@
                             }
                             else if (data[i]['Child'][k]['is_permanent']) {
                                 {$('#t_body').append(
-                                    '<tr style="background-color: greenyellow">' +
+                                    '<tr style="background-color: #35a853">' +
                                     '<td>' + data[i]['Child'][k]['slug'] + '</td>' +
 
                                     '<td>' + new Date(data[i]['Child'][k]['Created']).getFullYear() + '-' +

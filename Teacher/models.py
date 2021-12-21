@@ -6,7 +6,6 @@ from io import BytesIO
 from django.core.files.uploadedfile import InMemoryUploadedFile
 # Create your models here.
 import datetime
-
 YEAR_CHOICES = []
 for r in range(1980, (datetime.datetime.now().year+1)):
     YEAR_CHOICES.append((r, r))
@@ -316,6 +315,8 @@ class Teacher(models.Model):
     ReminderNote = models.CharField(max_length=200, blank=True, null=True)  # sort
     Reminder = models.DateTimeField(blank=True, null=True)  # sort
     Emergency = models.BooleanField(blank=True, null=True)
+
+    roughnotes = models.ManyToManyField('FollowUp.RoughNote', blank=True)
 
     def get_avatar(self):
         try:

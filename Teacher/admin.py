@@ -1,12 +1,12 @@
 from django.contrib import admin
-from .models import Teacher, University, Schools, Subject, TeachingSection, Areas, SSC_HSC_Group, District, Division, Thana,\
+from .models import Teacher, University, Schools, Subject, TeachingSection, Areas, SSC_HSC_Group, District, Division, \
+    Thana, \
     ClassesSubject
 from FollowUp.models import Child, TemporaryTuitionForChild
 from django.contrib import messages
 from django.utils.safestring import mark_safe
 from django.contrib.contenttypes.models import ContentType
 from django.http import HttpResponseRedirect
-
 
 # Register your models here.
 
@@ -136,7 +136,7 @@ class TeacherAdmin(admin.ModelAdmin):
                     'HSC_GPA', 'Gender',
                     'Rating', 'RatedPerson']
     list_filter = ('Last_Institute', 'Graduation_Subject', 'Gender',
-                   ('PresentLocationThana', custom_titled_filter('Thana')), 
+                   ('PresentLocationThana', custom_titled_filter('Thana')),
                    # Last medium
                    # Prefred subject
                    'SSC_Institute', 'SSC_Subject', 'SSC_GPA', 'SSC_GOLDEN', 'SSC_MEDIUM',
@@ -163,13 +163,13 @@ class TeacherAdmin(admin.ModelAdmin):
                    'Post_Graduation_Institute',
                    ('Graduation_Institute__Category', custom_titled_filter('Graduation Category')),
                    ('Post_Graduation_Institute__Category', custom_titled_filter('Post Graduation Category')),
-                   'Post_Graduation_Subject',  'HSC_MEDIUM_Curriculum', 'SSC_MEDIUM_Curriculum',
-                   'ImATeacherOf', 'TuitionStyle', 'Admission',  ('ImATeacherOf', custom_titled_filter('Institute Teacher')),
+                   'Post_Graduation_Subject', 'HSC_MEDIUM_Curriculum', 'SSC_MEDIUM_Curriculum',
+                   'ImATeacherOf', 'TuitionStyle', 'Admission',
+                   ('ImATeacherOf', custom_titled_filter('Institute Teacher')),
                    'CoachingCenterName',
 
-                    'BloodGroup',
+                   'BloodGroup',
                    # 'PresentLocationThana', 'PermanentLocationThana',
-
 
                    'Physiotherapist',
                    'HandWriting', 'Hafiz', 'Music', 'Dance', 'Emergency', 'SSC_Year', 'Cadet',
@@ -194,8 +194,10 @@ class TeacherAdmin(admin.ModelAdmin):
         'PresentLocation', 'PermanentLocation',
         'Location2', 'Location3',
         'Location4', 'Reminder', 'id', 'Religion', 'Age', 'PreferredArea__Name',
-        'PresentArea__Name', 'Facebook_Link', 'Guardian_phone', 'ExpectedSalary', 'CoachingCenterName'
+        'PresentArea__Name', 'Facebook_Link', 'Guardian_phone', 'ExpectedSalary', 'CoachingCenterName',
+        'roughnotes__Text'
     ]
+    readonly_fields = ['roughnotes', ]
     actions_on_bottom = True,
     actions = [set_teacher, see_requirements]
     change_list_template = 'admin/teacher_change_list.html'
@@ -220,13 +222,13 @@ class TeacherAdmin(admin.ModelAdmin):
 
 class DistrictAdmin(admin.ModelAdmin):
     list_display = ['Name', 'Division', ]
-    search_fields = ['Name',]
+    search_fields = ['Name', ]
 
 
 class ThanaAdmin(admin.ModelAdmin):
     list_display = ['id', 'Name', 'District', ]
     list_filter = ['District']
-    search_fields = ['Name',]
+    search_fields = ['Name', ]
 
 
 class ClassesSubjectAdmin(admin.ModelAdmin):

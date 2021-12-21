@@ -241,13 +241,15 @@ class TemporaryToShortList(APIView):
                     try:
                         obj = ShortListedTuitionForChild.objects.get(Child_id=self.request.GET.get('cid'))
                         obj.Teacher.add(self.request.GET.get('tid'))
-                        tea_name = Teacher.objects.get(id=self.request.GET.get('tid')).Name
+                        tea_name = Teacher.objects.get(id=self.request.GET.get('tid'))
                         try:
                             note_obj = RoughNote.objects.create(Child_id=self.request.GET.get('cid'),
                                                                 user=get_current_user(),
-                                                                Text=str(tea_name) + ' : ' + self.request.GET.get(
+                                                                Text=str(tea_name.Name) + ' : ' + self.request.GET.get(
                                                                     'talk'))
                             note_obj.save()
+                            tea_name.roughnotes.add(note_obj)
+                            tea_name.save()
                             obj.TalksJson[self.request.GET.get('tid')] = self.request.GET.get('talk')
                             obj.save()
                         except Exception as e:
@@ -256,6 +258,8 @@ class TemporaryToShortList(APIView):
                                                                     user=get_current_user(),
                                                                     Text=str(tea_name) + ' : ' + self.request.GET.get(
                                                                         'talk'))
+                                tea_name.roughnotes.add(note_obj)
+                                tea_name.save()
                                 note_obj.save()
                                 obj.TalksJson = {self.request.GET.get('tid'): self.request.GET.get('talk')}
                                 obj.save()
@@ -271,12 +275,14 @@ class TemporaryToShortList(APIView):
                                 obj.save()
                             except Exception as e:
                                 if '\'NoneType\' object does not support item assignment' in str(e):
-                                    tea_name = Teacher.objects.get(id=self.request.GET.get('tid')).Name
+                                    tea_name = Teacher.objects.get(id=self.request.GET.get('tid'))
                                     note_obj = RoughNote.objects.create(Child_id=self.request.GET.get('cid'),
                                                                         user=get_current_user(),
                                                                         Text=str(
-                                                                            tea_name) + ' : ' + self.request.GET.get(
+                                                                            tea_name.Name) + ' : ' + self.request.GET.get(
                                                                             'talk'))
+                                    tea_name.roughnotes.add(note_obj)
+                                    tea_name.save()
                                     note_obj.save()
                                     obj.TalksJson = {self.request.GET.get('tid'): self.request.GET.get('talk')}
                                     obj.save()
@@ -297,23 +303,27 @@ class ShortListToAssigned(APIView):
                         obj = AssignedTeacherForChild.objects.get(Child_id=self.request.GET.get('cid'))
                         obj.Teacher.add(self.request.GET.get('tid'))
                         try:
-                            tea_name = Teacher.objects.get(id=self.request.GET.get('tid')).Name
+                            tea_name = Teacher.objects.get(id=self.request.GET.get('tid'))
                             note_obj = RoughNote.objects.create(Child_id=self.request.GET.get('cid'),
                                                                 user=get_current_user(),
-                                                                Text=str(tea_name) + ' : ' + self.request.GET.get(
+                                                                Text=str(tea_name.Name) + ' : ' + self.request.GET.get(
                                                                     'talk'))
                             note_obj.save()
+                            tea_name.roughnotes.add(note_obj)
+                            tea_name.save()
                             obj.TalksJson[self.request.GET.get('tid')] = [self.request.GET.get('talk'),
                                                                           str(datetime.date.today())]
                             obj.save()
                         except Exception as e:
                             if '\'NoneType\' object does not support item assignment' in str(e):
-                                tea_name = Teacher.objects.get(id=self.request.GET.get('tid')).Name
+                                tea_name = Teacher.objects.get(id=self.request.GET.get('tid'))
                                 note_obj = RoughNote.objects.create(Child_id=self.request.GET.get('cid'),
                                                                     user=get_current_user(),
                                                                     Text=str(
-                                                                        tea_name) + ' : ' + self.request.GET.get(
+                                                                        tea_name.Name) + ' : ' + self.request.GET.get(
                                                                         'talk'))
+                                tea_name.roughnotes.add(note_obj)
+                                tea_name.save()
                                 note_obj.save()
                                 obj.TalksJson = {self.request.GET.get('tid'): self.request.GET.get('talk')}
                                 obj.save()
@@ -321,24 +331,28 @@ class ShortListToAssigned(APIView):
                         if 'matching query does not exist' in str(e):
                             obj = AssignedTeacherForChild.objects.create(Child_id=self.request.GET.get('cid'))
                             try:
-                                tea_name = Teacher.objects.get(id=self.request.GET.get('tid')).Name
+                                tea_name = Teacher.objects.get(id=self.request.GET.get('tid'))
                                 note_obj = RoughNote.objects.create(Child_id=self.request.GET.get('cid'),
                                                                     user=get_current_user(),
                                                                     Text=str(
-                                                                        tea_name) + ' : ' + self.request.GET.get(
+                                                                        tea_name.Name) + ' : ' + self.request.GET.get(
                                                                         'talk'))
+                                tea_name.roughnotes.add(note_obj)
+                                tea_name.save()
                                 note_obj.save()
                                 obj.TalksJson[self.request.GET.get('tid')] = [self.request.GET.get('talk'),
                                                                               str(datetime.date.today())]
                                 obj.save()
                             except Exception as e:
                                 if '\'NoneType\' object does not support item assignment' in str(e):
-                                    tea_name = Teacher.objects.get(id=self.request.GET.get('tid')).Name
+                                    tea_name = Teacher.objects.get(id=self.request.GET.get('tid'))
                                     note_obj = RoughNote.objects.create(Child_id=self.request.GET.get('cid'),
                                                                         user=get_current_user(),
                                                                         Text=str(
-                                                                            tea_name) + ' : ' + self.request.GET.get(
+                                                                            tea_name.Name) + ' : ' + self.request.GET.get(
                                                                             'talk'))
+                                    tea_name.roughnotes.add(note_obj)
+                                    tea_name.save()
                                     note_obj.save()
                                     obj.TalksJson = {self.request.GET.get('tid'): self.request.GET.get('talk')}
                                     obj.save()
@@ -366,23 +380,27 @@ class AssignedToDemo(APIView):
                         try:
                             obj = DemoTeacherForChild.objects.create(Child_id=self.request.GET.get('cid'))
                             obj.Teacher.add(self.request.GET.get('tid'))
-                            tea_name = Teacher.objects.get(id=self.request.GET.get('tid')).Name
+                            tea_name = Teacher.objects.get(id=self.request.GET.get('tid'))
                             note_obj = RoughNote.objects.create(Child_id=self.request.GET.get('cid'),
                                                                 user=get_current_user(),
-                                                                Text=str(tea_name) + ' : ' + self.request.GET.get(
+                                                                Text=str(tea_name.Name) + ' : ' + self.request.GET.get(
                                                                     'talk'))
                             note_obj.save()
+                            tea_name.roughnotes.add(note_obj)
+                            tea_name.save()
                             obj.TalksJson[self.request.GET.get('tid')] = [self.request.GET.get('talk'),
                                                                           str(datetime.date.today())]
                             obj.save()
                         except Exception as e:
                             if '\'NoneType\' object does not support item assignment' in str(e):
-                                tea_name = Teacher.objects.get(id=self.request.GET.get('tid')).Name
+                                tea_name = Teacher.objects.get(id=self.request.GET.get('tid'))
                                 note_obj = RoughNote.objects.create(Child_id=self.request.GET.get('cid'),
                                                                     user=get_current_user(),
                                                                     Text=str(
-                                                                        tea_name) + ' : ' + self.request.GET.get(
+                                                                        tea_name.Name) + ' : ' + self.request.GET.get(
                                                                         'talk'))
+                                tea_name.roughnotes.add(note_obj)
+                                tea_name.save()
                                 note_obj.save()
                                 obj.TalksJson = {self.request.GET.get('tid'): self.request.GET.get('talk')}
                                 obj.save()
@@ -392,24 +410,28 @@ class AssignedToDemo(APIView):
                         if 'matching query does not exist' in str(e):
                             obj = DemoTeacherForChild.objects.create(Child_id=self.request.GET.get('cid'))
                             obj.Teacher.add(self.request.GET.get('tid'))
-                            tea_name = Teacher.objects.get(id=self.request.GET.get('tid')).Name
+                            tea_name = Teacher.objects.get(id=self.request.GET.get('tid'))
                             try:
                                 note_obj = RoughNote.objects.create(Child_id=self.request.GET.get('cid'),
                                                                     user=get_current_user(),
-                                                                    Text=str(tea_name) + ' : ' + self.request.GET.get(
+                                                                    Text=str(tea_name.Name) + ' : ' + self.request.GET.get(
                                                                         'talk'))
+                                tea_name.roughnotes.add(note_obj)
+                                tea_name.save()
                                 note_obj.save()
                                 obj.TalksJson[self.request.GET.get('tid')] = [self.request.GET.get('talk'),
                                                                               str(datetime.date.today())]
                                 obj.save()
                             except Exception as e:
                                 if '\'NoneType\' object does not support item assignment' in str(e):
-                                    tea_name = Teacher.objects.get(id=self.request.GET.get('tid')).Name
+                                    tea_name = Teacher.objects.get(id=self.request.GET.get('tid'))
                                     note_obj = RoughNote.objects.create(Child_id=self.request.GET.get('cid'),
                                                                         user=get_current_user(),
                                                                         Text=str(
-                                                                            tea_name) + ' : ' + self.request.GET.get(
+                                                                            tea_name.Name) + ' : ' + self.request.GET.get(
                                                                             'talk'))
+                                    tea_name.roughnotes.add(note_obj)
+                                    tea_name.save()
                                     note_obj.save()
                                     obj.TalksJson = {self.request.GET.get('tid'): self.request.GET.get('talk')}
                                     obj.save()
@@ -441,24 +463,28 @@ class DemoToPermanent(APIView):
                         obj.Teacher_id = self.request.GET.get('tid')
                         obj.money = self.request.GET.get('mny')
                         obj.User = self.request.user
-                        tea_name = Teacher.objects.get(id=self.request.GET.get('tid')).Name
+                        tea_name = Teacher.objects.get(id=self.request.GET.get('tid'))
                         try:
                             note_obj = RoughNote.objects.create(Child_id=self.request.GET.get('cid'),
                                                                 user=get_current_user(),
-                                                                Text=str(tea_name) + ' : ' + self.request.GET.get(
+                                                                Text=str(tea_name.Name) + ' : ' + self.request.GET.get(
                                                                     'talk'))
                             note_obj.save()
+                            tea_name.roughnotes.add(note_obj)
+                            tea_name.save()
                             obj.TalksJson[self.request.GET.get('tid')] = [self.request.GET.get('talk'),
                                                                           str(datetime.date.today())]
                             obj.save()
                         except Exception as e:
                             if '\'NoneType\' object does not support item assignment' in str(e):
-                                tea_name = Teacher.objects.get(id=self.request.GET.get('tid')).Name
+                                tea_name = Teacher.objects.get(id=self.request.GET.get('tid'))
                                 note_obj = RoughNote.objects.create(Child_id=self.request.GET.get('cid'),
                                                                     user=get_current_user(),
                                                                     Text=str(
-                                                                        tea_name) + ' : ' + self.request.GET.get(
+                                                                        tea_name.Name) + ' : ' + self.request.GET.get(
                                                                         'talk'))
+                                tea_name.roughnotes.add(note_obj)
+                                tea_name.save()
                                 note_obj.save()
                                 obj.TalksJson = {self.request.GET.get('tid'): self.request.GET.get('talk')}
                                 obj.save()
@@ -470,24 +496,28 @@ class DemoToPermanent(APIView):
                         if 'matching query does not exist' in str(e):
                             obj = PermanentTuitionForChild.objects.create(Child_id=self.request.GET.get('cid'),
                                                                           Teacher_id=self.request.GET.get('tid'))
-                            tea_name = Teacher.objects.get(id=self.request.GET.get('tid')).Name
+                            tea_name = Teacher.objects.get(id=self.request.GET.get('tid'))
                             try:
                                 note_obj = RoughNote.objects.create(Child_id=self.request.GET.get('cid'),
                                                                     user=get_current_user(),
-                                                                    Text=str(tea_name) + ' : ' + self.request.GET.get(
+                                                                    Text=str(tea_name.Name) + ' : ' + self.request.GET.get(
                                                                         'talk'))
+                                tea_name.roughnotes.add(note_obj)
+                                tea_name.save()
                                 note_obj.save()
                                 obj.TalksJson[self.request.GET.get('tid')] = [self.request.GET.get('talk'),
                                                                               str(datetime.date.today())]
                                 obj.save()
                             except Exception as e:
                                 if '\'NoneType\' object does not support item assignment' in str(e):
-                                    tea_name = Teacher.objects.get(id=self.request.GET.get('tid')).Name
+                                    tea_name = Teacher.objects.get(id=self.request.GET.get('tid'))
                                     note_obj = RoughNote.objects.create(Child_id=self.request.GET.get('cid'),
                                                                         user=get_current_user(),
                                                                         Text=str(
-                                                                            tea_name) + ' : ' + self.request.GET.get(
+                                                                            tea_name.Name) + ' : ' + self.request.GET.get(
                                                                             'talk'))
+                                    tea_name.roughnotes.add(note_obj)
+                                    tea_name.save()
                                     note_obj.save()
                                     obj.TalksJson = {self.request.GET.get('tid'): self.request.GET.get('talk')}
                                     obj.save()
