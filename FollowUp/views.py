@@ -878,6 +878,7 @@ class RoughNoteAdd(GenericAPIView):
 class NoteAdd(GenericAPIView):
     def get(self, request):
         try:
+
             if self.request.GET.get('c') == '1':  # Reserve note
                 obj = TemporaryTuitionForChild(Child_id=self.request.GET.get('cid'))
                 obj.TalksJson[self.request.GET.get('tid')] = [str(
@@ -892,6 +893,7 @@ class NoteAdd(GenericAPIView):
                 obj.save()
             elif self.request.GET.get('c') == '3':  # Assigned note
                 obj = AssignedTeacherForChild(Child_id=self.request.GET.get('cid'))
+                print(obj)
                 obj.TalksJson[self.request.GET.get('tid')] = [str(
                     obj.TalksJson[self.request.GET.get('tid')]) + ' > ' + self.request.GET.get('talk'),
                                                               str(datetime.date.today())]
