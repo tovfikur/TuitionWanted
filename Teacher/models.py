@@ -6,8 +6,9 @@ from io import BytesIO
 from django.core.files.uploadedfile import InMemoryUploadedFile
 # Create your models here.
 import datetime
+
 YEAR_CHOICES = []
-for r in range(1980, (datetime.datetime.now().year+1)):
+for r in range(1980, (datetime.datetime.now().year + 1)):
     YEAR_CHOICES.append((r, r))
 
 TEACHING_LEVEL_CHOICE = (
@@ -64,6 +65,7 @@ BLOOD_CHOICE = (
 TUITION_STYLE = ((1, 'Home tuition'), (2, 'Group'), (3, 'Course'), (4, 'Online'), (5, 'Group and Course'),
                  (7, 'Home Tuition and Online'), (7, 'Home Tuition and Group'), (6, 'All'),)
 
+
 # UNIVERSITY_CATEGORY = ((1, 'Public'), (2, 'Private'), (3, 'National'), (4, 'Others'),)
 
 def nested_tuple_text(index, x):
@@ -90,18 +92,18 @@ class District(models.Model):
         ordering = ['Name']
 
     def __str__(self):
-        return self.Name+'  ' + str(self.id)
+        return self.Name + '  ' + str(self.id)
 
 
 class Thana(models.Model):
-    District = models.ForeignKey(District, null=False, blank=False, on_delete=models.CASCADE,  default=74)
+    District = models.ForeignKey(District, null=False, blank=False, on_delete=models.CASCADE, default=74)
     Name = models.CharField(max_length=150, null=True, blank=True, unique=True)
 
     class Meta:
         ordering = ['Name']
 
     def __str__(self):
-        return self.Name+'  ' + str(self.id)
+        return self.Name + '  ' + str(self.id)
 
 
 class University(models.Model):
@@ -109,12 +111,12 @@ class University(models.Model):
     SHORT = models.CharField(max_length=10, null=True, blank=True)
     URL = models.URLField(null=True, blank=True)
     Category = models.SmallIntegerField(
-                                choices=((1, 'PUBLIC'), (2, 'NATIONAL'), (3, 'PRIVATE'), (4, 'OTHERS'), ),
-                                blank=True, null=True)
+        choices=((1, 'PUBLIC'), (2, 'NATIONAL'), (3, 'PRIVATE'), (4, 'OTHERS'),),
+        blank=True, null=True)
 
     def fullname(self):
         return str(self.Name) + ' | ' + str(self.SHORT)
-               # ' | ' + self.Private
+        # ' | ' + self.Private
 
     def __str__(self):
         return str(self.Name)
@@ -130,7 +132,7 @@ class Schools(models.Model):
 
     def fullname(self):
         return str(self.Name) + ' | ' + str(self.SHORT)
-               # ' | ' + self.Private
+        # ' | ' + self.Private
 
     def __str__(self):
         return str(self.Name)
@@ -169,9 +171,9 @@ class TeachingSection(models.Model):
     def __str__(self):
         sub = ''
         for i in self.Preferred_Subject.all():
-            sub =  str(i.Title) + ', '+str(sub)
+            sub = str(i.Title) + ', ' + str(sub)
 
-        return str(self.id) + ' ' + str(nested_tuple_text(self.Preferred_Education, TEACHING_LEVEL_CHOICE)) + ' | ' +\
+        return str(self.id) + ' ' + str(nested_tuple_text(self.Preferred_Education, TEACHING_LEVEL_CHOICE)) + ' | ' + \
                str(nested_tuple_text(self.Preferred_Medium, TEACHING_MEDIUM_CHOICE)) + ' | ' + \
                sub
 
@@ -197,7 +199,6 @@ class SSC_HSC_Group(models.Model):
         return self.Title
 
 
-
 class Teacher(models.Model):
     auth = models.ForeignKey('FollowUp.User', null=True, blank=True, on_delete=models.CASCADE)
     Name = models.CharField(max_length=40, default="", null=False, blank=False)  # contain search
@@ -207,7 +208,7 @@ class Teacher(models.Model):
     Facebook_Link = models.URLField(blank=True, null=True)
     Guardian_phone = models.CharField(blank=True, max_length=300, null=True)
     Refer_phone = models.CharField(blank=True, max_length=300, null=True)
-    Refer_Name = models.CharField(max_length=40, default="", null=True, blank=True) # contain search
+    Refer_Name = models.CharField(max_length=40, default="", null=True, blank=True)  # contain search
     Avatar = models.ImageField(blank=True, null=True, upload_to='Avatar')
     BloodGroup = models.IntegerField(choices=BLOOD_CHOICE, null=True, blank=True)
     Age = models.IntegerField(blank=True, null=True, choices=Teacher_AGE_CHOICE)
@@ -217,9 +218,9 @@ class Teacher(models.Model):
     Type = models.SmallIntegerField(choices=TYPE_CHOICE, default=1, null=True, blank=True)
 
     Post_Graduation_Institute = models.ForeignKey(University, blank=True, null=True, on_delete=models.DO_NOTHING,
-                                              related_name='PG_Institute')  # filter
+                                                  related_name='PG_Institute')  # filter
     Post_Graduation_Subject = models.ForeignKey(Subject, blank=True, null=True, on_delete=models.DO_NOTHING,
-                                            related_name='PG_Subject')  # filter
+                                                related_name='PG_Subject')  # filter
     Post_Graduation_GPA = models.FloatField(blank=True, null=True)  # filter
     Post_Graduation_Year = models.IntegerField(choices=YEAR_CHOICES, blank=True, null=True)  # sort
 
@@ -230,18 +231,22 @@ class Teacher(models.Model):
     Graduation_Year = models.IntegerField(choices=YEAR_CHOICES, blank=True, null=True)  # sort
 
     HSC_Institute = models.CharField(max_length=150, blank=True, null=True)  # filter
-    HSC_Subject = models.ForeignKey(SSC_HSC_Group, blank=True, null=True, on_delete=models.DO_NOTHING, related_name='HSC_SUB')  # filter
+    HSC_Subject = models.ForeignKey(SSC_HSC_Group, blank=True, null=True, on_delete=models.DO_NOTHING,
+                                    related_name='HSC_SUB')  # filter
     HSC_GPA = models.FloatField(blank=True, null=True)  # filter
     HSC_MEDIUM = models.IntegerField(choices=TEACHING_MEDIUM_CHOICE, blank=True, null=True)  # filter
-    HSC_MEDIUM_Curriculum = models.IntegerField(choices=((1, 'Edexcel'), (2, 'Cambridge'), (3, 'IB'), (4, 'Others')), blank=True, null=True)  # filter
+    HSC_MEDIUM_Curriculum = models.IntegerField(choices=((1, 'Edexcel'), (2, 'Cambridge'), (3, 'IB'), (4, 'Others')),
+                                                blank=True, null=True)  # filter
     HSC_GOLDEN = models.BooleanField(null=True, blank=True, default=False)
     HSC_Year = models.IntegerField(choices=YEAR_CHOICES, blank=True, null=True)  # sort
     Cadet = models.BooleanField(default=False)
 
     SSC_Institute = models.CharField(max_length=150, blank=True, null=True)  # filter
-    SSC_Subject = models.ForeignKey(SSC_HSC_Group, blank=True, null=True, on_delete=models.DO_NOTHING, related_name='SSC_SUB')  # filter
+    SSC_Subject = models.ForeignKey(SSC_HSC_Group, blank=True, null=True, on_delete=models.DO_NOTHING,
+                                    related_name='SSC_SUB')  # filter
     SSC_MEDIUM = models.IntegerField(choices=TEACHING_MEDIUM_CHOICE, blank=True, null=True)  # filter
-    SSC_MEDIUM_Curriculum = models.IntegerField(choices=((1, 'Edexcel'), (2, 'Cambridge'), (3, 'IB'), (4, 'Others')), blank=True, null=True)  # filter
+    SSC_MEDIUM_Curriculum = models.IntegerField(choices=((1, 'Edexcel'), (2, 'Cambridge'), (3, 'IB'), (4, 'Others')),
+                                                blank=True, null=True)  # filter
     SSC_GPA = models.FloatField(blank=True, null=True)  # filter
     SSC_GOLDEN = models.BooleanField(null=True, blank=True, default=False)
     SSC_Year = models.IntegerField(choices=YEAR_CHOICES, blank=True, null=True)  # sort
@@ -249,21 +254,32 @@ class Teacher(models.Model):
     TuitionStyle = models.SmallIntegerField(choices=TUITION_STYLE, null=True, blank=True, default=2500)
     ExpectedSalary = models.IntegerField(null=True, blank=True, default=2500)
     Experience = models.ManyToManyField(TeachingSection, blank=True, related_name='Experience')
-    Preferred = models.ManyToManyField(TeachingSection, blank=True,  related_name='Preferred')
+    Preferred = models.ManyToManyField(TeachingSection, blank=True, related_name='Preferred')
     Expertise = models.CharField(max_length=150, blank=True, )  # filter
     Running_Tuition = models.IntegerField(default=0, null=True, blank=True)  # sort
 
-    PresentArea = models.ForeignKey(Areas, on_delete=models.DO_NOTHING, null=True, blank=True, related_name='PresentArea', help_text='Select our zone')
+    PresentArea = models.ForeignKey(Areas, on_delete=models.DO_NOTHING, null=True, blank=True,
+                                    related_name='PresentArea', help_text='Select our zone')
 
-    PresentLocation = models.CharField(max_length=100, blank=True, null=True, help_text='Full Address with house number')  # filter
-    PresentLocationDivision = models.ForeignKey(Division, blank=True, null=True, on_delete=models.DO_NOTHING, related_name='PresentLocationDivision')  # filter
-    PresentLocationDistrict = models.ForeignKey(District, max_length=100, blank=True, null=True,  on_delete=models.DO_NOTHING, related_name='PresentLocationDistrict')  # filter
-    PresentLocationThana = models.ForeignKey(Thana, max_length=100, blank=True, null=True, on_delete=models.DO_NOTHING, related_name='PresentLocationThana')  # filter
+    PresentLocation = models.CharField(max_length=100, blank=True, null=True,
+                                       help_text='Full Address with house number')  # filter
+    PresentLocationDivision = models.ForeignKey(Division, blank=True, null=True, on_delete=models.DO_NOTHING,
+                                                related_name='PresentLocationDivision')  # filter
+    PresentLocationDistrict = models.ForeignKey(District, max_length=100, blank=True, null=True,
+                                                on_delete=models.DO_NOTHING,
+                                                related_name='PresentLocationDistrict')  # filter
+    PresentLocationThana = models.ForeignKey(Thana, max_length=100, blank=True, null=True, on_delete=models.DO_NOTHING,
+                                             related_name='PresentLocationThana')  # filter
 
     PermanentLocation = models.CharField(max_length=100, blank=True, null=True)  # filter
-    PermanentLocationDivision = models.ForeignKey(Division, blank=True, null=True, on_delete=models.DO_NOTHING, related_name='PermanentLocationDivision')  # filter
-    PermanentLocationDistrict = models.ForeignKey(District, max_length=100, blank=True, null=True,  on_delete=models.DO_NOTHING, related_name='PermanentLocationDistrict')  # filter
-    PermanentLocationThana = models.ForeignKey(Thana, max_length=100, blank=True, null=True, on_delete=models.DO_NOTHING, related_name='PermanentLocationThana')  # filter
+    PermanentLocationDivision = models.ForeignKey(Division, blank=True, null=True, on_delete=models.DO_NOTHING,
+                                                  related_name='PermanentLocationDivision')  # filter
+    PermanentLocationDistrict = models.ForeignKey(District, max_length=100, blank=True, null=True,
+                                                  on_delete=models.DO_NOTHING,
+                                                  related_name='PermanentLocationDistrict')  # filter
+    PermanentLocationThana = models.ForeignKey(Thana, max_length=100, blank=True, null=True,
+                                               on_delete=models.DO_NOTHING,
+                                               related_name='PermanentLocationThana')  # filter
 
     PreferredArea = models.ManyToManyField(Thana, blank=True, null=True, related_name='PreferredArea')
     Location2 = models.CharField(max_length=100, blank=True, null=True)  # filter
@@ -273,7 +289,7 @@ class Teacher(models.Model):
     Last_Institute = models.CharField(max_length=150, blank=True, null=True)
     Last_Medium = models.CharField(max_length=50, blank=True, null=True)
 
-#Extented
+    # Extented
     Abroad = models.BooleanField(default=False)
     AbroadUniversity = models.CharField(max_length=200, null=True, blank=True)
     IELTS = models.BooleanField(default=False)
@@ -286,10 +302,10 @@ class Teacher(models.Model):
     GREPoint = models.CharField(null=True, blank=True, max_length=200)
     Physiotherapist = models.BooleanField(default=False)
     ImATeacherOf = models.SmallIntegerField(choices=((1, 'School'),
-                                                       (2, 'College'),
-                                                       (5, 'Madrasa'),
-                                                       (3, 'University'), (4, 'Coaching')),
-                                              blank=True, null=True)
+                                                     (2, 'College'),
+                                                     (5, 'Madrasa'),
+                                                     (3, 'University'), (4, 'Coaching')),
+                                            blank=True, null=True)
     CoachingCenterName = models.CharField(max_length=200, null=True, blank=True,
                                           help_text='Fill if you are a coaching teacher')
 
@@ -353,7 +369,13 @@ class Teacher(models.Model):
         self.initial_StudentID = self.StudentID
         self.initial_Certificate = self.Certificate
         self.initial_Oth_Graduation_Institute = self.Oth_Graduation_Institute
-        self.PresentLocation = str(self.PresentLocation) +', '+ str(self.PresentLocationThana)+', '+ str(self.PresentLocationDistrict)
+        try:
+            self.PresentLocation = self.PresentLocation.replace(
+                ',' +str(self.PresentLocationThana) + ', ' + str(self.PresentLocationDistrict), '')
+            self.PresentLocation = self.PresentLocation + ',' +str(self.PresentLocationThana) + ', ' + str(
+                self.PresentLocationDistrict)
+        except:
+            pass
 
     def __str__(self):
         return self.Name + ' (' + str(self.id) + ')'
@@ -378,7 +400,7 @@ class Teacher(models.Model):
             pass
 
         try:
-            if self.initial_NID :
+            if self.initial_NID:
                 if not self.NID:
                     self.NID = self.initial_NID
         except:
@@ -408,7 +430,7 @@ class Teacher(models.Model):
             if not self.initial_Rating == self.Rating:
                 if not self.initial_RatedPerson == self.initial_RatedPerson:
                     self.Rating = ((self.initial_Rating * self.initial_RatedPerson) +
-                                  self.Rating)/(self.initial_RatedPerson + 1)
+                                   self.Rating) / (self.initial_RatedPerson + 1)
         except Exception as e:
             print(e)
 

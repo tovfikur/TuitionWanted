@@ -19,10 +19,6 @@ admin.site.register(ShortListedTuitionForChild, TeacherListAdmin)
 admin.site.register(AssignedTeacherForChild, TeacherListAdmin)
 admin.site.register(DemoTeacherForChild, TeacherListAdmin)
 
-
-
-
-
 class CustomUserAdmin(UserAdmin):
     model = User
     add_form = CustomUserCreationForm

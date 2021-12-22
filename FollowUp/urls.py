@@ -19,7 +19,7 @@ from .views import (TestView,
                     SendSMSView, SendSMSViewtest, ReminderListView,
                     ReminderListUpdateView, ReminderView,
                     FollowUpConfirm, FollowUpAssign, FollowUpPaid, FollowUpCanceled,
-                    AddRating, SetPaid, DemoToPermanent, DemoShortListView, ChildRetriveView, RoughNoteAdd)
+                    AddRating, SetPaid, DemoToPermanent, DemoShortListView, ChildRetriveView, RoughNoteAdd, NoteAdd)
 
 urlpatterns = [
     path('api/temporary/', TemporaryTuitionForChildListView.as_view()),
@@ -48,6 +48,9 @@ urlpatterns = [
     path('api/assign_demo/', AssignedToDemo.as_view()),
     path('api/demo_permanent/', DemoToPermanent.as_view()),
 
+    path('add_rough', RoughNoteAdd.as_view()),
+    path('api/add_note', NoteAdd.as_view()),
+
     path('teacher/', TeacherDetailsListView.as_view()),
     path('teacher/<pk>', TeacherDetailsView.as_view()),
     path('teacher/history/<pk>', TeacherHistoryView.as_view()),
@@ -62,5 +65,4 @@ urlpatterns = [
     path('sms/', login_required(SendSMSView.as_view())),
     path('smstest/', SendSMSViewtest.as_view()),
     path('setpaid', SetPaid.as_view()),
-    path('add_rough', RoughNoteAdd.as_view()),
 ]

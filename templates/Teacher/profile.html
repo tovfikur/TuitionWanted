@@ -148,7 +148,12 @@
                             {% if request.user.is_authenticated %}
                                 <span><button id="rate" style="background-color:#f06928; color: white"
                                               class="btn">Rate</button></span> &emsp;
-                                <a href="/admin/Teacher/teacher/{{ userd.id }}/change/">Edit</a>
+                                <hr>
+                                <a href="tel:{{ userd.Phone }}/change/">Personal <i class="fas fa-phone fa-2x"></i></a>
+                                <a href="tel:{{ userd.Guardian_phone }}/change/">Guardian <i class="fas fa-phone fa-2x"></i></a>
+                                <a href="tel:{{ userd.Refer_phone }}/change/">Refer <i class="fas fa-phone fa-2x"></i></a>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <a class="btn btn-warning" href="/admin/Teacher/teacher/{{ userd.id }}">Edit</a>
                             {% endif %}
                         {% endif %}
                     </p>

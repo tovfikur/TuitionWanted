@@ -54,7 +54,9 @@ def set_teacher(self, request, queryset):
             if request.session['child_id']:
                 temp_obj = TemporaryTuitionForChild.objects.get(Child__slug=request.session['child_id'])
                 temp_obj.Teacher.add(i)
-                messages.add_message(request, messages.INFO, str(i.id) + 'Added to ' + request.session['child_id'])
+                messages.add_message(request, messages.INFO, mark_safe(
+                    '(' + str(i.id) + ')' + str(i.Name) + ' Added to ' + '<a href="/guardian/' + request.session[
+                        'child_id'] + '/child/' + '">' + request.session['child_id'] + '</a>'))
             else:
                 messages.add_message(request, messages.INFO, 'No child selected')
         except:
@@ -64,7 +66,9 @@ def set_teacher(self, request, queryset):
                 temp_obj.save()
                 temp_obj.Teacher.add(i)
                 temp_obj.save()
-                messages.add_message(request, messages.INFO, str(i.id) + 'Added to ' + request.session['child_id'])
+                messages.add_message(request, messages.INFO, mark_safe(
+                    '(' + str(i.id) + ')' + str(i.Name) + ' Added to ' + '<a href="/guardian/' + request.session[
+                        'child_id'] + '/child/' + '">' + request.session['child_id'] + '</a>'))
             else:
                 messages.add_message(request, messages.INFO, 'No child selected')
         # messages.add_message(request, messages.INFO, str(i.id) + 'Added to ' + request.session['child_id'])
@@ -130,21 +134,19 @@ def export_selected_objects(self, request, queryset):
 
 @admin.register(Teacher)
 class TeacherAdmin(admin.ModelAdmin):
-    list_display = ['id', 'Gender', 'Name', 'Phone', 'Last_Institute',
+    list_display = ['id', 'Profile', 'Gender', 'Call',
                     'Graduation_Institute', 'Graduation_Subject',
                     'HSC_Institute', 'HSC_Subject',
-                    'HSC_GPA', 'Gender',
-                    'Rating', 'RatedPerson']
-    list_filter = ('Last_Institute', 'Graduation_Subject', 'Gender',
-                   ('PresentLocationThana', custom_titled_filter('Thana')),
+                    'HSC_GPA', 'SSC_MEDIUM']
+    list_filter = ('Last_Institute', 'Gender',
+                   ('PresentLocationThana', custom_titled_filter('Areas')),
                    # Last medium
                    # Prefred subject
-                   'SSC_Institute', 'SSC_Subject', 'SSC_GPA', 'SSC_GOLDEN', 'SSC_MEDIUM',
-                   'HSC_Institute', 'HSC_Subject', 'HSC_GPA', 'HSC_GOLDEN',
-                   'HSC_MEDIUM',
                    'Graduation_Institute',
                    'Graduation_Institute__Category',
                    'Graduation_Subject',
+                   'HSC_Institute', 'HSC_Subject', 'HSC_GPA', 'HSC_GOLDEN', 'HSC_MEDIUM',
+                   'SSC_Institute', 'SSC_Subject', 'SSC_GPA', 'SSC_GOLDEN', 'SSC_MEDIUM',
                    # 'PresentLocation',
                    # 'PermanentLocation',
                    # ('PreferredArea', custom_titled_filter('Preferred Area')),
@@ -218,6 +220,15 @@ class TeacherAdmin(admin.ModelAdmin):
             print(e)
             pass
         return response
+
+    def Profile(self, obj):
+        return mark_safe(
+            "<a style='color:lime' target='_blank' href='/teacher/view/?id="+str(obj.id)+"'>"+str(obj.Name)+"</a>"
+        )
+    def Call(self, obj):
+        return mark_safe(
+            "<a target='_blank' href='tel:"+str(obj.Phone)+"'><i class='fas fa-phone-square fa-2x'></i></a>"
+        )
 
 
 class DistrictAdmin(admin.ModelAdmin):

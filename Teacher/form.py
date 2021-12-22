@@ -3,7 +3,6 @@ from .models import Teacher
 
 
 class TeacherRegistrationForm(forms.ModelForm):
-
     class Meta:
         model = Teacher
         fields = '__all__'
@@ -75,13 +74,15 @@ class TeacherRegistrationForm(forms.ModelForm):
         self.fields['PermanentLocationDistrict'].widget.attrs['onchange'] = 'FPeLDist(this)'
 
         self.fields['PresentArea'].widget.attrs['style'] = 'width: 100%; font-size: 16px;'
-        self.fields['PresentLocation'].widget.attrs['placeholder'] = 'E.g: Flat 3A, House 1410, Isha Kha Avenue, Sector 6, Uttara, Dhaka.'
+        self.fields['PresentLocation'].widget.attrs[
+            'placeholder'] = 'E.g: House-1, Block-H, Banasree Main Road, Banasree, Dhaka'
         self.fields['PresentLocation'].widget.attrs['style'] = 'width: 100%; font-size: 16px;'
         self.fields['PermanentLocation'].widget.attrs['style'] = 'width: 100%; font-size: 16px;'
         self.fields['PermanentLocation'].widget.attrs['placeholder'] = 'Type your full address'
         self.fields['PreferredArea'].widget.attrs['style'] = 'width: 100%; font-size: 16px;'
         self.fields['Note'].widget.attrs['style'] = 'width: 100%; font-size: 16px;'
-        self.fields['Note'].widget.attrs['placeholder'] = 'Anything that not included in our form or you want to mention'
+        self.fields['Note'].widget.attrs[
+            'placeholder'] = 'Anything that not included in our form or you want to mention'
         self.fields['CoachingCenterName'].widget.attrs['placeholder'] = 'Which coaching centers(If any)'
         self.fields['CoachingCenterName'].widget.attrs['style'] = 'width: 100%;'
         self.fields['AbroadUniversity'].widget.attrs['placeholder'] = 'Type your university name'

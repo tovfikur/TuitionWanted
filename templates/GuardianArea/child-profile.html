@@ -166,8 +166,7 @@
 
         .t_profile {
             margin: 120px auto 120px;
-            {#background-color: #f5d5d5;#}
-            padding: 0 20px 20px;
+        {#background-color: #f5d5d5;#} padding: 0 20px 20px;
             border-radius: 6px;
             border-style: dotted;
             -webkit-border-radius: 6px;
@@ -210,7 +209,7 @@
                         <div class="corner-ribbon bottom-left sticky orange"><i class="fas fa-thumbs-up"></i></div>
                     </a>
                 {% else %}
-                    <div class="corner-ribbon bottom-left sticky orange">{{ child.slug }}/i></div>
+                    <div class="corner-ribbon bottom-left sticky orange">{{ child.slug }}</div>
                 {% endif %}
                 <div class="mid-ribbon bottom-left sticky orange"><a class="icon" href="tel:{{ child.Phone }}"><i
                         class="fas fa-phone-square-alt"></i></a></div>
@@ -246,29 +245,35 @@
                     <div class="col-12">
                         <ul class="widget-49-meeting-points">
                             <li class="widget-49-meeting-item">
-                                 <span>Student Address: </span><span style="font-size: larger">{{ child.Address }}</span>
+                                <span>Student Address: </span><span style="font-size: larger">{{ child.Address }}</span>
                             </li>
                             <li class="widget-49-meeting-item">
-                                 <span>Teacher Medium : </span><span style="font-size: larger">{{ child.teacher_medium_text }}</span>
+                                <span>Teacher Medium : </span><span
+                                    style="font-size: larger">{{ child.teacher_medium_text }}</span>
                             </li>
                             <li class="widget-49-meeting-item">
-                                <span>Teacher gender : </span><span style="font-size: larger">{{ child.gender_text }}</span>
+                                <span>Teacher gender : </span><span
+                                    style="font-size: larger">{{ child.gender_text }}</span>
                             </li>
                             <li class="widget-49-meeting-item">
-                            <span>Responsibility subjects : </span>
+                                <span>Responsibility subjects : </span>
                                 {% for Expected_Subject in child.Expected_Subjects.all %}
                                     <span style="font-size: larger">{{ Expected_Subject.Title }},&nbsp;</span>
                                 {% endfor %}
                                 </span>
                             </li>
                             <li class="widget-49-meeting-item">
-                                <span>Teacher level : </span><span style="font-size: larger">{{ child.teacher_level_text }}</span></li>
+                                <span>Teacher level : </span><span
+                                    style="font-size: larger">{{ child.teacher_level_text }}</span></li>
                             <li class="widget-49-meeting-item">
-                                <span>Teacher Background : </span><span style="font-size: larger">{{ child.background_text }}</span></li>
+                                <span>Teacher Background : </span><span
+                                    style="font-size: larger">{{ child.background_text }}</span></li>
                             <li class="widget-49-meeting-item">
-                                <span>Teacher University : </span><span style="font-size: larger">{{ child.teacher_university_text }}</span></li>
+                                <span>Teacher University : </span><span
+                                    style="font-size: larger">{{ child.teacher_university_text }}</span></li>
                             <li class="widget-49-meeting-item">
-                                <span>Teacher experience : </span><span style="font-size: larger">{{ child.experience_text }}</span></li>
+                                <span>Teacher experience : </span><span
+                                    style="font-size: larger">{{ child.experience_text }}</span></li>
                             <li class="widget-49-meeting-item">
                                 <span>Salary: </span><span style="font-size: larger">{{ child.Expected_Salary }}</span>
                             </li>
@@ -276,23 +281,28 @@
                                 <span>Responsible Day: </span><span style="font-size: larger">{{ child.Expected_Day }} Day/Week</span>
                             </li>
                             <li class="widget-49-meeting-item">
-                                <span>Tuition Style : </span><span style="font-size: larger">{{ child.style_text }}</span>
+                                <span>Tuition Style : </span><span
+                                    style="font-size: larger">{{ child.style_text }}</span>
                             </li>
                             <li class="widget-49-meeting-item">
-                                <span>Teacher Type : </span><span style="font-size: larger">{{ child.teacher_type_text }}</span></li>
+                                <span>Teacher Type : </span><span
+                                    style="font-size: larger">{{ child.teacher_type_text }}</span></li>
                             <li class="widget-49-meeting-item">
-                                <span>Teacher Age : </span><span style="font-size: larger">{{ child.teacher_age_text }}</span></li>
+                                <span>Teacher Age : </span><span
+                                    style="font-size: larger">{{ child.teacher_age_text }}</span></li>
                             <li class="widget-49-meeting-item">
-                                <span>Teacher religion : </span><span style="font-size: larger">{{ child.teacher_religion_text }}</span></li>
+                                <span>Teacher religion : </span><span
+                                    style="font-size: larger">{{ child.teacher_religion_text }}</span></li>
                             <li class="widget-49-meeting-item">
-                                <span>Student Free time : </span><span style="font-size: larger">{{ child.Free_Time }}</span></li>
+                                <span>Student Free time : </span><span
+                                    style="font-size: larger">{{ child.Free_Time }}</span></li>
                         </ul>
                     </div>
                 </div>
                 <div class="row collapse" id="note">
                     <div class="col-12">
                         <ul class="widget-49-meeting-points" id="child_note">
-                        <li style="background-color: lightcoral">{{ child.Important_Note }}</li>
+                            <li style="background-color: lightcoral">{{ child.Important_Note }}</li>
                             {% for rough in roughs %}
                                 <li>
                                     ({{ rough.time }})<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;({{ rough.user }}){{ rough.Text }}
@@ -505,7 +515,10 @@
                             <td>
                                 <a class="icon" href="tel:{{ teacher.Phone }}"><i
                                         class="fas fa-phone-square-alt fa-2x"></i></a>
-                                <a class="icon" href="/follow/sms/?phone={{ teacher.Phone }}"><i
+
+                                {#                                <a class="icon" href="/follow/sms/?phone={{ teacher.Phone }}"><i#}
+                                {#                                        class="fas fa-comment fa-2x"></i></a>#}
+                                <a class="icon" href="#" onclick="add_note(x = 0, c = 1)"><i
                                         class="fas fa-comment fa-2x"></i></a>
                                 <a class="icon"
                                    onclick="ajaxTemporaryToShortlisted('/follow/api/temporary_sort/?cid={{ child.slug }}&tid={{ teacher.id }}' , '{{ teacher.id }}', '{{ child.slug }}')"><i
@@ -602,7 +615,8 @@
                                     '<a class="icon" ' +
                                     'onclick="ajaxShortlistedToAssigned(\'/follow/api/sort_assign/?cid={{ child.slug }}&tid=' + data[i]['Teacher'][j]['id'] + '\')">' +
                                     '<i class="fas fa-plus-square fa-2x"></i></a></td>' +
-                                    '<td>' + data[i]['TalksJson'][data[i]['Teacher'][j]['id']] + '</td> </tr>' +
+                                    {#'<td>' + data[i]['TalksJson'][data[i]['Teacher'][j]['id']] + '</td> ' +#}
+                                    '</tr>' +
                                     '')
                             } catch (e) {
                                 $('#shorlistbody').append('' +
@@ -611,7 +625,7 @@
                                     '<td>' + data[i]["Teacher"][j]["PresentLocation"] + '</td>' +
                                     '<td>' + data[i]["Teacher"][j]["Last_Institute"] + '</td>' +
                                     '<td>' + subject_full + '</td>' +
-                                    '<td>' + + data[i]["Teacher"][j]["Last_Medium"] + '</td>' +
+                                    '<td>' + +data[i]["Teacher"][j]["Last_Medium"] + '</td>' +
                                     '<td>' +
                                     '<a class="icon" href="tel:' + data[i]['Teacher'][j]['Phone'] + '"><i ' +
                                     'class="fas fa-phone-square-alt fa-2x"></i></a>' +
@@ -701,7 +715,8 @@
                                 '<a class="icon" ' +
                                 'onclick="ajaxAssignedToDemo(\'/follow/api/assign_demo/?cid={{ child.slug }}&tid=' + data[i]['Teacher'][j]['id'] + '\')">' +
                                 '<i class="fas fa-plus-square fa-2x"></i></a></td>' +
-                                '<td>' + data[i]['TalksJson'][data[i]['Teacher'][j]['id']] + '</td> </tr>' +
+                                {#'<td>' + data[i]['TalksJson'][data[i]['Teacher'][j]['id']] + '</td> ' +#}
+                                '</tr>' +
                                 '')
                         }
                     }
@@ -780,7 +795,8 @@
                                 '<a class="icon" ' +
                                 'onclick="DemoToPermanent(\'/follow/api/demo_permanent/?cid={{ child.slug }}&tid=' + data[i]['Teacher'][j]['id'] + '\')">' +
                                 '<i class="fas fa-plus-square fa-2x"></i></a></td>' +
-                                '<td>' + data[i]['TalksJson'][data[i]['Teacher'][j]['id']] + '</td> </tr>' +
+                                {#'<td>' + data[i]['TalksJson'][data[i]['Teacher'][j]['id']] + '</td> ' +#}
+                                '</tr>' +
                                 '')
                         }
                     }
@@ -871,7 +887,8 @@
                                             '<a class="icon" ' +
                                             'onclick="ajaxShortlistedToAssigned(\'/follow/api/sort_assign/?cid={{ child.slug }}&tid=' + data[i]['Teacher'][j]['id'] + '\')">' +
                                             '<i class="fas fa-plus-square fa-2x"></i></a></td>' +
-                                            '<td>' + data[i]['TalksJson'][data[i]['Teacher'][j]['id']] + '</td> </tr>' +
+                                            {#'<td>' + data[i]['TalksJson'][data[i]['Teacher'][j]['id']] + '</td> ' +#}
+                                            '</tr>' +
                                             '')
                                     } catch (e) {
                                         $('#shorlistbody').append('' +
@@ -981,7 +998,8 @@
                                         '<a class="icon" ' +
                                         'onclick="ajaxAssignedToDemo(\'/follow/api/assign_demo/?cid={{ child.slug }}&tid=' + data[i]['Teacher'][j]['id'] + '\')">' +
                                         '<i class="fas fa-plus-square fa-2x"></i></a></td>' +
-                                        '<td>' + data[i]['TalksJson'][data[i]['Teacher'][j]['id']] + '</td> </tr>' +
+                                        {#'<td>' + data[i]['TalksJson'][data[i]['Teacher'][j]['id']] + '</td> ' +#}
+                                        '</tr>' +
                                         '')
                                 }
                             }
@@ -1073,7 +1091,8 @@
                                         '<a class="icon" ' +
                                         'onclick="DemoToPermanent(\'/follow/api/demo_permanent/?cid={{ child.slug }}&tid=' + data[i]['Teacher'][j]['id'] + '\')">' +
                                         '<i class="fas fa-plus-square fa-2x"></i></a></td>' +
-                                        '<td>' + data[i]['TalksJson'][data[i]['Teacher'][j]['id']] + '</td> </tr>' +
+                                        {#'<td>' + data[i]['TalksJson'][data[i]['Teacher'][j]['id']] + '</td> ' +#}
+                                        '</tr>' +
                                         '')
                                 }
                             }
@@ -1226,15 +1245,25 @@
             })
         }
 
-        function add_note() {
+        function add_note(x = 1, c = 0) {
             var note = prompt('What do you want to note: ')
-            $.ajax({
-                url:  '/follow/add_rough?cid={{ child.slug }}&talk='+note,
-                success: ()=>{
-                    $('#child_note').append('<li>'+note+'</li>')
-                }
-            })
+            if (x) {
+                $.ajax({
+                    url: '/follow/add_rough?cid={{ child.slug }}&talk=' + note,
+                    success: () => {
+                        $('#child_note').append('<li>' + note + '</li>')
+                    }
+                })
+            } else {
+                $.ajax({
+                    url: '/follow/api/add_note?cid={{ child.slug }}&talk=' + note + '&c=' + c,
+                    success: () => {
+                        $('#child_note').append('<li>' + note + '</li>')
+                    }
+                })
+            }
         }
+
 
     </script>
 {% endblock %}
