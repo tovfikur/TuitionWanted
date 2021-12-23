@@ -1,4 +1,5 @@
 {% extends 'FollowUp/follow-upper-base.html' %}
+{% load util %}
 {% block title %} Child | {{ child.slug }} {% endblock %}
 {% block content_title %}# {{ child.slug }} | Profile {% endblock %}
 {% block extrastyle %}
@@ -501,6 +502,7 @@
                         <th>Subject</th>
                         <th>Medium</th>
                         <th>Phone</th>
+                        <th>Talks</th>
                     </tr>
                     </thead>
                     <tbody id="temporary_body">
@@ -518,12 +520,15 @@
 
                                 {#                                <a class="icon" href="/follow/sms/?phone={{ teacher.Phone }}"><i#}
                                 {#                                        class="fas fa-comment fa-2x"></i></a>#}
-                                <a class="icon" href="#"><i
+                                <a class="icon" href="#" onclick="add_note(gua = 0, cat = 1, tid = {{ teacher.id }})"><i
                                         class="fas fa-comment fa-2x"></i></a>
                                 <a class="icon"
                                    onclick="ajaxTemporaryToShortlisted('/follow/api/temporary_sort/?cid={{ child.slug }}&tid={{ teacher.id }}' , '{{ teacher.id }}', '{{ child.slug }}')"><i
                                         class="fas fa-plus-square fa-2x"></i></a>
                             </td>
+                        <td>
+                        {{ temporary.TalksJson|get_note:teacher.id }}
+                        </td>
                         </tr>
                     {% endfor %}
                     </tbody>
@@ -1282,14 +1287,23 @@
             })
         }
 
-        function add_note() {
+        function add_note(gua = 1, cat = 0, tid = 0) {
             var note = prompt('What do you want to note: ')
-            $.ajax({
-                url: '/follow/add_rough?cid={{ child.slug }}&talk=' + note,
-                success: () => {
-                    $('#child_note').append('<li>' + note + '</li>')
-                }
-            })
+            if (gua) {
+                $.ajax({
+                    url: '/follow/add_rough?cid={{ child.slug }}&talk=' + note,
+                    success: () => {
+                        $('#child_note').append('<li>' + note + '</li>')
+                    }
+                })
+            } else {
+                $.ajax({
+                    url: '/follow/api/add_note?cid={{ child.slug }}&c='+cat+'&tid='+tid+'&talk= '+note,
+                    success: () => {
+                        $('#child_note').append('<li>' + note + '</li>')
+                    }
+                })
+            }
         }
 
 

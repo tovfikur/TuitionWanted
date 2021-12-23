@@ -254,7 +254,7 @@ class TemporaryToShortList(APIView):
                                 obj.TalksJson[self.request.GET.get('tid')]) + ' ' + self.request.GET.get('talk')
                             obj.save()
                         except Exception as e:
-                            if '\'NoneType\' object does not support item assignment' in str(e):
+                            if '\'NoneType\' object is not subscriptable' in str(e):
                                 note_obj = RoughNote.objects.create(Child_id=self.request.GET.get('cid'),
                                                                     user=get_current_user(),
                                                                     Text=str(tea_name) + ' : ' + self.request.GET.get(
@@ -276,7 +276,7 @@ class TemporaryToShortList(APIView):
                                     obj.TalksJson[self.request.GET.get('tid')]) + ' ' + self.request.GET.get('talk')
                                 obj.save()
                             except Exception as e:
-                                if '\'NoneType\' object does not support item assignment' in str(e):
+                                if '\'NoneType\' object is not subscriptable' in str(e):
                                     tea_name = Teacher.objects.get(id=self.request.GET.get('tid'))
                                     note_obj = RoughNote.objects.create(Child_id=self.request.GET.get('cid'),
                                                                         user=get_current_user(),
@@ -318,7 +318,8 @@ class ShortListToAssigned(APIView):
                                                                           str(datetime.date.today())]
                             obj.save()
                         except Exception as e:
-                            if '\'NoneType\' object does not support item assignment' in str(e):
+                            print(e)
+                            if '\'NoneType\' object is not subscriptable' in str(e):
                                 tea_name = Teacher.objects.get(id=self.request.GET.get('tid'))
                                 note_obj = RoughNote.objects.create(Child_id=self.request.GET.get('cid'),
                                                                     user=get_current_user(),
@@ -348,7 +349,7 @@ class ShortListToAssigned(APIView):
                                                                               str(datetime.date.today())]
                                 obj.save()
                             except Exception as e:
-                                if '\'NoneType\' object does not support item assignment' in str(e):
+                                if '\'NoneType\' object is not subscriptable' in str(e):
                                     tea_name = Teacher.objects.get(id=self.request.GET.get('tid'))
                                     note_obj = RoughNote.objects.create(Child_id=self.request.GET.get('cid'),
                                                                         user=get_current_user(),
@@ -368,7 +369,7 @@ class ShortListToAssigned(APIView):
             return Response({'error': str(e)})
 
 
-# Short to Permanent
+# Assign to Demo
 
 class AssignedToDemo(APIView):
     def get(self, request):
@@ -397,7 +398,7 @@ class AssignedToDemo(APIView):
                                                                           str(datetime.date.today())]
                             obj.save()
                         except Exception as e:
-                            if '\'NoneType\' object does not support item assignment' in str(e):
+                            if '\'NoneType\' object is not subscriptable' in str(e):
                                 tea_name = Teacher.objects.get(id=self.request.GET.get('tid'))
                                 note_obj = RoughNote.objects.create(Child_id=self.request.GET.get('cid'),
                                                                     user=get_current_user(),
@@ -430,7 +431,7 @@ class AssignedToDemo(APIView):
                                                                               str(datetime.date.today())]
                                 obj.save()
                             except Exception as e:
-                                if '\'NoneType\' object does not support item assignment' in str(e):
+                                if '\'NoneType\' object is not subscriptable' in str(e):
                                     tea_name = Teacher.objects.get(id=self.request.GET.get('tid'))
                                     note_obj = RoughNote.objects.create(Child_id=self.request.GET.get('cid'),
                                                                         user=get_current_user(),
@@ -484,7 +485,7 @@ class DemoToPermanent(APIView):
                                                                           str(datetime.date.today())]
                             obj.save()
                         except Exception as e:
-                            if '\'NoneType\' object does not support item assignment' in str(e):
+                            if '\'NoneType\' object is not subscriptable' in str(e):
                                 tea_name = Teacher.objects.get(id=self.request.GET.get('tid'))
                                 note_obj = RoughNote.objects.create(Child_id=self.request.GET.get('cid'),
                                                                     user=get_current_user(),
@@ -519,7 +520,7 @@ class DemoToPermanent(APIView):
                                                                               str(datetime.date.today())]
                                 obj.save()
                             except Exception as e:
-                                if '\'NoneType\' object does not support item assignment' in str(e):
+                                if '\'NoneType\' object is not subscriptable' in str(e):
                                     tea_name = Teacher.objects.get(id=self.request.GET.get('tid'))
                                     note_obj = RoughNote.objects.create(Child_id=self.request.GET.get('cid'),
                                                                         user=get_current_user(),
@@ -880,30 +881,65 @@ class NoteAdd(GenericAPIView):
         try:
 
             if self.request.GET.get('c') == '1':  # Reserve note
-                obj = TemporaryTuitionForChild(Child_id=self.request.GET.get('cid'))
-                obj.TalksJson[self.request.GET.get('tid')] = [str(
-                    obj.TalksJson[self.request.GET.get('tid')]) + ' > ' + self.request.GET.get('talk'),
-                                                              str(datetime.date.today())]
-                obj.save()
+                try:
+                    obj = TemporaryTuitionForChild.objects.get(Child_id=self.request.GET.get('cid'))
+                    obj.TalksJson[self.request.GET.get('tid')] = str(
+                        obj.TalksJson[self.request.GET.get('tid')]) + ' > ' + self.request.GET.get('talk')
+                    obj.save()
+                except:
+                    try:
+                        obj = TemporaryTuitionForChild.objects.get(Child_id=self.request.GET.get('cid'))
+                        obj.TalksJson[self.request.GET.get('tid')] = self.request.GET.get('talk')
+                        obj.save()
+                    except:
+                        obj = TemporaryTuitionForChild.objects.get(Child_id=self.request.GET.get('cid'))
+                        obj.TalksJson = {self.request.GET.get('tid'): self.request.GET.get('talk')}
+                        obj.save()
             elif self.request.GET.get('c') == '2':  # Shorlist note
-                obj = ShortListedTuitionForChild(Child_id=self.request.GET.get('cid'))
-                obj.TalksJson[self.request.GET.get('tid')] = [str(
-                    obj.TalksJson[self.request.GET.get('tid')]) + ' > ' + self.request.GET.get('talk'),
-                                                              str(datetime.date.today())]
-                obj.save()
+                try:
+                    obj = ShortListedTuitionForChild.objects.get(Child_id=self.request.GET.get('cid'))
+                    obj.TalksJson[self.request.GET.get('tid')] = str(
+                        obj.TalksJson[self.request.GET.get('tid')]) + ' > ' + self.request.GET.get('talk')
+                    obj.save()
+                except:
+                    try:
+                        obj = ShortListedTuitionForChild.objects.get(Child_id=self.request.GET.get('cid'))
+                        obj.TalksJson[self.request.GET.get('tid')]= self.request.GET.get('talk')
+                        obj.save()
+                    except:
+                        obj = ShortListedTuitionForChild.objects.get(Child_id=self.request.GET.get('cid'))
+                        obj.TalksJson = {self.request.GET.get('tid'): self.request.GET.get('talk')}
+                        obj.save()
             elif self.request.GET.get('c') == '3':  # Assigned note
-                obj = AssignedTeacherForChild(Child_id=self.request.GET.get('cid'))
-                print(obj)
-                obj.TalksJson[self.request.GET.get('tid')] = [str(
-                    obj.TalksJson[self.request.GET.get('tid')]) + ' > ' + self.request.GET.get('talk'),
-                                                              str(datetime.date.today())]
-                obj.save()
+                try:
+                    obj = AssignedTeacherForChild.objects.get(Child_id=self.request.GET.get('cid'))
+                    obj.TalksJson[self.request.GET.get('tid')] = str(
+                        obj.TalksJson[self.request.GET.get('tid')]) + ' > ' + self.request.GET.get('talk')
+                    obj.save()
+                except:
+                    try:
+                        obj = AssignedTeacherForChild.objects.get(Child_id=self.request.GET.get('cid'))
+                        obj.TalksJson[self.request.GET.get('tid')] = self.request.GET.get('talk')
+                        obj.save()
+                    except:
+                        obj = AssignedTeacherForChild.objects.get(Child_id=self.request.GET.get('cid'))
+                        obj.TalksJson = {self.request.GET.get('tid'): self.request.GET.get('talk')}
+                        obj.save()
             elif self.request.GET.get('c') == '4':  # Demo note
-                obj = DemoTeacherForChild(Child_id=self.request.GET.get('cid'))
-                obj.TalksJson[self.request.GET.get('tid')] = [str(
-                    obj.TalksJson[self.request.GET.get('tid')]) + ' > ' + self.request.GET.get('talk'),
-                                                      str(datetime.date.today())]
-                obj.save()
+                try:
+                    obj = DemoTeacherForChild.objects.get(Child_id=self.request.GET.get('cid'))
+                    obj.TalksJson[self.request.GET.get('tid')] = str(
+                        obj.TalksJson[self.request.GET.get('tid')]) + ' > ' + self.request.GET.get('talk')
+                    obj.save()
+                except:
+                    try:
+                        obj = DemoTeacherForChild.objects.get(Child_id=self.request.GET.get('cid'))
+                        obj.TalksJson[self.request.GET.get('tid')] = self.request.GET.get('talk')
+                        obj.save()
+                    except:
+                        obj = DemoTeacherForChild.objects.get(Child_id=self.request.GET.get('cid'))
+                        obj.TalksJson = {self.request.GET.get('tid'): self.request.GET.get('talk')}
+                        obj.save()
             else:
                 return Response({'Section': 'No section selected'})
             return Response({'Talk': self.request.GET.get('talk'), 'Teacher': self.request.GET.get('tid')})
