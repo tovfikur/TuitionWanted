@@ -134,7 +134,7 @@ def export_selected_objects(self, request, queryset):
 
 @admin.register(Teacher)
 class TeacherAdmin(admin.ModelAdmin):
-    list_display = ['id', 'Profile', 'Gender', 'Call',
+    list_display = ['id', 'name', 'Gender', 'Call',
                     'Graduation_Institute', 'Graduation_Subject',
                     'HSC_Institute', 'HSC_Subject',
                     'HSC_GPA', 'SSC_MEDIUM']
@@ -221,10 +221,14 @@ class TeacherAdmin(admin.ModelAdmin):
             pass
         return response
 
-    def Profile(self, obj):
-        return mark_safe(
-            "<a style='color:lime' target='_blank' href='/teacher/view/?id="+str(obj.id)+"'>"+str(obj.Name)+"</a>"
-        )
+    def name(self, obj):
+        if obj.Name:
+            return mark_safe(
+                "<a style='color:lime' target='_blank' href='/teacher/view/?id="+str(obj.id)+"'>"+str(obj.Name)+"</a>" )
+        else:
+            return mark_safe(
+                "<a style='color:red' target='_blank' href='/teacher/view/?id=" + str(obj.id) + "'>Profile</a>" )
+
     def Call(self, obj):
         return mark_safe(
             "<a target='_blank' href='tel:"+str(obj.Phone)+"'><i class='fas fa-phone-square fa-2x'></i></a>"

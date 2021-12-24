@@ -1,5 +1,6 @@
 from django import template
-
+import re
+from django_currentuser.middleware import get_current_user
 register = template.Library()
 
 @register.filter
@@ -16,3 +17,9 @@ def get_note(value, arg):
                 return value[i]
     except:
         return ''
+
+
+
+@register.filter
+def remove_username(value):
+    return value.replace('('+str(get_current_user())+')', '')

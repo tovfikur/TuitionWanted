@@ -196,15 +196,12 @@ def change_(obj, request, model, money=0):
                 try:
                     obj = model.objects.get(Child_id=obj.request.GET.get('cid'))
                     obj.Teacher.add(obj.request.GET.get('tid'))
-                    print(obj)
                 except Exception as e:
                     if 'matching query does not exist' in str(e):
                         obj = model.objects.create(Child_id=obj.request.GET.get('cid'))
                         obj.Teacher.add(obj.request.GET.get('tid'))
-                        print(obj)
         return 1
     except Exception as e:
-        print(e)
         return 0
 
 
@@ -220,7 +217,7 @@ class AutoToTemporary(APIView):
                     obj = TemporaryTuitionForChild.objects.create(Child_id=request.GET.get('cid'))
                     obj.Teacher.add(request.GET.get('tid'))
                     obj.save()
-                    print(model_to_dict(obj))
+
             return Response({'ok': 1})
         except IntegrityError:
             obj = TemporaryTuitionForChild.objects.get(Child_id=request.GET.get('cid'))
@@ -228,7 +225,7 @@ class AutoToTemporary(APIView):
             obj.save()
             return Response({'ok': 1})
         except Exception as e:
-            print(e)
+
             return Response({'error': str(e)})
 
 
@@ -291,7 +288,7 @@ class TemporaryToShortList(APIView):
                             obj.Teacher.add(self.request.GET.get('tid'))
             return Response({'ok': 1})
         except Exception as e:
-            print(e)
+
             return Response({'error': str(e)})
 
 
@@ -317,7 +314,7 @@ class ShortListToAssigned(APIView):
                                 obj.TalksJson[self.request.GET.get('tid')]) + ' ' + self.request.GET.get('talk')
                             obj.save()
                         except Exception as e:
-                            print(e)
+
                             if '\'NoneType\' object is not subscriptable' in str(e):
                                 tea_name = Teacher.objects.get(id=self.request.GET.get('tid'))
                                 note_obj = RoughNote.objects.create(Child_id=self.request.GET.get('cid'),
@@ -360,10 +357,10 @@ class ShortListToAssigned(APIView):
                                     obj.TalksJson = {self.request.GET.get('tid'): self.request.GET.get('talk')}
                                     obj.save()
                             obj.Teacher.add(self.request.GET.get('tid'))
-                            print(obj)
+
             return Response({'ok': 1})
         except Exception as e:
-            print(e)
+
             return Response({'error': str(e)})
 
 
@@ -408,7 +405,7 @@ class AssignedToDemo(APIView):
                                 obj.TalksJson = {self.request.GET.get('tid'): self.request.GET.get('talk')}
                                 obj.save()
                         obj.save()
-                        print(obj)
+
                     except Exception as e:
                         if 'matching query does not exist' in str(e):
                             obj = DemoTeacherForChild.objects.create(Child_id=self.request.GET.get('cid'))
@@ -442,16 +439,16 @@ class AssignedToDemo(APIView):
                             obj.money = self.request.GET.get('mny')
                             obj.User = self.request.user
                             obj.save()
-                            print(obj)
+
                 else:
                     obj = DemoTeacherForChild.objects.get(Child_id=self.request.GET.get('cid'))
                     obj.money = self.request.GET.get('mny')
                     obj.User = self.request.user
                     obj.save()
-                    print(obj)
+
             return Response({'ok': 1})
         except Exception as e:
-            print(e)
+
             return Response({'error': str(e)})
 
 
@@ -537,10 +534,10 @@ class DemoToPermanent(APIView):
                     obj.money = self.request.GET.get('mny')
                     obj.User = self.request.user
                     obj.save()
-                    print(obj)
+
             return Response({'ok': 1})
         except Exception as e:
-            print(e)
+
             return Response({'error': str(e)})
 
 
@@ -557,7 +554,7 @@ class AutoRecommendationView(ListAPIView):
             if self.request.GET.get('q'):
                 t_obj = Teacher.objects.all()
                 # t_obj = Teacher.objects.filter(Running_Tuition=)
-                print(self.request.GET.get('name'))
+
                 if self.request.GET.get('name'):
                     t_obj = t_obj.filter(Q(Name__icontains=self.request.GET.get('name')))
 
@@ -746,7 +743,6 @@ class FollowUpPaid(TemplateView):
         obj = PermanentTuitionForChild.objects.all()
         obj = obj.filter(Child__Paid=True, Child__Canceled=False).order_by('date')
         context['childs'] = obj
-        print(obj)
         return context
 
 
@@ -758,7 +754,6 @@ class FollowUpConfirm(TemplateView):
         obj = PermanentTuitionForChild.objects.all()
         obj = obj.filter(Child__Paid=False, Child__Canceled=False).order_by('date')
         context['childs'] = obj
-        print(obj)
         return context
 
 
@@ -770,7 +765,6 @@ class FollowUpAssign(TemplateView):
         obj = DemoTeacherForChild.objects.all()
         obj = obj.filter(Child__Paid=False, permanent=False, Child__Canceled=False)
         context['childs'] = obj
-        print(obj)
         return context
 
 
@@ -782,7 +776,6 @@ class FollowUpCanceled(TemplateView):
         obj = PermanentTuitionForChild.objects.all()
         obj = obj.filter(Child__Canceled=True).order_by('date')
         context['childs'] = obj
-        print(obj)
         return context
 
 

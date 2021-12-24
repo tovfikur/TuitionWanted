@@ -225,7 +225,7 @@
                     </div>
                     <div class="col-3">
                         <h6 class="card-subtitle mb-2 text-muted">
-                            <p class="card-text text-muted small ">{{ child.Created | date:"M d" }}</p>
+                            <p class="card-text text-muted small ">{{ child.Created | date:"Md" }}</p>
                         </h6>
                     </div>
                     <div class="col-6">
@@ -305,9 +305,8 @@
                         <ul class="widget-49-meeting-points" id="child_note">
                             <li style="background-color: lightcoral">{{ child.Important_Note }}</li>
                             {% for rough in roughs %}
-                                <li>
-                                    ({{ rough.time }})<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;({{ rough.user }}){{ rough.Text }}
-                                    <hr>
+                                <li style="float: left; margin-left: 25px">
+                                    <span style="color:darkorange">{{ rough.user }}</span>:<span style="color: orange">({{ rough.time | date:"Md" }})</span>&nbsp;&nbsp;{{ rough.Text | remove_username}}
                                 </li>
                             {% endfor %}
                         </ul>
@@ -340,11 +339,11 @@
                     <tbody>
                     <tr>
                         <th scope="row">Set</th>
-                        <td>{{ permanent.date | date:"M d" }}</td>
+                        <td>{{ permanent.date | date:"Md" }}</td>
                     </tr>
                     <tr>
                         <th scope="row">Update</th>
-                        <td>{{ permanent.Reminder | date:"M d (H:i A )" }}</td>
+                        <td>{{ permanent.Reminder | date:"Md (H:i A )" }}</td>
                     </tr>
                     <tr>
                         <th scope="row">Deal</th>
@@ -520,15 +519,16 @@
 
                                 {#                                <a class="icon" href="/follow/sms/?phone={{ teacher.Phone }}"><i#}
                                 {#                                        class="fas fa-comment fa-2x"></i></a>#}
-                                <a class="icon" href="#" onclick="add_note(this, gua = 0, cat = 1, tid = {{ teacher.id }})"><i
+                                <a class="icon" href="#"
+                                   onclick="add_note(this, gua = 0, cat = 1, tid = {{ teacher.id }})"><i
                                         class="fas fa-comment fa-2x"></i></a>
                                 <a class="icon"
                                    onclick="ajaxTemporaryToShortlisted('/follow/api/temporary_sort/?cid={{ child.slug }}&tid={{ teacher.id }}' , '{{ teacher.id }}', '{{ child.slug }}')"><i
                                         class="fas fa-angle-double-right fa-2x"></i></a>
                             </td>
-                        <td>
-                        {{ temporary.TalksJson|get_note:teacher.id }}
-                        </td>
+                            <td>
+                                {{ temporary.TalksJson|get_note:teacher.id }}
+                            </td>
                         </tr>
                     {% endfor %}
                     </tbody>
@@ -1291,24 +1291,22 @@
 
         function add_note(elem, gua = 1, cat = 0, tid = 0) {
             var note = prompt('What do you want to note: ')
-            if(!note){
+            if (!note) {
                 return
             }
             if (gua) {
                 $.ajax({
-                    url: '/follow/add_rough?cid={{ child.slug }}&talk=' + note,
+                    url: '/follow/add_rough?cid={{ child.slug }}&talk=' + '({{ user.get_username }}): ' + note,
                     success: () => {
                         $('#child_note').append('<li>' + note + '</li>')
                     }
                 })
             } else {
                 $.ajax({
-                    url: '/follow/api/add_note?cid={{ child.slug }}&c='+cat+'&tid='+tid+'&talk= '+note,
+                    url: '/follow/api/add_note?cid={{ child.slug }}&c=' + cat + '&tid=' + tid + '&talk= ' + '({{ user.get_username }}): ' + note,
                     success: () => {
                         $('#child_note').append('<li>' + note + '</li>')
-
-                        console.log($(elem).parent().parent().last())
-
+                        $(elem).parent().siblings().last().text($(elem).parent().siblings().last().text() + ' > ' + '({{ user.get_username }}): ' + note)
                     }
                 })
             }
