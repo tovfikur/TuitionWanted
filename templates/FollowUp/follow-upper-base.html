@@ -1,0 +1,44 @@
+{% extends "admin/base.html" %}
+{% load i18n static jazzmin %}
+{% get_jazzmin_ui_tweaks as jazzmin_ui %}
+{% block bodyclass %}{{ block.super }} dashboard{% endblock %}
+{#{% block content_title %} {% trans 'Dashboard' %} {% endblock %}#}
+{% block title %} FollowUper | {{ user }} {% endblock %}
+{% block nav_list %}
+{#    <li class="nav-item">#}
+{#        <a href="/follow/guardian/" class="nav-link">#}
+{#            <i class="nav-icon fas fa-users"></i>#}
+{#            <p>{% trans 'Guardians' %}</p>#}
+{#        </a>#}
+{#    </li>#}
+    <li class="nav-item">
+        <a href="/follow/portal/" class="nav-link">
+            <i class="fas fa-list"></i>
+            <p>{% trans 'Tuition list' %}</p>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a href="/follow/confirms/" class="nav-link">
+            <i class="fas fa-thumbs-up"></i>
+            <p>{% trans 'Pernent Teacher' %}</p>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a href="/follow/assings/" class="nav-link">
+            <i class="fas fa-check"></i>
+            <p>{% trans 'Demo' %}</p>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a href="/follow/paids/" class="nav-link">
+            <i class="fas fa-hand-holding-usd"></i>
+            <p>{% trans 'Paids' %}</p>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a href="/follow/canceleds/" class="nav-link">
+            <i class="fas fa-ban"></i>
+            <p>{% trans 'Canceled' %}</p>
+        </a>
+    </li>
+{% endblock %}

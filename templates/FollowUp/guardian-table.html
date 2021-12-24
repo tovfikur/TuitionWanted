@@ -1,0 +1,475 @@
+{% extends 'FollowUp/follow-upper-base.html' %}
+{% load i18n static jazzmin %}
+{% block extrastyle %}
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{% static '/follow/plugins/fontawesome-free/css/all.min.css' %}">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="{% static '/follow/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css' %}">
+    <link rel="stylesheet"
+          href="{% static '/follow/plugins/datatables-responsive/css/responsive.bootstrap4.min.css' %}">
+    <link rel="stylesheet" href="{% static '/follow/plugins/datatables-buttons/css/buttons.bootstrap4.min.css' %}">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{% static '/follow/dist/css/adminlte.min.css' %}">
+{% endblock %}
+{% block content_title %}Guardian list{% endblock %}
+{% block content %}
+
+    <!-- Content Header (Page header) -->
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Guardians</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <table id="t_table" class="table table-bordered table-striped">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Phone</th>
+                                    <th>Important Note</th>
+                                    <th>Rating</th>
+                                    <th>Reminder</th>
+                                    <th>Ban</th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Child</h3>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body p-0">
+                                <table class="table table-sm">
+                                    <thead>
+                                    <tr>
+                                        <th style="width: 10px">#</th>
+                                        <th class="col-3">Name</th>
+                                        <th class="col-3">Phone</th>
+                                        <th>Gender</th>
+                                        <th>Type</th>
+                                        <th>Confirmed</th>
+                                        <th class="col-3">Important Note</th>
+                                        <th class="col-3">Created</th>
+                                        <th class="col-3">Media</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="t_child">
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.card-body -->
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                    <!-- /.col -->
+                </div>
+                <!-- /.row -->
+            </div>
+            <div class="row" style="float: left">
+                <div class="col">
+                    <div class="card card-success">
+                        <div class="card-header">
+                            <h3 class="card-title">Board</h3>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="maximize">
+                                    <i class="fas fa-expand"></i>
+                                </button>
+                            </div>
+                            <!-- /.card-tools -->
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body row">
+                            <!-- Guardian -->
+                            <div class="info-box col-4 col-md-4 col-sm-12">
+                                <span class="info-box-icon bg-info"><i class="fas fa-phone"></i></span>
+                                <div class="info-box-content">
+                                    <span class="info-box-number" id="g_phone"></span>
+                                </div>
+                                <!-- /.info-box-content -->
+                            </div>
+                            <div class="info-box col-4 col-md-4 col-sm-12">
+                                <span class="info-box-icon bg-info"><i class="fas fa-signature"></i></span>
+                                <div class="info-box-content">
+                                    <span class="info-box-number" id="g_name">1,410</span>
+                                </div>
+                                <!-- /.info-box-content -->
+                            </div>
+                            <div class="info-box col-4 col-md-4 col-sm-12">
+                                <span class="info-box-icon bg-info"><i class="fas fa-money-bill"></i></span>
+                                <div class="info-box-content">
+                                    <span class="info-box-number" id="g_expected_range">1,410</span>
+                                </div>
+                                <!-- /.info-box-content -->
+                            </div>
+                            <!-- Child -->
+                            <div class="info-box col-3 col-md-3 col-sm-12">
+                                <span class="info-box-icon bg-gradient-yellow"><i class="fas fa-signature"></i></span>
+                                <div class="info-box-content">
+                                    <span class="info-box-number" id="c_name"></span>
+                                </div>
+                                <!-- /.info-box-content -->
+                            </div>
+                            <div class="info-box col-2 col-md-2 col-sm-6">
+                                <span class="info-box-icon bg-gradient-yellow"><i class="fas fa-school"></i></span>
+                                <div class="info-box-content">
+                                    <span class="info-box-number" id="c_education_level">1,410</span>
+                                </div>
+                                <!-- /.info-box-content -->
+                            </div>
+                            <div class="info-box col-2 col-md-2 col-sm-6">
+                                <span class="info-box-icon bg-gradient-yellow"><i class="fab fa-medium-m"></i></span>
+                                <div class="info-box-content">
+                                    <span class="info-box-number" id="c_education_medium">1,410</span>
+                                </div>
+                                <!-- /.info-box-content -->
+                            </div>
+                            <div class="info-box col-2 col-md-2 col-sm-6">
+                                <span class="info-box-icon bg-gradient-yellow"><i class="fas fa-venus-mars"></i></span>
+                                <div class="info-box-content">
+                                    <span class="info-box-number" id="c_gender">1,410</span>
+                                </div>
+                                <!-- /.info-box-content -->
+                            </div>
+                            <div class="info-box col-3 col-md-3 col-sm-6">
+                                <span class="info-box-icon bg-gradient-yellow"><i class="far fa-calendar-plus"></i></span>
+                                <div class="info-box-content">
+                                    <span class="info-box-number" id="c_date">1,410</span>
+                                </div>
+                                <!-- /.info-box-content -->
+                            </div>
+                            <!-- Extra info -->
+
+                            <!-- Guardian notes -->
+                            <div class="info-box col-4 col-md-4 col-sm-12">
+                                <span class="info-box-icon bg-danger">
+                                    <i class="fas fa-comment"></i>
+                                </span>
+                                <div class="info-box-content">
+                                    <span class="info-box-number" id="g_important_notes">1,410</span>
+                                </div>
+                                <!-- /.info-box-content -->
+                            </div>
+                            <div class="info-box col-4 col-md-8 col-sm-12">
+                                <div class="card card-success">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Guardian notes</h3>
+                                        <div class="card-tools">
+                                            <button type="button" class="btn btn-tool" data-card-widget="maximize">
+                                                <i class="fas fa-expand"></i>
+                                            </button>
+                                        </div>
+                                        <!-- /.card-tools -->
+                                    </div>
+                                    <!-- /.card-header -->
+                                    <div class="card-body row" id="g_notes">
+                                        <div class="info-box col-4 col-md-4 col-sm-12">
+                                            <span class="info-box-icon bg-info"><i class="fas fa-comment"></i></span>
+                                            <div class="info-box-content">
+                                                <span class="info-box-text">Name</span>
+                                                <span class="info-box-number">1,410</span>
+                                            </div>
+                                            <!-- /.info-box-content -->
+                                        </div>
+                                        <div class="info-box col-4 col-md-4 col-sm-12">
+                                            <span class="info-box-icon bg-info"><i class="fas fa-comment"></i></span>
+                                            <div class="info-box-content">
+                                                <span class="info-box-text">Phone</span>
+                                                <span class="info-box-number">1,410</span>
+                                            </div>
+                                            <!-- /.info-box-content -->
+                                        </div>
+                                        <div class="info-box col-4 col-md-4 col-sm-12">
+                                            <span class="info-box-icon bg-info"><i class="fas fa-comment"></i></span>
+                                            <div class="info-box-content">
+                                                <span class="info-box-text">Expected Range</span>
+                                                <span class="info-box-number">1,410</span>
+                                            </div>
+                                            <!-- /.info-box-content -->
+                                        </div>
+                                        <div class="info-box col-4 col-md-4 col-sm-12">
+                                            <span class="info-box-icon bg-info"><i class="fas fa-comment"></i></span>
+                                            <div class="info-box-content">
+                                                <span class="info-box-text">Important Note</span>
+                                                <span class="info-box-number">1,410</span>
+                                            </div>
+                                            <!-- /.info-box-content -->
+                                        </div>
+                                        <div class="info-box col-4 col-md-4 col-sm-12">
+                                            <span class="info-box-icon bg-info"><i class="fas fa-comment"></i></span>
+                                            <div class="info-box-content">
+                                                <span class="info-box-text">Important Note</span>
+                                                <span class="info-box-number">1,410</span>
+                                            </div>
+                                            <!-- /.info-box-content -->
+                                        </div>
+                                        <div class="info-box col-4 col-md-4 col-sm-12">
+                                            <span class="info-box-icon bg-info"><i class="fas fa-comment"></i></span>
+                                            <div class="info-box-content">
+                                                <span class="info-box-text">Important Note</span>
+                                                <span class="info-box-number">1,410</span>
+                                            </div>
+                                            <!-- /.info-box-content -->
+                                        </div>
+                                        <div class="info-box col-4 col-md-4 col-sm-12">
+                                            <span class="info-box-icon bg-info"><i class="fas fa-comment"></i></span>
+                                            <div class="info-box-content">
+                                                <span class="info-box-text">Important Note</span>
+                                                <span class="info-box-number">1,410</span>
+                                            </div>
+                                            <!-- /.info-box-content -->
+                                        </div>
+                                        <!-- /.info-box -->
+                                    </div>
+                                    <!-- /.card-body -->
+                                </div>
+                                <!-- /.card -->
+                            </div>
+                            <!-- Child notes -->
+                            <div class="info-box col-4 col-md-4 col-sm-12">
+                                <span class="info-box-icon bg-danger"><i class="fas fa-comment"></i></span>
+                                <div class="info-box-content">
+                                    <span class="info-box-number" id="c_important_notes">1,410</span>
+                                </div>
+                                <!-- /.info-box-content -->
+                            </div>
+                            <div class="info-box col-4 col-md-8 col-sm-12">
+                                <div class="card card-success">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Child notes</h3>
+                                        <div class="card-tools">
+                                            <button type="button" class="btn btn-tool" data-card-widget="maximize">
+                                                <i class="fas fa-expand"></i>
+                                            </button>
+                                        </div>
+                                        <!-- /.card-tools -->
+                                    </div>
+                                    <!-- /.card-header -->
+                                    <div class="card-body row" id="c_notes">
+                                        <div class="info-box col-4 col-md-4 col-sm-12">
+                                            <span class="info-box-icon bg-info"><i class="fas fa-comment"></i></span>
+                                            <div class="info-box-content">
+                                                <span class="info-box-text">Name</span>
+                                                <span class="info-box-number">1,410</span>
+                                            </div>
+                                            <!-- /.info-box-content -->
+                                        </div>
+                                        <div class="info-box col-4 col-md-4 col-sm-12">
+                                            <span class="info-box-icon bg-info"><i class="fas fa-comment"></i></span>
+                                            <div class="info-box-content">
+                                                <span class="info-box-text">Phone</span>
+                                                <span class="info-box-number">1,410</span>
+                                            </div>
+                                            <!-- /.info-box-content -->
+                                        </div>
+                                        <div class="info-box col-4 col-md-4 col-sm-12">
+                                            <span class="info-box-icon bg-info"><i class="fas fa-comment"></i></span>
+                                            <div class="info-box-content">
+                                                <span class="info-box-text">Expected Range</span>
+                                                <span class="info-box-number">1,410</span>
+                                            </div>
+                                            <!-- /.info-box-content -->
+                                        </div>
+                                        <div class="info-box col-4 col-md-4 col-sm-12">
+                                            <span class="info-box-icon bg-info"><i class="fas fa-comment"></i></span>
+                                            <div class="info-box-content">
+                                                <span class="info-box-text">Important Note</span>
+                                                <span class="info-box-number">1,410</span>
+                                            </div>
+                                            <!-- /.info-box-content -->
+                                        </div>
+                                        <div class="info-box col-4 col-md-4 col-sm-12">
+                                            <span class="info-box-icon bg-info"><i class="fas fa-comment"></i></span>
+                                            <div class="info-box-content">
+                                                <span class="info-box-text">Important Note</span>
+                                                <span class="info-box-number">1,410</span>
+                                            </div>
+                                            <!-- /.info-box-content -->
+                                        </div>
+                                        <div class="info-box col-4 col-md-4 col-sm-12">
+                                            <span class="info-box-icon bg-info"><i class="fas fa-comment"></i></span>
+                                            <div class="info-box-content">
+                                                <span class="info-box-text">Important Note</span>
+                                                <span class="info-box-number">1,410</span>
+                                            </div>
+                                            <!-- /.info-box-content -->
+                                        </div>
+                                        <div class="info-box col-4 col-md-4 col-sm-12">
+                                            <span class="info-box-icon bg-info"><i class="fas fa-comment"></i></span>
+                                            <div class="info-box-content">
+                                                <span class="info-box-text">Important Note</span>
+                                                <span class="info-box-number">1,410</span>
+                                            </div>
+                                            <!-- /.info-box-content -->
+                                        </div>
+                                        <!-- /.info-box -->
+                                    </div>
+                                    <!-- /.card-body -->
+                                </div>
+                                <!-- /.card -->
+                            </div>
+                            <!-- Teacher -->
+                            <div class="info-box col-4 col-md-4 col-sm-12">
+                                <span class="info-box-icon bg-info"><i class="fas fa-comment"></i></span>
+                                <div class="info-box-content">
+                                    <span class="info-box-text">Important Note</span>
+                                    <span class="info-box-number">1,410</span>
+                                </div>
+                                <!-- /.info-box-content -->
+                            </div>
+                            <div class="info-box col-4 col-md-4 col-sm-12">
+                                <span class="info-box-icon bg-info"><i class="fas fa-comment"></i></span>
+                                <div class="info-box-content">
+                                    <span class="info-box-text">Important Note</span>
+                                    <span class="info-box-number">1,410</span>
+                                </div>
+                                <!-- /.info-box-content -->
+                            </div>
+                            <div class="info-box col-4 col-md-4 col-sm-12">
+                                <span class="info-box-icon bg-info"><i class="fas fa-comment"></i></span>
+                                <div class="info-box-content">
+                                    <span class="info-box-text">Important Note</span>
+                                    <span class="info-box-number">1,410</span>
+                                </div>
+                                <!-- /.info-box-content -->
+                            </div>
+                            <div class="info-box col-4 col-md-4 col-sm-12">
+                                <span class="info-box-icon bg-info"><i class="fas fa-comment"></i></span>
+                                <div class="info-box-content">
+                                    <span class="info-box-text">Important Note</span>
+                                    <span class="info-box-number">1,410</span>
+                                </div>
+                                <!-- /.info-box-content -->
+                            </div>
+                            <div class="info-box col-4 col-md-4 col-sm-12">
+                                <span class="info-box-icon bg-info"><i class="fas fa-comment"></i></span>
+                                <div class="info-box-content">
+                                    <span class="info-box-text">Important Note</span>
+                                    <span class="info-box-number">1,410</span>
+                                </div>
+                                <!-- /.info-box-content -->
+                            </div>
+
+
+                            <!-- /.info-box -->
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+            </div>
+            <!-- /.container-fluid -->
+        </div>
+    </section>
+    <!-- /.content -->
+
+    <!-- /.content-wrapper -->
+
+{% endblock %}
+<!-- ./wrapper -->
+
+{% block extrajs %}
+    <!-- DataTables  & Plugins -->
+    <script src="{% static '/follow/plugins/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static '/follow/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
+    <script src="{% static '/follow/plugins/datatables-responsive/js/dataTables.responsive.min.js' %}"></script>
+    <script src="{% static '/follow/plugins/datatables-responsive/js/responsive.bootstrap4.min.js' %}"></script>
+    <script src="{% static '/follow/plugins/datatables-buttons/js/dataTables.buttons.min.js' %}"></script>
+    <script src="{% static '/follow/plugins/datatables-buttons/js/buttons.bootstrap4.min.js' %}"></script>
+    <script src="{% static '/follow/plugins/jszip/jszip.min.js' %}"></script>
+    <script src="{% static '/follow/plugins/pdfmake/pdfmake.min.js' %}"></script>
+    <script src="{% static '/follow/plugins/pdfmake/vfs_fonts.js' %}"></script>
+    <script src="{% static '/follow/plugins/datatables-buttons/js/buttons.html5.min.js' %}"></script>
+    <script src="{% static '/follow/plugins/datatables-buttons/js/buttons.print.min.js' %}"></script>
+    <script src="{% static '/follow/plugins/datatables-buttons/js/buttons.colVis.min.js' %}"></script>
+    <!-- AdminLTE App -->
+    {# <script src="{% static '/follow/dist/js/adminlte.min.js' %}"></script> #}
+    <!-- Page specific script -->
+    <script>
+        $(
+            $.ajax({
+                url: '/follow/api/guardian/',
+                success: (data) => {
+                    var t_data = new Array();
+                    $('#t_assignment').text(data.length)
+                    var t = $('#t_table').DataTable({
+                        "paging": true,
+                        "lengthChange": false,
+                        "searching": false,
+                        "ordering": true,
+                        "info": true,
+                        "autoWidth": false,
+                        "responsive": true,
+                        "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+                    });
+                    try {
+                        for (var key1 in data) {
+                            t_data[data[key1]['id']] = data[key1]['Child']
+                            $('#t_tuition').text(parseInt($('#t_tuition').text()) + (data[key1]['Child'].length))
+                            if (data[key1]['Ban']) {
+                                t.row.add([
+                                    data[key1]['id'],
+                                    data[key1]['Name'],
+                                    data[key1]['Phone'],
+                                    data[key1]['Important_Note'],
+                                    data[key1]['Rating'],
+                                    data[key1]['Reminder'],
+                                    '<i class="fas fa-ban"><span hidden>0</span></i>',
+                                ]).draw(false);
+                            } else {
+                                t.row.add([
+                                    data[key1]['id'],
+                                    data[key1]['Name'],
+                                    data[key1]['Phone'],
+                                    data[key1]['Important_Note'],
+                                    data[key1]['Rating'],
+                                    data[key1]['Reminder'],
+                                    '<i class="far fa-check-circle"><span hidden>1</span></i>',
+                                ]).draw(false);
+                            }
+                        }
+                    } catch (e) {
+                        console.log(e)
+                    }
+                    $('#t_table tbody').on('click', 'tr', function () {
+                        $('#t_child').empty()
+                        for (var i in t_data[t.row(this).data()[0]]) {
+                            var td_confirmed = ''
+                            if (t_data[t.row(this).data()[0]][i]['Confirmed']) {
+                                td_confirmed = '<td class="bg-success" ><i class="fas fa-thumbs-up"></i></i></td>'
+                            } else {
+                                td_confirmed = '<td class="bg-danger" ><i class="fas fa-thumbs-down"></i></i></td>'
+                            }
+
+                            $('#t_child').append('<tr>' +
+                                '<td>' + t_data[t.row(this).data()[0]][i]['id'] + '</td>' +
+                                '<td>' + t_data[t.row(this).data()[0]][i]['Name'] + '</td>' +
+                                '<td>' + t_data[t.row(this).data()[0]][i]['Phone'] + '</td>' +
+                                '<td>' + t_data[t.row(this).data()[0]][i]['Gender'] + '</td>' +
+                                '<td>' + t_data[t.row(this).data()[0]][i]['Type'] + '</td>' +
+                                td_confirmed +
+                                '<td>' + t_data[t.row(this).data()[0]][i]['Important_Note'] + '</td>' +
+                                '<td>' + new Date(t_data[t.row(this).data()[0]][i]['Created']).toLocaleString() + '</td>' +
+                                '</tr>'
+                            )
+                        }
+                    });
+
+                }
+            })
+        );
+
+    </script>
+{% endblock %}

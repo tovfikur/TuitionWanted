@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Teacher Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+          integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!------ Include the above in your HEAD tag ---------->
+    <style>
+        .emp-profile {
+            padding: 3%;
+            margin-top: 3%;
+            margin-bottom: 3%;
+            border-radius: 0.5rem;
+            background: #fff;
+        }
+
+        .profile-img {
+            text-align: center;
+        }
+
+        .profile-img img {
+            width: 70%;
+            height: 100%;
+        }
+
+        .profile-img .file {
+            position: relative;
+            overflow: hidden;
+            margin-top: -20%;
+            width: 70%;
+            border: none;
+            border-radius: 0;
+            font-size: 15px;
+            background: #212529b8;
+        }
+
+        .profile-img .file input {
+            position: absolute;
+            opacity: 0;
+            right: 0;
+            top: 0;
+        }
+
+        .profile-head h5 {
+            color: #333;
+        }
+
+        .profile-head h6 {
+            color: #0062cc;
+        }
+
+        .profile-edit-btn {
+            border: none;
+            border-radius: 1.5rem;
+            width: 70%;
+            padding: 2%;
+            font-weight: 600;
+            color: #6c757d;
+            cursor: pointer;
+        }
+
+        .proile-rating {
+            font-size: 12px;
+            color: #818182;
+            margin-top: 5%;
+        }
+
+        .proile-rating span {
+            color: #495057;
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .profile-head .nav-tabs {
+            margin-bottom: 5%;
+        }
+
+        .profile-head .nav-tabs .nav-link {
+            font-weight: 600;
+            border: none;
+        }
+
+        .profile-head .nav-tabs .nav-link.active {
+            border: none;
+            border-bottom: 2px solid #0062cc;
+        }
+
+        .profile-work {
+            padding: 14%;
+            margin-top: -15%;
+        }
+
+        .profile-work p {
+            font-size: 12px;
+            color: #818182;
+            font-weight: 600;
+            margin-top: 10%;
+        }
+
+        .profile-work a {
+            text-decoration: none;
+            color: #495057;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .profile-work ul {
+            list-style: none;
+        }
+
+        .profile-tab label {
+            font-weight: 600;
+        }
+
+        .profile-tab p {
+            font-weight: 600;
+            color: #0062cc;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="emp-profile">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="profile-img">
+                    <img src="{{ userd.get_avatar }}" alt=""/>
+
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="profile-head">
+                    <h5>
+                        {{ userd.Name }}
+                    </h5>
+                    <p class="proile-rating">RANKINGS : <span>{{ userd.Rating }}/10</span>&emsp;&emsp;<span
+                            style="color:darkgoldenrod">{{ userd.ExpectedSalary }}</span>&emsp;
+
+                        {% if request.user.is_Teacher %}
+                            <a href="/teacher/update/{{ userd.id }}">Update</a>
+                            <a class="btn btn-outline-danger" href="/api-auth/logout/">Logout</a>
+                        {% else %}
+                            {% if request.user.is_authenticated %}
+                                <span><button id="rate" style="background-color:#f06928; color: white"
+                                              class="btn">Rate</button></span> &emsp;
+                                <hr>
+                                <a href="tel:{{ userd.Phone }}/change/">Personal <i class="fas fa-phone fa-2x"></i></a>
+                                <a href="tel:{{ userd.Guardian_phone }}/change/">Guardian <i class="fas fa-phone fa-2x"></i></a>
+                                <a href="tel:{{ userd.Refer_phone }}/change/">Refer <i class="fas fa-phone fa-2x"></i></a>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <a class="btn btn-warning" href="/admin/Teacher/teacher/{{ userd.id }}">Edit</a>
+                            {% endif %}
+                        {% endif %}
+                    </p>
+
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
+                               aria-controls="home" aria-selected="true">About</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <img style="height: 125px" src="https://tuitionwanted.com/wp-content/uploads/2021/06/TutionWanted.png">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="profile-work">
+                    <p>Location</p>
+                    {% for area in userd.PreferredArea.all %}
+                        <a href="#" id="locaion0">{{ area }}</a>,
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="tab-content profile-tab" id="myTabContent">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>User Id</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{ userd.id }}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Name</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{ userd.Name }}&emsp;<span
+                                        style="color:darkgreen">({{ userd.religion_text }})</span></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Gender</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{ userd.gender_text }}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Last institute</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{ userd.Last_Institute }}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Last Medium</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{ userd.Last_Medium }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <label class="col-12" style="background-color: #7a9d3e">Background</label>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Institute</th>
+                    <th scope="col">Subject</th>
+                    <th scope="col">GPA</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>{{ userd.Post_Graduation_Institute }}, {{ userd.Post_Graduation_Year }}</td>
+                    <td>{{ userd.Post_Graduation_Subject.Title }}</td>
+                    <td>{{ userd.Post_Graduation_GPA }}</td>
+                </tr>
+                <tr>
+                    <td>{{ userd.Graduation_Institute }}, {{ userd.Graduation_Year }}</td>
+                    <td>{{ userd.Graduation_Subject.Title }}</td>
+                    <td>{{ userd.Graduation_GPA }}</td>
+                </tr>
+                <tr>
+                    <td>{{ userd.HSC_Institute }}, {{ userd.HSC_Year }}</td>
+                    <td>{{ userd.HSC_Subject.Title }}</td>
+                    <td>{{ userd.HSC_GPA }}</td>
+                </tr>
+                <tr>
+                    <td>{{ userd.SSC_Institute }}, {{ userd.SSC_Year }}</td>
+                    <td>{{ userd.SSC_Subject.Title }}&nbsp;<span>({{ userd.Last_Medium }})</span></td>
+                    <td>{{ userd.SSC_GPA }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="row" style="margin-top: 80px">
+            <label class="col-12" style="background-color: #11a8cf">Experience</label>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Class</th>
+                    <th scope="col">Medium</th>
+                    <th scope="col">Subject</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for exp in userd.Experience.all %}
+                    <tr>
+                        <td>{{ exp.pre_edu }}</td>
+                        <td>{{ exp.pre_med }}</td>
+                        <td>
+                            {% for pexp in exp.Preferred_Subject.all %}
+                                {{ pexp.Title }}
+                            {% endfor %}
+                        </td>
+
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="row" style="margin-top: 80px">
+            <label class="col-12" style="background-color: #ec4a4a">Preferred</label>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Class</th>
+                    <th scope="col">Medium</th>
+                    <th scope="col">Subject</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for exp in userd.Preferred.all %}
+                    <tr>
+                        <td>{{ exp.pre_edu }}</td>
+                        <td>{{ exp.pre_med }}</td>
+                        <td>
+                            {% for pexp in exp.Preferred_Subject.all %}
+                                {{ pexp.Title }}
+                            {% endfor %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="text-center p-2" style="background-color: rgba(0, 0, 0, 0.05);">
+    © {% now "Y" %} Copyright:
+    <a class="text-reset fw-bold" href="https://www.linkedin.com/in/tovfikur-rahman-562b37158/">Tovfikur</a> All rights
+    reserved.
+</div>
+</body>
+{% if request.user.is_authenticated and not request.user.is_Teacher %}
+    <script>
+        $("#rate").click(function () {
+            var rtn = prompt('Type your experience under 10 : ', 5)
+            $.ajax({
+                url: "/follow/api/addrating/?tid={{ userd.id }}&rtn=" + rtn,
+                success: function (result) {
+                    window.location = window.location.href
+                }
+            });
+        });
+    </script>
+{% endif %}
+</html>

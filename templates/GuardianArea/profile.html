@@ -1,0 +1,738 @@
+{% extends 'FollowUp/follow-upper-base.html' %}
+
+{% block title %} Guardian | {{ guardian.id }} {% endblock %}
+{% block content_title %}# {{ guardian.id }} | Profile{% endblock %}
+{% block extrastyle %}
+    <style>
+        body {
+            margin-top: 20px;
+        }
+
+
+        /*======= Contact ======*/
+
+        .form-control {
+            box-shadow: none !important;
+            outline: none !important;
+            border: 2px solid #cecece;
+            height: 38px;
+        }
+
+        .form-control:hover, .form-control:focus {
+            border-color: #97a0af;
+        }
+
+
+        .error {
+            margin: 8px 0px;
+            display: none;
+            color: red;
+        }
+
+        #ajaxsuccess {
+            font-size: 16px;
+            width: 100%;
+            display: none;
+            clear: both;
+            margin: 8px 0px;
+        }
+
+        .con_sub_text {
+            margin: 20px 0px;
+            font-size: 15px;
+        }
+
+        .contact-detail-box {
+            margin-bottom: 50px;
+        }
+
+        .contact-detail-box address {
+            font-size: 14px;
+        }
+
+        .contact-map {
+            background-color: #ededed;
+        }
+
+        .title-box .border, .btn-primary, .back-to-top,
+        .logo i, .question-q-box, .social-circle li a:hover {
+            background-color: #f16000 !important;
+        }
+
+        .title-box .title-alt, .text-colored, .footer a:hover,
+        .navbar-custom .navbar-nav li a:hover,
+        .navbar-custom .navbar-nav li a:focus,
+        .navbar-custom .navbar-nav li a:active,
+        .navbar-custom .navbar-nav li.active a {
+            color: #f16000;
+        }
+
+        .btn-primary {
+            border: 1px solid #f16000 !important;
+        }
+
+        .btn-primary:hover,
+        .btn-primary:focus,
+        .btn-primary:active,
+        .btn-primary.active,
+        .btn-primary.focus,
+        .btn-primary:active,
+        .btn-primary:focus,
+        .btn-primary:hover,
+        .open > .dropdown-toggle.btn-primary,
+        .btn-primary.active.focus, .btn-primary.active:focus,
+        .btn-primary.active:hover, .btn-primary:active.focus,
+        .btn-primary:active:focus, .btn-primary:active:hover,
+        .open > .dropdown-toggle.btn-primary.focus,
+        .open > .dropdown-toggle.btn-primary:focus,
+        .open > .dropdown-toggle.btn-primary:hover {
+            background-color: #d85600 !important;
+            border: 1px solid #d85600 !important;
+        }
+
+        .btn-shadow.btn-primary {
+            box-shadow: 1px 5px 9px rgba(241, 96, 1, 0.32);
+        }
+
+
+        /*======= Responsive ======*/
+        @media (min-width: 768px) {
+            .nav-custom-left {
+                margin-left: 5%;
+            }
+
+            .navbar-nav > li > a {
+                padding-top: 10px;
+                padding-bottom: 10px;
+            }
+
+            .contact-page .col-sm-6 {
+                padding-left: 30px;
+                padding-right: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar-custom {
+                -moz-box-shadow: 0 2px 2px rgba(0, 0, 0, .1);
+                -webkit-box-shadow: 0 2px 2px rgba(0, 0, 0, .1);
+                box-shadow: 0 2px 2px rgba(0, 0, 0, .1);
+            }
+
+            .screen-space {
+                margin: 0px auto 50px auto;
+            }
+
+            .feature-detail {
+                padding: 0px 0px 50px 30px !important;
+            }
+
+            .footer h5 {
+                margin-top: 30px;
+            }
+        }
+
+
+        @media only screen and (min-width: 768px) and (max-width: 991px) {
+            .blog-wrapper .blog-item {
+                width: 50%;
+            }
+
+            .navbar-custom .navbar-nav li a {
+                font-size: 12px;
+            }
+
+            .blog-detail-box {
+                padding-right: 0px;
+            }
+        }
+
+        @media only screen and (min-width: 767px) and (max-width: 991px) {
+
+        }
+
+        @media (max-width: 767px) {
+            .blog-wrapper .blog-item {
+                width: 100%;
+            }
+
+            .logo {
+                margin-top: 7px;
+            }
+
+            .blog-detail-box {
+                padding-right: 0px;
+            }
+        }
+
+        .card-margin {
+            margin-bottom: 1.875rem;
+        }
+
+        .card {
+            border: 0;
+            box-shadow: 0px 0px 10px 0px rgba(82, 63, 105, 0.1);
+            -webkit-box-shadow: 0px 0px 10px 0px rgba(82, 63, 105, 0.1);
+            -moz-box-shadow: 0px 0px 10px 0px rgba(82, 63, 105, 0.1);
+            -ms-box-shadow: 0px 0px 10px 0px rgba(82, 63, 105, 0.1);
+        }
+
+        .card {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            word-wrap: break-word;
+            background-color: #ffffff;
+            background-clip: border-box;
+            border: 1px solid #e6e4e9;
+            border-radius: 8px;
+        }
+
+        .card .card-header.no-border {
+            border: 0;
+        }
+
+        .card .card-header {
+            background: none;
+            padding: 0 0.9375rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            min-height: 50px;
+        }
+
+        .card-header:first-child {
+            border-radius: calc(8px - 1px) calc(8px - 1px) 0 0;
+        }
+
+        .widget-49 .widget-49-title-wrapper {
+            display: flex;
+            align-items: center;
+        }
+
+        .widget-49 .widget-49-title-wrapper .widget-49-date-primary {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            background-color: #edf1fc;
+            width: 4rem;
+            height: 4rem;
+            border-radius: 50%;
+        }
+
+        .widget-49 .widget-49-title-wrapper .widget-49-date-primary .widget-49-date-day {
+            color: #4e73e5;
+            font-weight: 500;
+            font-size: 1.5rem;
+            line-height: 1;
+        }
+
+        .widget-49 .widget-49-title-wrapper .widget-49-date-primary .widget-49-date-month {
+            color: #4e73e5;
+            line-height: 1;
+            font-size: 1rem;
+            text-transform: uppercase;
+        }
+
+        .widget-49 .widget-49-title-wrapper .widget-49-date-secondary {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            background-color: #fcfcfd;
+            width: 4rem;
+            height: 4rem;
+            border-radius: 50%;
+        }
+
+        .widget-49 .widget-49-title-wrapper .widget-49-date-secondary .widget-49-date-day {
+            color: #dde1e9;
+            font-weight: 500;
+            font-size: 1.5rem;
+            line-height: 1;
+        }
+
+        .widget-49 .widget-49-title-wrapper .widget-49-date-secondary .widget-49-date-month {
+            color: #dde1e9;
+            line-height: 1;
+            font-size: 1rem;
+            text-transform: uppercase;
+        }
+
+        .widget-49 .widget-49-title-wrapper .widget-49-date-success {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            background-color: #e8faf8;
+            width: 4rem;
+            height: 4rem;
+            border-radius: 50%;
+        }
+
+        .widget-49 .widget-49-title-wrapper .widget-49-date-success .widget-49-date-day {
+            color: #17d1bd;
+            font-weight: 500;
+            font-size: 1.5rem;
+            line-height: 1;
+        }
+
+        .widget-49 .widget-49-title-wrapper .widget-49-date-success .widget-49-date-month {
+            color: #17d1bd;
+            line-height: 1;
+            font-size: 1rem;
+            text-transform: uppercase;
+        }
+
+        .widget-49 .widget-49-title-wrapper .widget-49-date-info {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            background-color: #ebf7ff;
+            width: 4rem;
+            height: 4rem;
+            border-radius: 50%;
+        }
+
+        .widget-49 .widget-49-title-wrapper .widget-49-date-info .widget-49-date-day {
+            color: #36afff;
+            font-weight: 500;
+            font-size: 1.5rem;
+            line-height: 1;
+        }
+
+        .widget-49 .widget-49-title-wrapper .widget-49-date-info .widget-49-date-month {
+            color: #36afff;
+            line-height: 1;
+            font-size: 1rem;
+            text-transform: uppercase;
+        }
+
+        .widget-49 .widget-49-title-wrapper .widget-49-date-warning {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            background-color: floralwhite;
+            width: 4rem;
+            height: 4rem;
+            border-radius: 50%;
+        }
+
+        .widget-49 .widget-49-title-wrapper .widget-49-date-warning .widget-49-date-day {
+            color: #FFC868;
+            font-weight: 500;
+            font-size: 1.5rem;
+            line-height: 1;
+        }
+
+        .widget-49 .widget-49-title-wrapper .widget-49-date-warning .widget-49-date-month {
+            color: #FFC868;
+            line-height: 1;
+            font-size: 1rem;
+            text-transform: uppercase;
+        }
+
+        .widget-49 .widget-49-title-wrapper .widget-49-date-danger {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            background-color: #feeeef;
+            width: 4rem;
+            height: 4rem;
+            border-radius: 50%;
+        }
+
+        .widget-49 .widget-49-title-wrapper .widget-49-date-danger .widget-49-date-day {
+            color: #F95062;
+            font-weight: 500;
+            font-size: 1.5rem;
+            line-height: 1;
+        }
+
+        .widget-49 .widget-49-title-wrapper .widget-49-date-danger .widget-49-date-month {
+            color: #F95062;
+            line-height: 1;
+            font-size: 1rem;
+            text-transform: uppercase;
+        }
+
+        .widget-49 .widget-49-title-wrapper .widget-49-date-light {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            background-color: #fefeff;
+            width: 4rem;
+            height: 4rem;
+            border-radius: 50%;
+        }
+
+        .widget-49 .widget-49-title-wrapper .widget-49-date-light .widget-49-date-day {
+            color: #f7f9fa;
+            font-weight: 500;
+            font-size: 1.5rem;
+            line-height: 1;
+        }
+
+        .widget-49 .widget-49-title-wrapper .widget-49-date-light .widget-49-date-month {
+            color: #f7f9fa;
+            line-height: 1;
+            font-size: 1rem;
+            text-transform: uppercase;
+        }
+
+        .widget-49 .widget-49-title-wrapper .widget-49-date-dark {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            background-color: #ebedee;
+            width: 4rem;
+            height: 4rem;
+            border-radius: 50%;
+        }
+
+        .widget-49 .widget-49-title-wrapper .widget-49-date-dark .widget-49-date-day {
+            color: #394856;
+            font-weight: 500;
+            font-size: 1.5rem;
+            line-height: 1;
+        }
+
+        .widget-49 .widget-49-title-wrapper .widget-49-date-dark .widget-49-date-month {
+            color: #394856;
+            line-height: 1;
+            font-size: 1rem;
+            text-transform: uppercase;
+        }
+
+        .widget-49 .widget-49-title-wrapper .widget-49-date-base {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            background-color: #f0fafb;
+            width: 4rem;
+            height: 4rem;
+            border-radius: 50%;
+        }
+
+        .widget-49 .widget-49-title-wrapper .widget-49-date-base .widget-49-date-day {
+            color: #68CBD7;
+            font-weight: 500;
+            font-size: 1.5rem;
+            line-height: 1;
+        }
+
+        .widget-49 .widget-49-title-wrapper .widget-49-date-base .widget-49-date-month {
+            color: #68CBD7;
+            line-height: 1;
+            font-size: 1rem;
+            text-transform: uppercase;
+        }
+
+        .widget-49 .widget-49-title-wrapper .widget-49-meeting-info {
+            display: flex;
+            flex-direction: column;
+            margin-left: 1rem;
+        }
+
+        .widget-49 .widget-49-title-wrapper .widget-49-meeting-info .widget-49-pro-title {
+            color: #3c4142;
+            font-size: 14px;
+        }
+
+        .widget-49 .widget-49-title-wrapper .widget-49-meeting-info .widget-49-meeting-time {
+            color: #B1BAC5;
+            font-size: 13px;
+        }
+
+        .widget-49 .widget-49-meeting-points {
+            font-weight: 400;
+            font-size: 13px;
+            margin-top: .5rem;
+        }
+
+        .widget-49 .widget-49-meeting-points .widget-49-meeting-item {
+            display: list-item;
+            color: #727686;
+        }
+
+        .widget-49 .widget-49-meeting-points .widget-49-meeting-item span {
+            margin-left: .5rem;
+        }
+
+        .widget-49 .widget-49-meeting-action {
+            text-align: right;
+        }
+
+        .widget-49 .widget-49-meeting-action a {
+            text-transform: uppercase;
+        }
+
+        ul {
+            list-style: '✔';
+        }
+
+        .component {
+            font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+        {#width: 750px;#} margin: 0 auto;
+        }
+
+        .component blockquote.quote {
+            position: relative;
+            text-align: center;
+            padding: 1rem 1.2rem;
+            color: deepskyblue;
+            margin: 1rem auto 2rem;
+        }
+
+        .component blockquote.EN {
+            background: linear-gradient(to right, #039be5 4px, transparent 4px) 0 100%,
+            linear-gradient(to left, #039be5 4px, transparent 4px) 100% 0,
+            linear-gradient(to bottom, #039be5 4px, transparent 4px) 100% 0,
+            linear-gradient(to top, #039be5 4px, transparent 4px) 0 100%;
+            background-repeat: no-repeat;
+            background-size: 20px 20px;
+        }
+
+        .component blockquote.DE {
+            background: linear-gradient(to right, #039be5 4px, transparent 4px) 0% 0%,
+            linear-gradient(to bottom, #039be5 4px, transparent 4px) 0% 0%,
+            linear-gradient(to left, #039be5 4px, transparent 4px) 100% 100%,
+            linear-gradient(to top, #039be5 4px, transparent 4px) 100% 100%;
+            background-repeat: no-repeat;
+            background-size: 20px 20px;
+        }
+
+
+        /* -- create the quotation marks -- */
+        .component blockquote.quote:before,
+        .component blockquote.quote:after {
+            font-family: FontAwesome;
+            position: absolute;
+            color: #039be5;
+            font-size: 34px;
+        }
+
+        .component blockquote.EN:before {
+            content: "\f10d";
+            top: -12px;
+            margin-right: -20px;
+            right: 100%;
+        }
+
+        .component blockquote.EN:after {
+            content: "\f10e";
+            margin-left: -20px;
+            left: 100%;
+            top: auto;
+            bottom: -20px;
+        }
+
+        .component blockquote.DE:before {
+            content: "\f10e";
+            margin-right: -20px;
+            bottom: -20px;
+            right: 100%;
+        }
+
+        .component blockquote.DE:after {
+            content: "\f10d";
+            margin-left: -20px;
+            left: 100%;
+            top: -20px;
+            bottom: auto;
+        }
+
+
+        .zitat1 cite {
+            font-family: 'Verdana', sans-serif;
+            font-size: 0.6em;
+            font-weight: 700;
+            color: #bdbec0;
+            float: right;
+        }
+
+        .zitat1 cite:before {
+            content: '\2015' ' ';
+        }
+
+        .sidekick cite {
+            font-size: 50%;
+            text-align: center;
+            top: 50%
+        }
+
+        .sidekick cite:before {
+            content: ' \2015 '
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <div class="container bootstrap snippets bootdeys">
+        <div class="row text-center">
+            <div class="col-sm-3">
+                <div class="contact-detail-box">
+                    <i class="fa fa-user fa-3x text-colored"></i>
+                    <h4>{{ guardian.Name }}</h4>
+                    <abbr title="Phone"></abbr>{{ guardian.Phone }}<br>
+                    <p>{{ guardian.Profession }}</p>
+                </div>
+            </div><!-- end col -->
+
+            <div class="col-sm-3">
+                <div class="contact-detail-box">
+                    <i class="fa fa-map-marker fa-3x text-colored"></i>
+                    <h6>Address</h6>
+
+                    <address>
+                        {{ guardian.Address }}
+                    </address>
+                </div>
+            </div><!-- end col -->
+
+            <div class="col-sm-3">
+                <div class="contact-detail-box">
+                    <i class="fa fa-money fa-3x text-colored"></i>
+                    <h3>{{ guardian.Expected_Range }}</h3>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="contact-detail-box">
+                    <i class="fa fa-book fa-3x text-colored"></i>
+                    <h6>{{ guardian.Important_Note }}</h6>
+                </div>
+            </div><!-- end col -->
+        </div>
+        <!-- end row -->
+
+
+        <div class="row child-card">
+
+            {#            <div class="col-sm-2"></div>#}
+            {#            <div class="col-sm-8">#}
+            {#                <div class="contact-map">#}
+            {#                    <iframe src="https://www.google.com/maps/embed/v1/place?q=Dhaka&amp;key=AIzaSyBSFRN6WWGYwmFi498qXXsD2UwkbmD74v4"#}
+            {#                            frameborder="0" scrolling="no" marginheight="0" marginwidth="0"#}
+            {#                            style="width: 100%; height: 360px;"></iframe>#}
+            {#                </div>#}
+            {#            </div><!-- end col -->#}
+
+            <!-- Contact form -->
+            {% for ch in child %}
+                <div class="col-sm-12 row">
+                    <div class="container col-sm-8">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card card-margin">
+                                    <div class="card-header no-border">
+                                        <h5 class="card-title" style="color: black">{{ ch.slug }}</h5>
+                                        <h5 class="card-title"
+                                            style=" color: black; position: absolute; top: 5px; right: 10px"><a
+                                                href="/guardian/{{ ch.slug }}/child/" >Manage</a>
+                                        </h5>
+                                    </div>
+                                    <div class="card-body pt-0">
+                                        <div class="widget-49">
+                                            <div class="widget-49-title-wrapper">
+                                                <div class="widget-49-date-primary">
+                                                    <span class="widget-49-date-day">{{ ch.Created | date:"d" }}</span>
+                                                    <span class="widget-49-date-month">{{ ch.Created | date:"M" }}</span>
+                                                </div>
+                                                <div class="widget-49-meeting-info">
+                                                    <span class="widget-49-pro-title"><span> {{ ch.Name }}</span>:  <span>{{ ch.medium_text }}</span> - <span>{{ ch.Education_Level }}</span>
+                                                        <!--, <span>{{ ch.Education_Institute }}</span> --></span>
+                                                    <span class="widget-49-meeting-time">{{ guardian.Reminder }}</span>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-8">
+                                                    <ul class="widget-49-meeting-points">
+                                                        <li class="widget-49-meeting-item">
+                                                            <span>{{ ch.teacher_medium_text }}</span>
+                                                        </li>
+                                                        <li class="widget-49-meeting-item">
+                                                            <span>{{ ch.gender_text }}</span>
+                                                        </li>
+                                                        <li class="widget-49-meeting-item">
+                                                            {% for Expected_Subject in ch.Expected_Subjects.all %}
+                                                                <span>{{ Expected_Subject.Title }},&nbsp;</span>
+                                                            {% endfor %}
+                                                            </span>
+                                                        </li>
+                                                        <li class="widget-49-meeting-item">
+                                                            <span>{{ ch.teacher_level_text }}</span></li>
+                                                        <li class="widget-49-meeting-item">
+                                                            <span>{{ ch.background_text }}</span></li>
+                                                        <li class="widget-49-meeting-item">
+                                                            <span>{{ ch.teacher_university_text }}</span></li>
+                                                        <li class="widget-49-meeting-item">
+                                                            <span>{{ ch.experience_text }}</span></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="col-4">
+                                                    <ul class="widget-49-meeting-points">
+                                                        <li class="widget-49-meeting-item">
+                                                            <span>{{ ch.Expected_Salary }}</span>
+                                                        </li>
+                                                        <li class="widget-49-meeting-item"><span>{{ ch.Expected_Day }} Day/Week</span>
+                                                        </li>
+                                                        <li class="widget-49-meeting-item">
+                                                            <span>{{ ch.style_text }}</span>
+                                                        </li>
+                                                        <li class="widget-49-meeting-item">
+                                                            <span>{{ ch.teacher_type_text }}</span></li>
+                                                        <li class="widget-49-meeting-item">
+                                                            <span>{{ ch.teacher_age_text }}</span></li>
+                                                        <li class="widget-49-meeting-item">
+                                                            <span>{{ ch.teacher_religion_text }}</span></li>
+                                                        <li class="widget-49-meeting-item">
+                                                            <span>{{ ch.Free_Time }}</span></li>
+
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="widget-49-meeting-action">
+                                                <a href="#" class="btn btn-sm btn-flash-border-primary">View All</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        {% for chn in ch.Note.all %}
+                            <section class="component">
+                                <blockquote class="callout quote EN">
+                                    {{ chn.Note }}
+                                    <cite> - {{ chn.Writer }}</cite>
+                                </blockquote>
+                            </section>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="col-sm-12" id="{{ ch.slug }}_teacher" style="background-color: transparent; height: 100px; display: none;" >This is my another daughter</div><!-- end col -->
+            {% endfor %}
+
+
+        </div> <!-- end row -->
+
+    </div>
+{% endblock %}
+
+{% block extrajs %}
+    <script>
+    function toggleDiv(x) {
+        $(x).toggle()
+    }
+    </script>
+{% endblock %}

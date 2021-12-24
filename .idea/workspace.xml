@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="0469798d-eca3-4b93-b226-dda40ee8c2ba" name="Changes" comment="25Dec">
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)">
+    <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="Main" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="22PX2wlE3kB7kIMEbnk87d5Ncod" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="TODO_SCOPE" value="All Places" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../amar/TuitionWanted" />
+    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
+  </component>
+  <component name="PyConsoleOptionsProvider">
+    <option name="myPythonConsoleState">
+      <console-settings is-module-sdk="true">
+        <option name="myUseModuleSdk" value="true" />
+      </console-settings>
+    </option>
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/templates/admin" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Django Server.TuitionWanted">
+    <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="TuitionWanted" type="Python.DjangoServer" factoryName="Django server">
+      <module name="TuitionWanted" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+        <env name="DJANGO_SETTINGS_MODULE" value="TuitionWanted.settings" />
+      </envs>
+      <option name="SDK_HOME" value="$PROJECT_DIR$/venv/bin/python" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <option name="port" value="8000" />
+      <option name="host" value="" />
+      <option name="additionalOptions" value="" />
+      <option name="browserUrl" value="" />
+      <option name="runTestServer" value="false" />
+      <option name="runNoReload" value="false" />
+      <option name="useCustomRunCommand" value="false" />
+      <option name="customRunCommand" value="" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="0469798d-eca3-4b93-b226-dda40ee8c2ba" name="Changes" comment="" />
+      <created>1639739992851</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1639739992851</updated>
+      <workItem from="1639739994561" duration="17000" />
+      <workItem from="1639808736458" duration="48000" />
+      <workItem from="1639808799596" duration="15000" />
+      <workItem from="1639808913473" duration="362000" />
+      <workItem from="1639809535576" duration="17449000" />
+      <workItem from="1639891243893" duration="31000" />
+      <workItem from="1639891290938" duration="184000" />
+      <workItem from="1639891478704" duration="325000" />
+      <workItem from="1639891805131" duration="788000" />
+      <workItem from="1639892595795" duration="108000" />
+      <workItem from="1639892720872" duration="5135000" />
+      <workItem from="1639899255962" duration="3194000" />
+      <workItem from="1639903401442" duration="4620000" />
+      <workItem from="1639909685505" duration="7831000" />
+      <workItem from="1639924844836" duration="3380000" />
+      <workItem from="1639985618617" duration="9857000" />
+      <workItem from="1640007818162" duration="3558000" />
+      <workItem from="1640062939897" duration="4109000" />
+      <workItem from="1640067441383" duration="2582000" />
+      <workItem from="1640143123435" duration="291000" />
+      <workItem from="1640144664131" duration="51000" />
+      <workItem from="1640157519305" duration="20000" />
+      <workItem from="1640157573585" duration="2363000" />
+      <workItem from="1640196421449" duration="3157000" />
+      <workItem from="1640194985408" duration="10410000" />
+      <workItem from="1640229572112" duration="9311000" />
+      <workItem from="1640336131882" duration="6996000" />
+      <workItem from="1640344907326" duration="728000" />
+      <workItem from="1640345649446" duration="764000" />
+      <workItem from="1640369483725" duration="823000" />
+      <workItem from="1640370324737" duration="104000" />
+      <workItem from="1640370445761" duration="280000" />
+      <workItem from="1640370742301" duration="265000" />
+      <workItem from="1640371872757" duration="201000" />
+    </task>
+    <task id="LOCAL-00001" summary="DEC 19">
+      <created>1639892819027</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1639892819027</updated>
+    </task>
+    <task id="LOCAL-00002" summary="DEC 19">
+      <created>1639897314125</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1639897314125</updated>
+    </task>
+    <task id="LOCAL-00003" summary="DEC 19">
+      <created>1639904703135</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1639904703135</updated>
+    </task>
+    <task id="LOCAL-00004" summary="DEC 19">
+      <created>1639904719352</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1639904719352</updated>
+    </task>
+    <task id="LOCAL-00005" summary="DEC 19">
+      <created>1639914038981</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1639914038981</updated>
+    </task>
+    <task id="LOCAL-00006" summary="DEC 19">
+      <created>1639914134996</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1639914134996</updated>
+    </task>
+    <task id="LOCAL-00007" summary="DEC 19">
+      <created>1639926572568</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1639926572568</updated>
+    </task>
+    <task id="LOCAL-00008" summary="21Dec">
+      <created>1640063031424</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1640063031424</updated>
+    </task>
+    <task id="LOCAL-00009" summary="21Dec">
+      <created>1640079768361</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1640079768361</updated>
+    </task>
+    <task id="LOCAL-00010" summary="21Dec">
+      <created>1640143376967</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1640143376967</updated>
+    </task>
+    <task id="LOCAL-00011" summary="22Dec">
+      <created>1640144671122</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1640144671122</updated>
+    </task>
+    <task id="LOCAL-00012" summary="23Dec">
+      <created>1640202945343</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1640202945343</updated>
+    </task>
+    <task id="LOCAL-00013" summary="23Dec">
+      <created>1640205280063</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1640205280063</updated>
+    </task>
+    <task id="LOCAL-00014" summary="23Dec">
+      <created>1640235574861</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1640235574861</updated>
+    </task>
+    <task id="LOCAL-00015" summary="23Dec">
+      <created>1640336256469</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1640336256469</updated>
+    </task>
+    <task id="LOCAL-00016" summary="24Dec">
+      <created>1640344796865</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1640344796865</updated>
+    </task>
+    <task id="LOCAL-00017" summary="24Dec">
+      <created>1640346094601</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1640346094601</updated>
+    </task>
+    <task id="LOCAL-00018" summary="24Dec">
+      <created>1640346357734</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1640346357734</updated>
+    </task>
+    <task id="LOCAL-00019" summary="24Dec">
+      <created>1640369946790</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1640369946790</updated>
+    </task>
+    <task id="LOCAL-00020" summary="24Dec">
+      <created>1640370087248</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1640370087248</updated>
+    </task>
+    <task id="LOCAL-00021" summary="25Dec">
+      <created>1640371897955</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1640371897956</updated>
+    </task>
+    <task id="LOCAL-00022" summary="25Dec">
+      <created>1640371933150</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1640371933150</updated>
+    </task>
+    <task id="LOCAL-00023" summary="25Dec">
+      <created>1640371999010</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1640371999010</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="CUSTOM_BOOLEAN_PROPERTIES">
+                <map>
+                  <entry key="Show.Git.Branches" value="true" />
+                </map>
+              </option>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="master" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="DEC 19" />
+    <MESSAGE value="21Dec" />
+    <MESSAGE value="22Dec" />
+    <MESSAGE value="23Dec" />
+    <MESSAGE value="24Dec" />
+    <MESSAGE value="25Dec" />
+    <option name="LAST_COMMIT_MESSAGE" value="25Dec" />
+  </component>
+</project>

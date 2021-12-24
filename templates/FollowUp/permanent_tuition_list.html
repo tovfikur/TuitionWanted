@@ -1,0 +1,26 @@
+{% extends 'FollowUp/follow-upper-base.html' %}
+
+{% block content %}
+    <div class="col-12">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">Child Id</th>
+                <th scope="col">Child Name</th>
+                <th scope="col">Teacher Name</th>
+                <th scope="col">Teacher ID</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for child in childs %}
+                <tr onclick="window.location = '/guardian/{{ child.Child.slug }}/child/'">
+                    <th scope="row">{{ child.Child.slug }}</th>
+                    <td>{{ child.Child.Name }}</td>
+                    <td>{{ child.Teacher.Name }}</td>
+                    <td>{{ child.Teacher.id }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

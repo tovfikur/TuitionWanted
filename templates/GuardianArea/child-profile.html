@@ -1,0 +1,1317 @@
+{% extends 'FollowUp/follow-upper-base.html' %}
+{% load util %}
+{% block title %} Child | {{ child.slug }} {% endblock %}
+{% block content_title %}# {{ child.slug }} | Profile {% endblock %}
+{% block extrastyle %}
+    <style>
+
+        .more {
+            opacity: 0.5 !important
+        }
+
+        .btn:hover {
+            color: black !important
+        }
+
+        #plus {
+            opacity: 0.8
+        }
+
+        .card {
+            border-radius: 10px !important
+        }
+
+        a:hover {
+            background-color: #ccc !important
+        }
+
+        .btn-outlined:active {
+            color: #FFF;
+            border-color: #fff !important
+        }
+
+        img {
+            cursor: pointer;
+            overflow: visible
+        }
+
+        .btn:focus,
+        .btn:active {
+            outline: none !important;
+            box-shadow: none !important
+        }
+
+        .corner-ribbon {
+            z-index: 100;
+            width: 61px;
+            background: rgb(0, 154, 252);
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            text-align: center;
+            line-height: 22px;
+            letter-spacing: 1px;
+            color: #f0f0f0;
+        {#transform: rotate(-45deg);#}{#-webkit-transform: rotate(-45deg);#} border-radius: 10px;
+        }
+
+        .mid-ribbon {
+            z-index: 100;
+            width: 42px;
+            background: rgb(84, 183, 255);
+            position: absolute;
+            top: 0px;
+            left: 61px;
+            text-align: center;
+            line-height: 22px;
+            letter-spacing: 1px;
+            color: black;
+        {#transform: rotate(-45deg);#}{#-webkit-transform: rotate(-45deg);#} border-radius: 10px;
+        }
+
+        .side-ribbon {
+            z-index: 100;
+            width: 25px;
+            background: rgb(182, 229, 255);
+            position: absolute;
+            top: 0px;
+            left: 103px;
+            text-align: center;
+            line-height: 22px;
+            letter-spacing: 1px;
+            color: black;
+        {#transform: rotate(-45deg);#}{#-webkit-transform: rotate(-45deg);#} border-radius: 10px;
+        }
+
+        .circle {
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            background-color: rgb(18, 181, 232);
+            position: relative;
+            margin-left: 45%;
+        }
+
+        .bar {
+            margin: 0 auto;
+            position: absolute;
+            background-color: #fff;
+        }
+
+        .horizontal {
+            width: 70%;
+            height: 20%;
+            left: 15%;
+            top: 40%;
+
+        }
+
+        .vertical {
+            width: 20%;
+            height: 70%;
+            left: 40%;
+            top: 15%;
+        }
+
+        .select {
+            width: 100%;
+        }
+    </style>
+    <style>
+        .project-tab {
+            padding: 10%;
+            margin-top: -8%;
+        }
+
+        .project-tab #tabs {
+            background: #007b5e;
+            color: #eee;
+        }
+
+        .project-tab #tabs h6.section-title {
+            color: #eee;
+        }
+
+        .project-tab #tabs .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+            color: #0062cc;
+            background-color: transparent;
+            border-color: transparent transparent #f3f3f3;
+            border-bottom: 3px solid !important;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .project-tab .nav-link {
+            border: 1px solid transparent;
+            border-top-left-radius: .25rem;
+            border-top-right-radius: .25rem;
+            color: #0062cc;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .project-tab .nav-link:hover {
+            border: none;
+        }
+
+        .project-tab thead {
+            background: #f3f3f3;
+            color: #333;
+        }
+
+        .project-tab a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .t_profile {
+            margin: 120px auto 120px;
+        {#background-color: #f5d5d5;#} padding: 0 20px 20px;
+            border-radius: 6px;
+            border-style: dotted;
+            -webkit-border-radius: 6px;
+            -moz-border-radius: 6px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.075);
+            -webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.075);
+            -moz-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.075);
+            text-align: center;
+        }
+
+        .t_profile:hover .avatar-flip {
+            transform: rotateY(180deg);
+            -webkit-transform: rotateY(180deg);
+        }
+
+        .avatar-flip {
+            border-radius: 26px;
+            overflow: hidden;
+            height: 90px;
+            width: 90px;
+            position: relative;
+            margin: auto;
+            top: -45px;
+            transition: all 1s ease-in-out;
+            -webkit-transition: all 1s ease-in-out;
+            -moz-transition: all 1s ease-in-out;
+        }
+
+        .icon {
+            padding: 5px;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <div class="col-sm-4">
+        <div class="card fixed">
+            <div class="card-body ">
+                {% if user.is_superuser %}
+                    <a onclick="add_paid()">
+                        <div class="corner-ribbon bottom-left sticky orange"><i class="fas fa-thumbs-up"></i></div>
+                    </a>
+                {% else %}
+                    <div class="corner-ribbon bottom-left sticky orange">{{ child.slug }}</div>
+                {% endif %}
+                <div class="mid-ribbon bottom-left sticky orange"><a class="icon" href="tel:{{ child.Phone }}"><i
+                        class="fas fa-phone-square-alt"></i></a></div>
+                <div class="side-ribbon bottom-left sticky orange"><a class="icon"
+                                                                      href="/follow/sms/?phone={{ child.Phone }}"><i
+                        class="fas fa-comment"></i></a></div>
+                <div class="row">
+                    <div class="col-9">
+                        <h4 class="card-title ">&nbsp;&nbsp;&nbsp;<b>{{ child.Name }}</b><br> <span
+                                style="font-size: 10px; letter-spacing: 0.5px">{{ child.medium_text }}-{{ child.level_text }}</span>
+                        </h4>
+                    </div>
+                    <div class="col-3">
+                        <h6 class="card-subtitle mb-2 text-muted">
+                            <p class="card-text text-muted small ">{{ child.Created | date:"Md" }}</p>
+                        </h6>
+                    </div>
+                    <div class="col-6">
+                        <button type="button" class="btn btn-info" data-toggle="collapse"
+                                data-target="#requirement">
+                            Requirement
+                        </button>
+                    </div>
+                    <div class="col-6">
+                        <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#note">
+                            Note
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer bg-white px-0 ">
+                <div class="row collapse" id="requirement">
+                    <div class="col-12">
+                        <ul class="widget-49-meeting-points">
+                            <li class="widget-49-meeting-item">
+                                <span>Student Address: </span><span style="font-size: larger">{{ child.Address }}</span>
+                            </li>
+                            <li class="widget-49-meeting-item">
+                                <span>Teacher Medium : </span><span
+                                    style="font-size: larger">{{ child.teacher_medium_text }}</span>
+                            </li>
+                            <li class="widget-49-meeting-item">
+                                <span>Teacher gender : </span><span
+                                    style="font-size: larger">{{ child.gender_text }}</span>
+                            </li>
+                            <li class="widget-49-meeting-item">
+                                <span>Responsibility subjects : </span>
+                                {% for Expected_Subject in child.Expected_Subjects.all %}
+                                    <span style="font-size: larger">{{ Expected_Subject.Title }},&nbsp;</span>
+                                {% endfor %}
+                                </span>
+                            </li>
+                            <li class="widget-49-meeting-item">
+                                <span>Teacher level : </span><span
+                                    style="font-size: larger">{{ child.teacher_level_text }}</span></li>
+                            <li class="widget-49-meeting-item">
+                                <span>Teacher Background : </span><span
+                                    style="font-size: larger">{{ child.background_text }}</span></li>
+                            <li class="widget-49-meeting-item">
+                                <span>Teacher University : </span><span
+                                    style="font-size: larger">{{ child.teacher_university_text }}</span></li>
+                            <li class="widget-49-meeting-item">
+                                <span>Teacher experience : </span><span
+                                    style="font-size: larger">{{ child.experience_text }}</span></li>
+                            <li class="widget-49-meeting-item">
+                                <span>Salary: </span><span style="font-size: larger">{{ child.Expected_Salary }}</span>
+                            </li>
+                            <li class="widget-49-meeting-item">
+                                <span>Responsible Day: </span><span style="font-size: larger">{{ child.Expected_Day }} Day/Week</span>
+                            </li>
+                            <li class="widget-49-meeting-item">
+                                <span>Tuition Style : </span><span
+                                    style="font-size: larger">{{ child.style_text }}</span>
+                            </li>
+                            <li class="widget-49-meeting-item">
+                                <span>Teacher Type : </span><span
+                                    style="font-size: larger">{{ child.teacher_type_text }}</span></li>
+                            <li class="widget-49-meeting-item">
+                                <span>Teacher Age : </span><span
+                                    style="font-size: larger">{{ child.teacher_age_text }}</span></li>
+                            <li class="widget-49-meeting-item">
+                                <span>Teacher religion : </span><span
+                                    style="font-size: larger">{{ child.teacher_religion_text }}</span></li>
+                            <li class="widget-49-meeting-item">
+                                <span>Student Free time : </span><span
+                                    style="font-size: larger">{{ child.Free_Time }}</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row collapse" id="note">
+                    <div class="col-12">
+                        <ul class="widget-49-meeting-points" id="child_note">
+                            <li style="background-color: lightcoral">{{ child.Important_Note }}</li>
+                            {% for rough in roughs %}
+                                <li style="float: left; margin-left: 25px">
+                                    <span style="color:darkorange">{{ rough.user }}</span>:<span style="color: orange">({{ rough.time | date:"Md" }})</span>&nbsp;&nbsp;{{ rough.Text | remove_username}}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                        <div type="button" class="circle btn btn-info" onclick="add_note()">
+                            <div class="bar horizontal"></div>
+                            <div class="bar vertical"></div>
+                        </div>
+                        <input onchange="setRemindersChild(this)" type="date" name="date"
+                               id="reminder_seting_calender">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="t_profile">
+            <div class="avatar-flip">
+                <img src="{{ permanent.Teacher.get_avatar }}"
+                     height="90" width="90">
+            </div>
+            <h5><a href="/teacher/view?id={{ permanent.Teacher.id }}">{{ permanent.Teacher.Name }}</a>,
+                &nbsp;{{ permanent.Teacher.Graduation_Subject.SHORT }}</h5>
+            <h8>{{ permanent.Teacher.Last_Institute }}</h8>
+            <div>
+                <table class="table table-bordered table-hover">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">tag</th>
+                        <th scope="col">Information</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th scope="row">Set</th>
+                        <td>{{ permanent.date | date:"Md" }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Update</th>
+                        <td>{{ permanent.Reminder | date:"Md (H:i A )" }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Deal</th>
+                        <td>{{ permanent.money }}</td>
+                    </tr>
+                    <tr>
+                        <th>Note</th>
+                        {#                        <td>{{ permanent.TalksJson }}</td>#}
+                        <td>
+                            {% for foo in p_rough %}
+                                {{ foo }} >
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <input onchange="setReminderTeacher(this)" type="date" name="date" id="reminder_seting_calender">
+            </div>
+        </div>
+
+    </div>
+    <div class="col-sm-8">
+        <nav>
+            <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab"
+                   aria-controls="nav-contact" aria-selected="false">Reserve</a>
+                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab"
+                   aria-controls="nav-profile" aria-selected="false">Shorlisted</a>
+                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab"
+                   aria-controls="nav-home" aria-selected="true">Assigned</a>
+                <a class="nav-item nav-link" id="nav-home-tab" data-toggle="tab" href="#nav-demo" role="tab"
+                   aria-controls="nav-home" aria-selected="true">Demo</a>
+
+            </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+            {#        asssign#}
+            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                <table class="table" cellspacing="0">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Location</th>
+                        <th>Institute</th>
+                        <th>Subject</th>
+                        <th>Medium</th>
+                        <th>Phone</th>
+                        <th>Talks</th>
+                    </tr>
+                    </thead>
+                    <tbody id="assingbody">
+                    {% for teacher in assign.Teacher.all %}
+                        <tr>
+                            <td><a target="_blank" href="/teacher/view?id={{ teacher.id }}">{{ teacher.Name }}</a>
+                            </td>
+                            <td>{{ teacher.PresentLocation }}</td>
+                            <td>{{ teacher.Last_Institute }}</td>
+                            <td>{{ teacher.Graduation_Subject.Title }}</td>
+                            <td>
+                                <a class="icon" href="tel:{{ teacher.Phone }}"><i
+                                        class="fas fa-phone-square-alt fa-2x"></i></a>
+                                <a class="icon" href="/follow/sms/?phone={{ teacher.Phone }}"><i
+                                        class="fas fa-comment fa-2x"></i></a>
+                                <a class="icon"
+                                   onclick="ajaxAssignedToDemo('/follow/api/assign_demo/?cid={{ child.slug }}&tid={{ teacher.id }}')"><i
+                                        class="fas fa-angle-double-right fa-2x"></i></a>
+                            </td>
+                            <td>{{ assign.Talks }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="tab-pane fade" id="nav-demo" role="tabpanel" aria-labelledby="nav-home-tab">
+                <table class="table" cellspacing="0">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Location</th>
+                        <th>Institute</th>
+                        <th>Subject</th>
+                        <th>Medium</th>
+                        <th>Phone</th>
+                        <th>Talks</th>
+                    </tr>
+                    </thead>
+                    <tbody id="demobody">
+                    {% for teacher in demo.Teacher.all %}
+                        <tr>
+                            <td><a target="_blank" href="/teacher/view?id={{ teacher.id }}">{{ teacher.Name }}</a>
+                            </td>
+                            <td>{{ teacher.PresentLocation }}</td>
+                            <td>{{ teacher.Last_Institute }}</td>
+                            <td>{{ teacher.Graduation_Subject.Title }}</td>
+                            <td>
+                                <a class="icon" href="tel:{{ teacher.Phone }}"><i
+                                        class="fas fa-phone-square-alt fa-2x"></i></a>
+                                <a class="icon" href="/follow/sms/?phone={{ teacher.Phone }}"><i
+                                        class="fas fa-comment fa-2x"></i></a>
+                                <a class="icon"
+                                   onclick="DemoToPermanent('/follow/api/demo_permanent/?cid={{ child.slug }}&tid={{ teacher.id }}')"><i
+                                        class="fas fa-angle-double-right fa-2x"></i></a>
+                            </td>
+                            <td>{{ assign.Talks }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {#            shorlist#}
+            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                <table class="table" cellspacing="0">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Location</th>
+                        <th>Institute</th>
+                        <th>Subject</th>
+                        <th>Medium</th>
+                        <th>Phone</th>
+                        <th>Talks</th>
+                    </tr>
+                    </thead>
+                    <tbody id="shorlistbody">
+                    {% for teacher in short.Teacher.all %}
+                        <tr>
+                            <td><a target="_blank" href="/teacher/view?id={{ teacher.id }}">{{ teacher.Name }}</a>
+                            </td>
+                            <td>{{ teacher.PresentLocation }}</td>
+                            <td>{{ teacher.Last_Institute }}</td>
+                            <td>{{ teacher.Graduation_Subject.Title }}</td>
+                            <td>
+                                <a class="icon" href="tel:{{ teacher.Phone }}"><i
+                                        class="fas fa-phone-square-alt fa-2x"></i></a>
+                                <a class="icon" href="/follow/sms/?phone={{ teacher.Phone }}"><i
+                                        class="fas fa-comment fa-2x"></i></a>
+                                <a class="icon"
+                                   onclick="ajaxShortlistedToAssigned('/follow/api/sort_assign/?cid={{ child.slug }}&tid={{ teacher.id }}')"><i
+                                        class="fas fa-angle-double-right fa-2x"></i></a>
+                            </td>
+                            <td>{{ assign.Talks }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {#            temporary#}
+            <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                <table class="table" cellspacing="0">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Location</th>
+                        <th>Institute</th>
+                        <th>Subject</th>
+                        <th>Medium</th>
+                        <th>Phone</th>
+                        <th>Talks</th>
+                    </tr>
+                    </thead>
+                    <tbody id="temporary_body">
+                    {% for teacher in temporary.Teacher.all %}
+                        <tr>
+                            <td><a target="_blank" href="/teacher/view?id={{ teacher.id }}">{{ teacher.Name }}</a>
+                            </td>
+                            <td>{{ teacher.PresentLocation }}</td>
+                            <td>{{ teacher.Last_Institute }}</td>
+                            <td>{{ teacher.Graduation_Subject.Title }}</td>
+                            <td>{{ teacher.Last_Medium }}</td>
+                            <td>
+                                <a class="icon" href="tel:{{ teacher.Phone }}"><i
+                                        class="fas fa-phone-square-alt fa-2x"></i></a>
+
+                                {#                                <a class="icon" href="/follow/sms/?phone={{ teacher.Phone }}"><i#}
+                                {#                                        class="fas fa-comment fa-2x"></i></a>#}
+                                <a class="icon" href="#"
+                                   onclick="add_note(this, gua = 0, cat = 1, tid = {{ teacher.id }})"><i
+                                        class="fas fa-comment fa-2x"></i></a>
+                                <a class="icon"
+                                   onclick="ajaxTemporaryToShortlisted('/follow/api/temporary_sort/?cid={{ child.slug }}&tid={{ teacher.id }}' , '{{ teacher.id }}', '{{ child.slug }}')"><i
+                                        class="fas fa-angle-double-right fa-2x"></i></a>
+                            </td>
+                            <td>
+                                {{ temporary.TalksJson|get_note:teacher.id }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <td><input type="button" class="btn btn-primary" value="Reserve more"
+                                   onclick="window.location = '/admin/Teacher/teacher/'"/></td>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block extrajs %}
+    <script>
+        window.onload = (function () {
+            $.ajax({
+                url: '/follow/api/short/?child={{ child.slug }}',
+                success: (data) => {
+                    $('#shorlistbody').empty()
+                    {#Appending to teachers #}
+                    for (var i in data) {
+                        for (var j in data[i]['Teacher']) {
+                            var university = ''
+                            var subject = ''
+                            var avatar = ''
+                            var location = ''
+                            var subject_full = ''
+                            var talk = ''
+                            try {
+                                university = data[i]['Teacher'][j]['Graduation_Institute']['SHORT']
+                            } catch (e) {
+                                university = ''
+                            }
+                            try {
+                                subject = data[i]['Teacher'][j]['Graduation_Subject']['SHORT']
+                            } catch (e) {
+                                subject = ''
+                            }
+                            try {
+                                subject_full = data[i]['Teacher'][j]['Graduation_Subject']['Title']
+                            } catch (e) {
+                                subject_full = ''
+                            }
+                            try {
+                                avatar = data[i]['Teacher'][j]['Avatar']
+                            } catch (e) {
+                                avatar = ''
+                            }
+                            {#Locations#}
+                            try {
+                                location = data[i]['Teacher'][j]['PresentLocation']
+                            } catch (e) {
+                                {#empty#}
+                            }
+                            try {
+                                location = location + ' | ' + data[i]['Teacher'][j]['Location1']
+                            } catch (e) {
+                                {#empty#}
+                            }
+                            try {
+                                location = location + ' | ' + data[i]['Teacher'][j]['Location2']
+                            } catch (e) {
+                                {#empty#}
+                            }
+                            try {
+                                location = location + ' | ' + data[i]['Teacher'][j]['Location3']
+                            } catch (e) {
+                                {#empty#}
+                            }
+                            try {
+                                location = location + ' | ' + data[i]['Teacher'][j]['Location4']
+                            } catch (e) {
+                                {#empty#}
+                            }
+                            try {
+                                talk = data[i]['TalksJson'][data[i]['Teacher'][j]['id']] + ''
+                            } catch (e) {
+                                {#empty#}
+                            }
+                            try {
+                                $('#shorlistbody').append('' +
+                                    '<tr>' +
+                                    '<td><a target="_blank" href="/teacher/view?id=' + data[i]['Teacher'][j]['id'] + '">' + data[i]['Teacher'][j]['Name'] + '</a></td>' +
+                                    '<td>' + data[i]["Teacher"][j]["PresentLocation"] + '</td>' +
+                                    '<td>' + data[i]["Teacher"][j]["Last_Institute"] + '</td>' +
+                                    '<td>' + subject_full + '</td>' +
+                                    '<td>' + data[i]["Teacher"][j]["Last_Medium"] + '</td>' +
+                                    '<td>' +
+                                    '<a class="icon" href="tel:' + data[i]['Teacher'][j]['Phone'] + '"><i ' +
+                                    'class="fas fa-phone-square-alt fa-2x"></i></a>' +
+
+                                    '<a class="icon" onclick="add_note(this, gua=0, cat=2, tid=' + data[i]['Teacher'][j]['id'] + ')"><i ' +
+                                    'class="fas fa-comment fa-2x"></i></a>' +
+
+                                    '<a class="icon" ' +
+                                    'onclick="ajaxShortlistedToAssigned(\'/follow/api/sort_assign/?cid={{ child.slug }}&tid=' + data[i]['Teacher'][j]['id'] + '\')">' +
+                                    '<i class="fas fa-angle-double-right fa-2x"></i></a></td>' +
+                                    '<td>' + talk + '</td> ' +
+                                    '</tr>' +
+                                    '')
+                            } catch (e) {
+                                $('#shorlistbody').append('' +
+                                    '<tr>' +
+                                    '<td><a target="_blank" href="/teacher/view?id=' + data[i]['Teacher'][j]['id'] + '">' + data[i]['Teacher'][j]['Name'] + '</a></td>' +
+                                    '<td>' + data[i]["Teacher"][j]["PresentLocation"] + '</td>' +
+                                    '<td>' + data[i]["Teacher"][j]["Last_Institute"] + '</td>' +
+                                    '<td>' + subject_full + '</td>' +
+                                    '<td>' + +data[i]["Teacher"][j]["Last_Medium"] + '</td>' +
+                                    '<td>' +
+                                    '<a class="icon" href="tel:' + data[i]['Teacher'][j]['Phone'] + '"><i ' +
+                                    'class="fas fa-phone-square-alt fa-2x"></i></a>' +
+                                    '<a class="icon" onclick="add_note(this, gua=0, cat=2, tid=' + data[i]['Teacher'][j]['id'] + ')"><i ' +
+                                    'class="fas fa-comment fa-2x"></i></a>' +
+                                    '<a class="icon" ' +
+                                    'onclick="ajaxShortlistedToAssigned(\'/follow/api/sort_assign/?cid={{ child.slug }}&tid=' + data[i]['Teacher'][j]['id'] + '\')">' +
+                                    '<i class="fas fa-angle-double-right fa-2x"></i></a></td>' +
+                                    '<td>None</td> </tr>' +
+                                    '')
+                            }
+                        }
+                    }
+                }
+            })
+            $.ajax({
+                url: '/follow/api/assigned/?child={{ child.slug }}',
+                success: (data) => {
+                    $('#assingbody').empty()
+                    {#Appending to teachers #}
+                    for (var i in data) {
+                        for (var j in data[i]['Teacher']) {
+                            var university = ''
+                            var subject = ''
+                            var avatar = ''
+                            var location = ''
+                            var subject_full = ''
+                            var talk = ''
+
+                            try {
+                                university = data[i]['Teacher'][j]['Graduation_Institute']['SHORT']
+                            } catch (e) {
+                                university = ''
+                            }
+                            try {
+                                subject = data[i]['Teacher'][j]['Graduation_Subject']['SHORT']
+                            } catch (e) {
+                                subject = ''
+                            }
+                            try {
+                                subject_full = data[i]['Teacher'][j]['Graduation_Subject']['Title']
+                            } catch (e) {
+                                subject_full = ''
+                            }
+                            try {
+                                avatar = data[i]['Teacher'][j]['Avatar']
+                            } catch (e) {
+                                avatar = ''
+                            }
+                            {#Locations#}
+                            try {
+                                location = data[i]['Teacher'][j]['PresentLocation']
+                            } catch (e) {
+                                {#empty#}
+                            }
+                            try {
+                                location = location + ' | ' + data[i]['Teacher'][j]['Location1']
+                            } catch (e) {
+                                {#empty#}
+                            }
+                            try {
+                                location = location + ' | ' + data[i]['Teacher'][j]['Location2']
+                            } catch (e) {
+                                {#empty#}
+                            }
+                            try {
+                                location = location + ' | ' + data[i]['Teacher'][j]['Location3']
+                            } catch (e) {
+                                {#empty#}
+                            }
+                            try {
+                                location = location + ' | ' + data[i]['Teacher'][j]['Location4']
+                            } catch (e) {
+                                {#empty#}
+                            }
+                            try {
+                                talk = data[i]['TalksJson'][data[i]['Teacher'][j]['id']] + ''
+                            } catch (e) {
+                                {#empty#}
+                            }
+                            $('#assingbody').append('' +
+                                '<tr>' +
+                                '<td><a target="_blank" href="/teacher/view?id=' + data[i]['Teacher'][j]['id'] + '">' + data[i]['Teacher'][j]['Name'] + '</a></td>' +
+                                '<td>' + data[i]["Teacher"][j]["PresentLocation"] + '</td>' +
+                                '<td>' + data[i]["Teacher"][j]["Last_Institute"] + '</td>' +
+                                '<td>' + subject_full + '</td>' +
+                                '<td>' + data[i]["Teacher"][j]["Last_Medium"] + '</td>' +
+                                '<td>' +
+                                '<a class="icon" href="tel:' + data[i]['Teacher'][j]['Phone'] + '"><i ' +
+                                'class="fas fa-phone-square-alt fa-2x"></i></a>' +
+                                '<a class="icon" onclick="add_note(this, gua=0, cat=3, tid=' + data[i]['Teacher'][j]['id'] + ')"><i ' +
+                                'class="fas fa-comment fa-2x"></i></a>' +
+                                '<a class="icon" ' +
+                                'onclick="ajaxAssignedToDemo(\'/follow/api/assign_demo/?cid={{ child.slug }}&tid=' + data[i]['Teacher'][j]['id'] + '\')">' +
+                                '<i class="fas fa-angle-double-right fa-2x"></i></a></td>' +
+                                '<td>' + talk + '</td> ' +
+                                '</tr>' +
+                                '')
+                        }
+                    }
+                }
+            })
+            $.ajax({
+                url: '/follow/api/demo/?child={{ child.slug }}',
+                success: (data) => {
+                    $('#demobody').empty()
+                    {#Appending to teachers #}
+                    for (var i in data) {
+                        for (var j in data[i]['Teacher']) {
+                            var university = ''
+                            var subject = ''
+                            var avatar = ''
+                            var location = ''
+                            var subject_full = ''
+                            var talk = ''
+                            try {
+                                university = data[i]['Teacher'][j]['Graduation_Institute']['SHORT']
+                            } catch (e) {
+                                university = ''
+                            }
+                            try {
+                                subject = data[i]['Teacher'][j]['Graduation_Subject']['SHORT']
+                            } catch (e) {
+                                subject = ''
+                            }
+                            try {
+                                subject_full = data[i]['Teacher'][j]['Graduation_Subject']['Title']
+                            } catch (e) {
+                                subject_full = ''
+                            }
+                            try {
+                                avatar = data[i]['Teacher'][j]['Avatar']
+                            } catch (e) {
+                                avatar = ''
+                            }
+                            {#Locations#}
+                            try {
+                                location = data[i]['Teacher'][j]['PresentLocation']
+                            } catch (e) {
+                                {#empty#}
+                            }
+                            try {
+                                location = location + ' | ' + data[i]['Teacher'][j]['Location1']
+                            } catch (e) {
+                                {#empty#}
+                            }
+                            try {
+                                location = location + ' | ' + data[i]['Teacher'][j]['Location2']
+                            } catch (e) {
+                                {#empty#}
+                            }
+                            try {
+                                location = location + ' | ' + data[i]['Teacher'][j]['Location3']
+                            } catch (e) {
+                                {#empty#}
+                            }
+                            try {
+                                location = location + ' | ' + data[i]['Teacher'][j]['Location4']
+                            } catch (e) {
+                                {#empty#}
+                            }
+
+                            try {
+                                talk = data[i]['TalksJson'][data[i]['Teacher'][j]['id']] + ''
+                            } catch (e) {
+                                {#empty#}
+                            }
+                            $('#demobody').append('' +
+                                '<tr>' +
+                                '<td><a target="_blank" href="/teacher/view?id=' + data[i]['Teacher'][j]['id'] + '">' + data[i]['Teacher'][j]['Name'] + '</a></td>' +
+                                '<td>' + data[i]["Teacher"][j]["PresentLocation"] + '</td>' +
+                                '<td>' + data[i]["Teacher"][j]["Last_Institute"] + '</td>' +
+                                '<td>' + subject_full + '</td>' +
+                                '<td>' + data[i]["Teacher"][j]["Last_Medium"] + '</td>' +
+                                '<td>' +
+                                '<a class="icon" href="tel:' + data[i]['Teacher'][j]['Phone'] + '"><i ' +
+                                'class="fas fa-phone-square-alt fa-2x"></i></a>' +
+                                '<a class="icon" onclick="add_note(this, gua=0, cat=4, tid=' + data[i]['Teacher'][j]['id'] + ')"><i ' +
+                                'class="fas fa-comment fa-2x"></i></a>' +
+                                '<a class="icon" ' +
+                                'onclick="DemoToPermanent(\'/follow/api/demo_permanent/?cid={{ child.slug }}&tid=' + data[i]['Teacher'][j]['id'] + '\')">' +
+                                '<i class="fas fa-angle-double-right fa-2x"></i></a></td>' +
+                                '<td>' + talk + '</td> ' +
+                                '</tr>' +
+                                '')
+                        }
+                    }
+                }
+            })
+        });
+    </script>
+    <script>
+        function ajaxTemporaryToShortlisted(url, tid, cid) {
+            var hu = ''
+            url = url + '&talk=' + hu
+            $.ajax({
+                url: url,
+                success: (data) => {
+                    var matches = url.match(/cid=([^&]*)/);
+                    var slug = matches[0];
+                    $.ajax({
+                        url: '/follow/api/short/?child={{ child.slug }}',
+                        success: (data) => {
+                            $('#shorlistbody').empty()
+                            {#Appending to teachers #}
+                            for (var i in data) {
+                                for (var j in data[i]['Teacher']) {
+                                    var university = ''
+                                    var subject = ''
+                                    var avatar = ''
+                                    var location = ''
+                                    var subject_full = ''
+                                    var talk = ''
+                                    try {
+                                        university = data[i]['Teacher'][j]['Graduation_Institute']['SHORT']
+                                    } catch (e) {
+                                        university = ''
+                                    }
+                                    try {
+                                        subject = data[i]['Teacher'][j]['Graduation_Subject']['SHORT']
+                                    } catch (e) {
+                                        subject = ''
+                                    }
+                                    try {
+                                        subject_full = data[i]['Teacher'][j]['Graduation_Subject']['Title']
+                                    } catch (e) {
+                                        subject_full = ''
+                                    }
+                                    try {
+                                        avatar = data[i]['Teacher'][j]['Avatar']
+                                    } catch (e) {
+                                        avatar = ''
+                                    }
+                                    {#Locations#}
+                                    try {
+                                        location = data[i]['Teacher'][j]['PresentLocation']
+                                    } catch (e) {
+                                        {#empty#}
+                                    }
+                                    try {
+                                        location = location + ' | ' + data[i]['Teacher'][j]['Location1']
+                                    } catch (e) {
+                                        {#empty#}
+                                    }
+                                    try {
+                                        location = location + ' | ' + data[i]['Teacher'][j]['Location2']
+                                    } catch (e) {
+                                        {#empty#}
+                                    }
+                                    try {
+                                        location = location + ' | ' + data[i]['Teacher'][j]['Location3']
+                                    } catch (e) {
+                                        {#empty#}
+                                    }
+                                    try {
+                                        location = location + ' | ' + data[i]['Teacher'][j]['Location4']
+                                    } catch (e) {
+                                        {#empty#}
+                                    }
+                                    try {
+                                        talk = data[i]['TalksJson'][data[i]['Teacher'][j]['id']] + ''
+                                    } catch (e) {
+                                        {#empty#}
+                                    }
+                                    try {
+                                        $('#shorlistbody').append('' +
+                                            '<tr>' +
+                                            '<td><a target="_blank" href="/teacher/view?id=' + data[i]['Teacher'][j]['id'] + '">' + data[i]['Teacher'][j]['Name'] + '</a></td>' +
+                                            '<td>' + data[i]["Teacher"][j]["PresentLocation"] + '</td>' +
+                                            '<td>' + data[i]["Teacher"][j]["Last_Institute"] + '</td>' +
+                                            '<td>' + subject_full + '</td>' +
+                                            '<td>' + data[i]["Teacher"][j]["Last_Medium"] + '</td>' +
+                                            '<td>' +
+                                            '<a class="icon" href="tel:' + data[i]['Teacher'][j]['Phone'] + '"><i ' +
+                                            'class="fas fa-phone-square-alt fa-2x"></i></a>' +
+                                            '<a class="icon" onclick="add_note(this, gua=0, cat=2, tid=' + data[i]['Teacher'][j]['id'] + ')"><i ' +
+                                            'class="fas fa-comment fa-2x"></i></a>' +
+                                            '<a class="icon" ' +
+                                            'onclick="ajaxShortlistedToAssigned(\'/follow/api/sort_assign/?cid={{ child.slug }}&tid=' + data[i]['Teacher'][j]['id'] + '\')">' +
+                                            '<i class="fas fa-angle-double-right fa-2x"></i></a></td>' +
+                                            '<td>' + talk + '</td> ' +
+                                            '</tr>' +
+                                            '')
+                                    } catch (e) {
+                                        $('#shorlistbody').append('' +
+                                            '<tr>' +
+                                            '<td><a target="_blank" href="/teacher/view?id=' + data[i]['Teacher'][j]['id'] + '">' + data[i]['Teacher'][j]['Name'] + '</a></td>' +
+                                            '<td>' + data[i]["Teacher"][j]["PresentLocation"] + '</td>' +
+                                            '<td>' + data[i]["Teacher"][j]["Last_Institute"] + '</td>' +
+                                            '<td>' + subject_full + '</td>' +
+                                            '<td>' + data[i]["Teacher"][j]["Last_Medium"] + '</td>' +
+                                            '<td>' +
+                                            '<a class="icon" href="tel:' + data[i]['Teacher'][j]['Phone'] + '"><i ' +
+                                            'class="fas fa-phone-square-alt fa-2x"></i></a>' +
+                                            '<a class="icon" onclick="add_note(this, gua=0, cat=2, tid=' + data[i]['Teacher'][j]['id'] + ')"><i ' +
+                                            'class="fas fa-comment fa-2x"></i></a>' +
+                                            '<a class="icon" ' +
+                                            'onclick="ajaxShortlistedToAssigned(\'/follow/api/sort_assign/?cid={{ child.slug }}&tid=' + data[i]['Teacher'][j]['id'] + '\')">' +
+                                            '<i class="fas fa-angle-double-right fa-2x"></i></a></td>' +
+                                            '<td>None</td> </tr>' +
+                                            '')
+                                    }
+                                }
+                            }
+                        }
+                    })
+                },
+            })
+        }
+
+        function ajaxShortlistedToAssigned(url) {
+            var hu = ''
+            url = url + '&talk=' + hu
+            $.ajax({
+                url: url,
+                success: (data) => {
+                    var matches = url.match(/cid=([^&]*)/);
+                    var slug = matches[0];
+                    $.ajax({
+                        url: '/follow/api/assigned/?child={{ child.slug }}',
+                        success: (data) => {
+                            $('#assingbody').empty()
+                            {#Appending to teachers #}
+                            for (var i in data) {
+                                for (var j in data[i]['Teacher']) {
+                                    var university = ''
+                                    var subject = ''
+                                    var avatar = ''
+                                    var location = ''
+                                    var subject_full = ''
+                                    var talk = ''
+                                    try {
+                                        university = data[i]['Teacher'][j]['Graduation_Institute']['SHORT']
+                                    } catch (e) {
+                                        university = ''
+                                    }
+                                    try {
+                                        subject = data[i]['Teacher'][j]['Graduation_Subject']['SHORT']
+                                    } catch (e) {
+                                        subject = ''
+                                    }
+                                    try {
+                                        subject_full = data[i]['Teacher'][j]['Graduation_Subject']['Title']
+                                    } catch (e) {
+                                        subject_full = ''
+                                    }
+                                    try {
+                                        avatar = data[i]['Teacher'][j]['Avatar']
+                                    } catch (e) {
+                                        avatar = ''
+                                    }
+                                    {#Locations#}
+                                    try {
+                                        location = data[i]['Teacher'][j]['PresentLocation']
+                                    } catch (e) {
+                                        {#empty#}
+                                    }
+                                    try {
+                                        location = location + ' | ' + data[i]['Teacher'][j]['Location1']
+                                    } catch (e) {
+                                        {#empty#}
+                                    }
+                                    try {
+                                        location = location + ' | ' + data[i]['Teacher'][j]['Location2']
+                                    } catch (e) {
+                                        {#empty#}
+                                    }
+                                    try {
+                                        location = location + ' | ' + data[i]['Teacher'][j]['Location3']
+                                    } catch (e) {
+                                        {#empty#}
+                                    }
+                                    try {
+                                        location = location + ' | ' + data[i]['Teacher'][j]['Location4']
+                                    } catch (e) {
+                                        {#empty#}
+                                    }
+                                    try {
+                                        talk = data[i]['TalksJson'][data[i]['Teacher'][j]['id']] + ''
+                                    } catch (e) {
+                                        {#empty#}
+                                    }
+                                    $('#assingbody').append('' +
+                                        '<tr>' +
+                                        '<td><a target="_blank" href="/teacher/view?id=' + data[i]['Teacher'][j]['id'] + '">' + data[i]['Teacher'][j]['Name'] + '</a></td>' +
+                                        '<td>' + data[i]["Teacher"][j]["PresentLocation"] + '</td>' +
+                                        '<td>' + data[i]["Teacher"][j]["Last_Institute"] + '</td>' +
+                                        '<td>' + subject_full + '</td>' +
+                                        '<td>' + data[i]["Teacher"][j]["Last_Medium"] + '</td>' +
+                                        '<td>' +
+                                        '<a class="icon" href="tel:' + data[i]['Teacher'][j]['Phone'] + '"><i ' +
+                                        'class="fas fa-phone-square-alt fa-2x"></i></a>' +
+                                        '<a class="icon" onclick="add_note(this, gua=0, cat=3, tid=' + data[i]['Teacher'][j]['id'] + ')"><i ' +
+                                        'class="fas fa-comment fa-2x"></i></a>' +
+                                        '<a class="icon" ' +
+                                        'onclick="ajaxAssignedToDemo(\'/follow/api/assign_demo/?cid={{ child.slug }}&tid=' + data[i]['Teacher'][j]['id'] + '\')">' +
+                                        '<i class="fas fa-angle-double-right fa-2x"></i></a></td>' +
+                                        '<td>' + talk + '</td> ' +
+                                        '</tr>' +
+                                        '')
+                                }
+                            }
+                        }
+                    })
+                },
+            })
+        }
+
+        function ajaxAssignedToDemo(url) {
+            var hu = ''
+            url = url + '&talk=' + hu
+            $.ajax({
+                url: url,
+                success: (data) => {
+                    console.log(data)
+                    var matches = url.match(/cid=([^&]*)/);
+                    var slug = matches[0];
+                    $.ajax({
+                        url: '/follow/api/demo/?child={{ child.slug }}',
+                        success: (data) => {
+                            $('#demobody').empty()
+                            {#Appending to teachers #}
+                            for (var i in data) {
+                                for (var j in data[i]['Teacher']) {
+                                    var university = ''
+                                    var subject = ''
+                                    var avatar = ''
+                                    var location = ''
+                                    var subject_full = ''
+                                    var talk = ''
+                                    try {
+                                        university = data[i]['Teacher'][j]['Graduation_Institute']['SHORT']
+                                    } catch (e) {
+                                        university = ''
+                                    }
+                                    try {
+                                        subject = data[i]['Teacher'][j]['Graduation_Subject']['SHORT']
+                                    } catch (e) {
+                                        subject = ''
+                                    }
+                                    try {
+                                        subject_full = data[i]['Teacher'][j]['Graduation_Subject']['Title']
+                                    } catch (e) {
+                                        subject_full = ''
+                                    }
+                                    try {
+                                        avatar = data[i]['Teacher'][j]['Avatar']
+                                    } catch (e) {
+                                        avatar = ''
+                                    }
+                                    {#Locations#}
+                                    try {
+                                        location = data[i]['Teacher'][j]['PresentLocation']
+                                    } catch (e) {
+                                        {#empty#}
+                                    }
+                                    try {
+                                        location = location + ' | ' + data[i]['Teacher'][j]['Location1']
+                                    } catch (e) {
+                                        {#empty#}
+                                    }
+                                    try {
+                                        location = location + ' | ' + data[i]['Teacher'][j]['Location2']
+                                    } catch (e) {
+                                        {#empty#}
+                                    }
+                                    try {
+                                        location = location + ' | ' + data[i]['Teacher'][j]['Location3']
+                                    } catch (e) {
+                                        {#empty#}
+                                    }
+                                    try {
+                                        location = location + ' | ' + data[i]['Teacher'][j]['Location4']
+                                    } catch (e) {
+                                        {#empty#}
+                                    }
+                                    try {
+                                        talk = data[i]['TalksJson'][data[i]['Teacher'][j]['id']] + ''
+                                    } catch (e) {
+                                        {#empty#}
+                                    }
+                                    $('#demobody').append('' +
+                                        '<tr>' +
+                                        '<td><a target="_blank" href="/teacher/view?id=' + data[i]['Teacher'][j]['id'] + '">' + data[i]['Teacher'][j]['Name'] + '</a></td>' +
+                                        '<td>' + data[i]["Teacher"][j]["PresentLocation"] + '</td>' +
+                                        '<td>' + data[i]["Teacher"][j]["Last_Institute"] + '</td>' +
+                                        '<td>' + subject_full + '</td>' +
+                                        '<td>' + data[i]["Teacher"][j]["Last_Medium"] + '</td>' +
+                                        '<td>' +
+                                        '<a class="icon" href="tel:' + data[i]['Teacher'][j]['Phone'] + '"><i ' +
+                                        'class="fas fa-phone-square-alt fa-2x"></i></a>' +
+                                        '<a class="icon" onclick="add_note(this, gua=0, cat=4, tid=' + data[i]['Teacher'][j]['id'] + ')"><i ' +
+                                        'class="fas fa-comment fa-2x"></i></a>' +
+                                        '<a class="icon" ' +
+                                        'onclick="DemoToPermanent(\'/follow/api/demo_permanent/?cid={{ child.slug }}&tid=' + data[i]['Teacher'][j]['id'] + '\')">' +
+                                        '<i class="fas fa-angle-double-right fa-2x"></i></a></td>' +
+                                        '<td>' + talk + '</td> ' +
+                                        '</tr>' +
+                                        '')
+                                }
+                            }
+                        }
+                    })
+                },
+            })
+        }
+
+        var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+        function DemoToPermanent(url) {
+            var hu = prompt('Any thing want write : ')
+            var deal = prompt('Amount : ')
+            url = url + '&talk=' + hu + '&mny=' + deal
+            $.ajax({
+                url: url,
+                success: (data) => {
+                    var matches = url.match(/cid=([^&]*)/);
+                    var slug = matches[0];
+                    $.ajax({
+                        url: '/follow/api/permanent/?child={{  child.slug }}',
+                        success: (data) => {
+                            var university = ''
+                            var subject = ''
+                            var avatar = ''
+                            var location = ''
+                            var subject_full = ''
+                            try {
+                                university = data[0]['Teacher']['Graduation_Institute']['SHORT']
+                            } catch (e) {
+                                university = ''
+                            }
+                            try {
+                                subject = data[0]['Teacher']['Graduation_Subject']['SHORT']
+                            } catch (e) {
+                                subject = ''
+                            }
+                            try {
+                                subject_full = data[0]['Teacher']['Graduation_Subject']['Title']
+                            } catch (e) {
+                                subject_full = ''
+                            }
+                            try {
+                                avatar = data[0]['Teacher']['Avatar']
+                            } catch (e) {
+                                avatar = ''
+                            }
+                            {#Locations#}
+                            try {
+                                location = data[0]['Teacher']['Location0']
+                            } catch (e) {
+                                {#empty#}
+                            }
+                            try {
+                                location = location + ' | ' + data[0]['Teacher']['Location1']
+                            } catch (e) {
+                                {#empty#}
+                            }
+                            try {
+                                location = location + ' | ' + data[0]['Teacher']['Location2']
+                            } catch (e) {
+                                {#empty#}
+                            }
+                            try {
+                                location = location + ' | ' + data[0]['Teacher']['Location3']
+                            } catch (e) {
+                                {#empty#}
+                            }
+                            try {
+                                location = location + ' | ' + data[0]['Teacher']['Location4']
+                            } catch (e) {
+                                {#empty#}
+                            }
+                            $('.t_profile').empty()
+                            $('.t_profile').append('<div class="avatar-flip">' +
+                                '<img src="' + avatar + '" ' +
+                                'height="90" width="90">' +
+                                '</div> <h5>' + data[0]['Teacher']['Name'] + ', &nbsp;' +
+                                subject + '</h5>' +
+                                '<h8>' + data[0]['Teacher']['Last_Institute'] + '</h8> <div>' +
+                                '<table class="table table-bordered table-hover"> ' +
+                                '<thead class="thead-dark"> <tr>' +
+                                '<th scope="col">tag</th> <th scope="col">Information</th> </tr>' +
+                                '</thead> <tbody> <tr> <th scope="row">Set</th>' +
+                                '<td>' + months[new Date(data[0]['date']).getMonth()].substring(0, 3) + ' ' + new Date(data[0]['date']).getDate() + '</td> </tr>' +
+                                '<tr> <th scope="row">Update</th>' +
+                                '<td>' + months[new Date(data[0]['Reminder']).getMonth()].substring(0, 3) + ' ' + new Date(data[0]['Reminder']).getDate() + '</td> </tr>' +
+                                '<tr> <th scope="row">Deal</th> <td>' + data[0]['money'] + '</td>' +
+                                '</tr> </tbody> </table> </div>'
+                            )
+                        }
+                    })
+                },
+            })
+        }
+
+        function addMoney(money, slug) {
+            $.ajax({
+                url: '/follow/api/demo_permanent/?cid=' + slug + '&mny=' + money,
+            })
+        }
+
+    </script>
+    <script>
+        function AddChildNote(data) {
+            var Note = parseInt(data)
+            $.ajax({
+                type: 'GET',
+                {#contentType: "application/json; charset=utf-8",#}
+                url: '/follow/api/child/{{ child.slug }}/note/?note=' + Note,
+            })
+        }
+
+        function setRemindersChild(data) {
+            var note = prompt('Type your note for this reminder : ', 'Call')
+            $.ajax({
+                type: 'POST',
+                url: '/follow/api/reminder/',
+                data: {
+                    "Time": data.value + ' 00:00',
+                    "Note": '{"child": "{{ child.slug }}", "note":"' + note + '"}',
+                    "User": {{user.id}}
+                },
+                headers: {'X-CSRFToken': '{{ csrf_token }}'},
+            })
+        }
+
+        function setReminderTeacher(data) {
+            var note = prompt('Type your note for this reminder : ', 'Call')
+            $.ajax({
+                type: 'POST',
+                url: '/follow/api/reminder/',
+                data: {
+                    "Time": data.value + ' 00:00',
+                    "Note": '{"child": "{{ child.slug }}", "teacher":"{{ permanent.Teacher.id }}", "note":"' + note + '"}',
+                    "User": {{user.id}}
+                },
+                headers: {'X-CSRFToken': '{{ csrf_token }}'},
+            })
+        }
+
+        function add_paid() {
+            $.ajax({
+                url: '/follow/setpaid?id={{ child.slug }}',
+                success: () => {
+                    alert('Tuition are going to disappear from followupper')
+                    location.reload();
+                }
+            })
+        }
+
+        function add_note(elem, gua = 1, cat = 0, tid = 0) {
+            var note = prompt('What do you want to note: ')
+            if (!note) {
+                return
+            }
+            if (gua) {
+                $.ajax({
+                    url: '/follow/add_rough?cid={{ child.slug }}&talk=' + '({{ user.get_username }}): ' + note,
+                    success: () => {
+                        $('#child_note').append('<li>' + note + '</li>')
+                    }
+                })
+            } else {
+                $.ajax({
+                    url: '/follow/api/add_note?cid={{ child.slug }}&c=' + cat + '&tid=' + tid + '&talk= ' + '({{ user.get_username }}): ' + note,
+                    success: () => {
+                        $('#child_note').append('<li>' + note + '</li>')
+                        $(elem).parent().siblings().last().text($(elem).parent().siblings().last().text() + ' > ' + '({{ user.get_username }}): ' + note)
+                    }
+                })
+            }
+        }
+
+
+    </script>
+{% endblock %}
