@@ -313,9 +313,8 @@ class ShortListToAssigned(APIView):
                             note_obj.save()
                             tea_name.roughnotes.add(note_obj)
                             tea_name.save()
-                            obj.TalksJson[self.request.GET.get('tid')] = [str(
-                                obj.TalksJson[self.request.GET.get('tid')]) + ' ' + self.request.GET.get('talk'),
-                                                                          str(datetime.date.today())]
+                            obj.TalksJson[self.request.GET.get('tid')] = str(
+                                obj.TalksJson[self.request.GET.get('tid')]) + ' ' + self.request.GET.get('talk')
                             obj.save()
                         except Exception as e:
                             print(e)
@@ -344,9 +343,8 @@ class ShortListToAssigned(APIView):
                                 tea_name.roughnotes.add(note_obj)
                                 tea_name.save()
                                 note_obj.save()
-                                obj.TalksJson[self.request.GET.get('tid')] = [str(
-                                    obj.TalksJson[self.request.GET.get('tid')]) + ' ' + self.request.GET.get('talk'),
-                                                                              str(datetime.date.today())]
+                                obj.TalksJson[self.request.GET.get('tid')] = str(
+                                    obj.TalksJson[self.request.GET.get('tid')]) + ' ' + self.request.GET.get('talk')
                                 obj.save()
                             except Exception as e:
                                 if '\'NoneType\' object is not subscriptable' in str(e):
@@ -393,9 +391,8 @@ class AssignedToDemo(APIView):
                             note_obj.save()
                             tea_name.roughnotes.add(note_obj)
                             tea_name.save()
-                            obj.TalksJson[self.request.GET.get('tid')] = [str(
-                                obj.TalksJson[self.request.GET.get('tid')]) + ' ' + self.request.GET.get('talk'),
-                                                                          str(datetime.date.today())]
+                            obj.TalksJson[self.request.GET.get('tid')] = str(
+                                obj.TalksJson[self.request.GET.get('tid')]) + ' ' + self.request.GET.get('talk')
                             obj.save()
                         except Exception as e:
                             if '\'NoneType\' object is not subscriptable' in str(e):
@@ -426,9 +423,8 @@ class AssignedToDemo(APIView):
                                 tea_name.roughnotes.add(note_obj)
                                 tea_name.save()
                                 note_obj.save()
-                                obj.TalksJson[self.request.GET.get('tid')] = [str(
-                                    obj.TalksJson[self.request.GET.get('tid')]) + ' ' + self.request.GET.get('talk'),
-                                                                              str(datetime.date.today())]
+                                obj.TalksJson[self.request.GET.get('tid')] = str(
+                                    obj.TalksJson[self.request.GET.get('tid')]) + ' ' + self.request.GET.get('talk')
                                 obj.save()
                             except Exception as e:
                                 if '\'NoneType\' object is not subscriptable' in str(e):
@@ -480,9 +476,8 @@ class DemoToPermanent(APIView):
                             note_obj.save()
                             tea_name.roughnotes.add(note_obj)
                             tea_name.save()
-                            obj.TalksJson[self.request.GET.get('tid')] = [str(
-                                obj.TalksJson[self.request.GET.get('tid')]) + ' ' + self.request.GET.get('talk'),
-                                                                          str(datetime.date.today())]
+                            obj.TalksJson[self.request.GET.get('tid')] = str(
+                                obj.TalksJson[self.request.GET.get('tid')]) + ' ' + self.request.GET.get('talk')
                             obj.save()
                         except Exception as e:
                             if '\'NoneType\' object is not subscriptable' in str(e):
@@ -515,9 +510,8 @@ class DemoToPermanent(APIView):
                                 tea_name.roughnotes.add(note_obj)
                                 tea_name.save()
                                 note_obj.save()
-                                obj.TalksJson[self.request.GET.get('tid')] = [str(
-                                    obj.TalksJson[self.request.GET.get('tid')]) + ' ' + self.request.GET.get('talk'),
-                                                                              str(datetime.date.today())]
+                                obj.TalksJson[self.request.GET.get('tid')] = str(
+                                    obj.TalksJson[self.request.GET.get('tid')]) + ' ' + self.request.GET.get('talk')
                                 obj.save()
                             except Exception as e:
                                 if '\'NoneType\' object is not subscriptable' in str(e):
@@ -942,6 +936,12 @@ class NoteAdd(GenericAPIView):
                         obj.save()
             else:
                 return Response({'Section': 'No section selected'})
+            tea_name = Teacher.objects.get(id=self.request.GET.get('tid'))
+            note_obj = RoughNote.objects.create(Child_id=self.request.GET.get('cid'),
+                                                user=get_current_user(),
+                                                Text=str(tea_name.Name) + ' : ' + self.request.GET.get(
+                                                    'talk'))
+            note_obj.save()
             return Response({'Talk': self.request.GET.get('talk'), 'Teacher': self.request.GET.get('tid')})
         except Exception as e:
             return Response({'Error': str(e)})

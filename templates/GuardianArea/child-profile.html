@@ -410,7 +410,7 @@
                                         class="fas fa-comment fa-2x"></i></a>
                                 <a class="icon"
                                    onclick="ajaxAssignedToDemo('/follow/api/assign_demo/?cid={{ child.slug }}&tid={{ teacher.id }}')"><i
-                                        class="fas fa-plus-square fa-2x"></i></a>
+                                        class="fas fa-angle-double-right fa-2x"></i></a>
                             </td>
                             <td>{{ assign.Talks }}</td>
                         </tr>
@@ -446,7 +446,7 @@
                                         class="fas fa-comment fa-2x"></i></a>
                                 <a class="icon"
                                    onclick="DemoToPermanent('/follow/api/demo_permanent/?cid={{ child.slug }}&tid={{ teacher.id }}')"><i
-                                        class="fas fa-plus-square fa-2x"></i></a>
+                                        class="fas fa-angle-double-right fa-2x"></i></a>
                             </td>
                             <td>{{ assign.Talks }}</td>
                         </tr>
@@ -483,7 +483,7 @@
                                         class="fas fa-comment fa-2x"></i></a>
                                 <a class="icon"
                                    onclick="ajaxShortlistedToAssigned('/follow/api/sort_assign/?cid={{ child.slug }}&tid={{ teacher.id }}')"><i
-                                        class="fas fa-plus-square fa-2x"></i></a>
+                                        class="fas fa-angle-double-right fa-2x"></i></a>
                             </td>
                             <td>{{ assign.Talks }}</td>
                         </tr>
@@ -520,11 +520,11 @@
 
                                 {#                                <a class="icon" href="/follow/sms/?phone={{ teacher.Phone }}"><i#}
                                 {#                                        class="fas fa-comment fa-2x"></i></a>#}
-                                <a class="icon" href="#" onclick="add_note(gua = 0, cat = 1, tid = {{ teacher.id }})"><i
+                                <a class="icon" href="#" onclick="add_note(this, gua = 0, cat = 1, tid = {{ teacher.id }})"><i
                                         class="fas fa-comment fa-2x"></i></a>
                                 <a class="icon"
                                    onclick="ajaxTemporaryToShortlisted('/follow/api/temporary_sort/?cid={{ child.slug }}&tid={{ teacher.id }}' , '{{ teacher.id }}', '{{ child.slug }}')"><i
-                                        class="fas fa-plus-square fa-2x"></i></a>
+                                        class="fas fa-angle-double-right fa-2x"></i></a>
                             </td>
                         <td>
                         {{ temporary.TalksJson|get_note:teacher.id }}
@@ -621,11 +621,13 @@
                                     '<td>' +
                                     '<a class="icon" href="tel:' + data[i]['Teacher'][j]['Phone'] + '"><i ' +
                                     'class="fas fa-phone-square-alt fa-2x"></i></a>' +
-                                    '<a class="icon" href="/follow/sms/?phone=' + data[i]['Teacher'][j]['Phone'] + '"><i ' +
+
+                                    '<a class="icon" onclick="add_note(this, gua=0, cat=2, tid=' + data[i]['Teacher'][j]['id'] + ')"><i ' +
                                     'class="fas fa-comment fa-2x"></i></a>' +
+
                                     '<a class="icon" ' +
                                     'onclick="ajaxShortlistedToAssigned(\'/follow/api/sort_assign/?cid={{ child.slug }}&tid=' + data[i]['Teacher'][j]['id'] + '\')">' +
-                                    '<i class="fas fa-plus-square fa-2x"></i></a></td>' +
+                                    '<i class="fas fa-angle-double-right fa-2x"></i></a></td>' +
                                     '<td>' + talk + '</td> ' +
                                     '</tr>' +
                                     '')
@@ -640,11 +642,11 @@
                                     '<td>' +
                                     '<a class="icon" href="tel:' + data[i]['Teacher'][j]['Phone'] + '"><i ' +
                                     'class="fas fa-phone-square-alt fa-2x"></i></a>' +
-                                    '<a class="icon" href="/follow/sms/?phone=' + data[i]['Teacher'][j]['Phone'] + '"><i ' +
+                                    '<a class="icon" onclick="add_note(this, gua=0, cat=2, tid=' + data[i]['Teacher'][j]['id'] + ')"><i ' +
                                     'class="fas fa-comment fa-2x"></i></a>' +
                                     '<a class="icon" ' +
                                     'onclick="ajaxShortlistedToAssigned(\'/follow/api/sort_assign/?cid={{ child.slug }}&tid=' + data[i]['Teacher'][j]['id'] + '\')">' +
-                                    '<i class="fas fa-plus-square fa-2x"></i></a></td>' +
+                                    '<i class="fas fa-angle-double-right fa-2x"></i></a></td>' +
                                     '<td>None</td> </tr>' +
                                     '')
                             }
@@ -727,11 +729,11 @@
                                 '<td>' +
                                 '<a class="icon" href="tel:' + data[i]['Teacher'][j]['Phone'] + '"><i ' +
                                 'class="fas fa-phone-square-alt fa-2x"></i></a>' +
-                                '<a class="icon" href="/follow/sms/?phone=' + data[i]['Teacher'][j]['Phone'] + '"><i ' +
+                                '<a class="icon" onclick="add_note(this, gua=0, cat=3, tid=' + data[i]['Teacher'][j]['id'] + ')"><i ' +
                                 'class="fas fa-comment fa-2x"></i></a>' +
                                 '<a class="icon" ' +
                                 'onclick="ajaxAssignedToDemo(\'/follow/api/assign_demo/?cid={{ child.slug }}&tid=' + data[i]['Teacher'][j]['id'] + '\')">' +
-                                '<i class="fas fa-plus-square fa-2x"></i></a></td>' +
+                                '<i class="fas fa-angle-double-right fa-2x"></i></a></td>' +
                                 '<td>' + talk + '</td> ' +
                                 '</tr>' +
                                 '')
@@ -814,11 +816,11 @@
                                 '<td>' +
                                 '<a class="icon" href="tel:' + data[i]['Teacher'][j]['Phone'] + '"><i ' +
                                 'class="fas fa-phone-square-alt fa-2x"></i></a>' +
-                                '<a class="icon" href="/follow/sms/?phone=' + data[i]['Teacher'][j]['Phone'] + '"><i ' +
+                                '<a class="icon" onclick="add_note(this, gua=0, cat=4, tid=' + data[i]['Teacher'][j]['id'] + ')"><i ' +
                                 'class="fas fa-comment fa-2x"></i></a>' +
                                 '<a class="icon" ' +
                                 'onclick="DemoToPermanent(\'/follow/api/demo_permanent/?cid={{ child.slug }}&tid=' + data[i]['Teacher'][j]['id'] + '\')">' +
-                                '<i class="fas fa-plus-square fa-2x"></i></a></td>' +
+                                '<i class="fas fa-angle-double-right fa-2x"></i></a></td>' +
                                 '<td>' + talk + '</td> ' +
                                 '</tr>' +
                                 '')
@@ -830,7 +832,7 @@
     </script>
     <script>
         function ajaxTemporaryToShortlisted(url, tid, cid) {
-            var hu = prompt('Any thing want write : ')
+            var hu = ''
             url = url + '&talk=' + hu
             $.ajax({
                 url: url,
@@ -912,11 +914,11 @@
                                             '<td>' +
                                             '<a class="icon" href="tel:' + data[i]['Teacher'][j]['Phone'] + '"><i ' +
                                             'class="fas fa-phone-square-alt fa-2x"></i></a>' +
-                                            '<a class="icon" href="/follow/sms/?phone=' + data[i]['Teacher'][j]['Phone'] + '"><i ' +
+                                            '<a class="icon" onclick="add_note(this, gua=0, cat=2, tid=' + data[i]['Teacher'][j]['id'] + ')"><i ' +
                                             'class="fas fa-comment fa-2x"></i></a>' +
                                             '<a class="icon" ' +
                                             'onclick="ajaxShortlistedToAssigned(\'/follow/api/sort_assign/?cid={{ child.slug }}&tid=' + data[i]['Teacher'][j]['id'] + '\')">' +
-                                            '<i class="fas fa-plus-square fa-2x"></i></a></td>' +
+                                            '<i class="fas fa-angle-double-right fa-2x"></i></a></td>' +
                                             '<td>' + talk + '</td> ' +
                                             '</tr>' +
                                             '')
@@ -931,11 +933,11 @@
                                             '<td>' +
                                             '<a class="icon" href="tel:' + data[i]['Teacher'][j]['Phone'] + '"><i ' +
                                             'class="fas fa-phone-square-alt fa-2x"></i></a>' +
-                                            '<a class="icon" href="/follow/sms/?phone=' + data[i]['Teacher'][j]['Phone'] + '"><i ' +
+                                            '<a class="icon" onclick="add_note(this, gua=0, cat=2, tid=' + data[i]['Teacher'][j]['id'] + ')"><i ' +
                                             'class="fas fa-comment fa-2x"></i></a>' +
                                             '<a class="icon" ' +
                                             'onclick="ajaxShortlistedToAssigned(\'/follow/api/sort_assign/?cid={{ child.slug }}&tid=' + data[i]['Teacher'][j]['id'] + '\')">' +
-                                            '<i class="fas fa-plus-square fa-2x"></i></a></td>' +
+                                            '<i class="fas fa-angle-double-right fa-2x"></i></a></td>' +
                                             '<td>None</td> </tr>' +
                                             '')
                                     }
@@ -948,7 +950,7 @@
         }
 
         function ajaxShortlistedToAssigned(url) {
-            var hu = prompt('Any thing want write : ')
+            var hu = ''
             url = url + '&talk=' + hu
             $.ajax({
                 url: url,
@@ -1029,11 +1031,11 @@
                                         '<td>' +
                                         '<a class="icon" href="tel:' + data[i]['Teacher'][j]['Phone'] + '"><i ' +
                                         'class="fas fa-phone-square-alt fa-2x"></i></a>' +
-                                        '<a class="icon" href="/follow/sms/?phone=' + data[i]['Teacher'][j]['Phone'] + '"><i ' +
+                                        '<a class="icon" onclick="add_note(this, gua=0, cat=3, tid=' + data[i]['Teacher'][j]['id'] + ')"><i ' +
                                         'class="fas fa-comment fa-2x"></i></a>' +
                                         '<a class="icon" ' +
                                         'onclick="ajaxAssignedToDemo(\'/follow/api/assign_demo/?cid={{ child.slug }}&tid=' + data[i]['Teacher'][j]['id'] + '\')">' +
-                                        '<i class="fas fa-plus-square fa-2x"></i></a></td>' +
+                                        '<i class="fas fa-angle-double-right fa-2x"></i></a></td>' +
                                         '<td>' + talk + '</td> ' +
                                         '</tr>' +
                                         '')
@@ -1046,7 +1048,7 @@
         }
 
         function ajaxAssignedToDemo(url) {
-            var hu = prompt('Any thing want write : ')
+            var hu = ''
             url = url + '&talk=' + hu
             $.ajax({
                 url: url,
@@ -1128,11 +1130,11 @@
                                         '<td>' +
                                         '<a class="icon" href="tel:' + data[i]['Teacher'][j]['Phone'] + '"><i ' +
                                         'class="fas fa-phone-square-alt fa-2x"></i></a>' +
-                                        '<a class="icon" href="/follow/sms/?phone=' + data[i]['Teacher'][j]['Phone'] + '"><i ' +
+                                        '<a class="icon" onclick="add_note(this, gua=0, cat=4, tid=' + data[i]['Teacher'][j]['id'] + ')"><i ' +
                                         'class="fas fa-comment fa-2x"></i></a>' +
                                         '<a class="icon" ' +
                                         'onclick="DemoToPermanent(\'/follow/api/demo_permanent/?cid={{ child.slug }}&tid=' + data[i]['Teacher'][j]['id'] + '\')">' +
-                                        '<i class="fas fa-plus-square fa-2x"></i></a></td>' +
+                                        '<i class="fas fa-angle-double-right fa-2x"></i></a></td>' +
                                         '<td>' + talk + '</td> ' +
                                         '</tr>' +
                                         '')
@@ -1287,8 +1289,11 @@
             })
         }
 
-        function add_note(gua = 1, cat = 0, tid = 0) {
+        function add_note(elem, gua = 1, cat = 0, tid = 0) {
             var note = prompt('What do you want to note: ')
+            if(!note){
+                return
+            }
             if (gua) {
                 $.ajax({
                     url: '/follow/add_rough?cid={{ child.slug }}&talk=' + note,
@@ -1301,6 +1306,9 @@
                     url: '/follow/api/add_note?cid={{ child.slug }}&c='+cat+'&tid='+tid+'&talk= '+note,
                     success: () => {
                         $('#child_note').append('<li>' + note + '</li>')
+
+                        console.log($(elem).parent().parent().last())
+
                     }
                 })
             }

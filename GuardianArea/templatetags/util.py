@@ -10,6 +10,9 @@ def get_type(value):
 def get_note(value, arg):
     # print(value)
     # print(value[arg])
-    for i in value:
-        if str(i) == str(arg):
-            return value[i]
+    try:
+        for i in value:
+            if str(i) == str(arg):
+                return value[i]
+    except:
+        return ''

@@ -69,8 +69,6 @@ class ChildProfile(TemplateView):
         context = super(ChildProfile, self).get_context_data(*args, **kwargs)
         try:
             note_obj = RoughNote.objects.filter(Child__slug=self.kwargs['id'])
-
-
             context['roughs'] = note_obj
             cobj = Child.objects.get(slug=self.kwargs['id'])
             context['child'] = cobj
